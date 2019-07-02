@@ -6,9 +6,11 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 fcapy = {editable = true,path = "."}
+pytest-benchmark = "*"
 
 [packages]
 bitsets = "*"
+scipy = "*"
 
 [requires]
 python_version = "3.7"

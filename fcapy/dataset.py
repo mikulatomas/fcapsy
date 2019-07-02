@@ -1,5 +1,6 @@
 import csv
 from bitsets import bitset
+from scipy.sparse import random
 
 
 def load_csv(filename, filename_objects=None, filename_attributes=None, delimiter=','):
@@ -60,3 +61,11 @@ def calculate_density(bools):
         n_of_ones += row.count(True)
 
     return (n_of_ones / n_of_cells) * 100
+
+
+def generate_random_boolean_dataset(m, n, density):
+    bools = random(m, n, density, dtype=bool).A
+    Objects = bitset('Objects', tuple(range(m)))
+    Attributes = bitset('Attributes', tuple(range(n)))
+
+    return Objects, Attributes, bools
