@@ -2,15 +2,6 @@ def similarity_smc(attrs1, attrs2, attributes_to_remove=None, cache=None):
     if attributes_to_remove is None:
         attributes_to_remove = attrs1.infimum
 
-    if cache is not None:
-        attrs_id = 'similarity_smc' + str((attrs1 + attrs2) *
-                                          (attrs1 + attrs2 + 1) / 2 + attrs1)
-
-        cached_similarity = cache.get(attrs_id)
-
-        if cached_similarity is not None:
-            return cached_similarity
-
     intersection = attrs1.fromint(
         attrs1 & attrs2).difference(attributes_to_remove)
 
@@ -35,15 +26,6 @@ def similarity_smc(attrs1, attrs2, attributes_to_remove=None, cache=None):
 def similarity_jaccard(attrs1, attrs2, attributes_to_remove=None, cache=None):
     if attributes_to_remove is None:
         attributes_to_remove = attrs1.infimum
-
-    if cache is not None:
-        attrs_id = 'similarity_jaccard' + str((attrs1 + attrs2) *
-                                              (attrs1 + attrs2 + 1) / 2 + attrs1)
-
-        cached_similarity = cache.get(attrs_id)
-
-        if cached_similarity is not None:
-            return cached_similarity
 
     intersection = attrs1.fromint(
         attrs1 & attrs2).difference(attributes_to_remove)
