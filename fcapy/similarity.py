@@ -17,9 +17,6 @@ def similarity_smc(attrs1, attrs2, attributes_to_remove=None, cache=None):
     except ZeroDivisionError:
         result = 1
 
-    if cache is not None:
-        cache[attrs_id] = result
-
     return result
 
 
