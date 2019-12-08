@@ -26,12 +26,12 @@ def _find_zero_items(items):
 
 def _typicality_helper(concept, context, remove_zeros, remove_definition_items, mode):
     if mode is 'objects':
-        definitions_items = concept.intent
+        definitions_items = concept.extent
         items = list(compress(context.rows, definitions_items.bools()))
         universum_object = context._Attributes
 
     elif mode is 'attributes':
-        definitions_items = concept.extent
+        definitions_items = concept.intent
         items = list(compress(context.columns, definitions_items.bools()))
         universum_object = context._Objects
 
