@@ -29,7 +29,7 @@ def _typicality_helper(concept, context, remove_zeros, remove_definition_items, 
 
     elif mode is 'attributes':
         definitions_items = concept.extent
-        items = list(compress(context.attributes, definitions_items.bools()))
+        items = list(compress(context.columns, definitions_items.bools()))
         universum_object = context._Objects
 
     items_to_remove = universum_object.infimum
