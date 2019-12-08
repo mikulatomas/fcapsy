@@ -13,6 +13,9 @@ from itertools import compress
 
 
 def _find_zero_items(items):
+    if len(items) is 0:
+        return 0
+
     result = items[0]
 
     for row in items[1:]:
