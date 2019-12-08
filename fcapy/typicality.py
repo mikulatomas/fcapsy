@@ -13,7 +13,7 @@ from itertools import compress
 
 
 def _find_zero_items(items):
-    if len(items) is 0:
+    if not items:
         return 0
 
     result = items[0]
@@ -70,6 +70,9 @@ def typicality_avg(item, concept, context, similarity_function, remove_zeros=Fal
     items, items_to_remove, definitions_items = _typicality_helper(concept, context, remove_zeros,
                                                                    remove_definition_items, mode)
 
+    if not items:
+        return 0
+
     suma = sum(map(lambda x: similarity_function(
         item, x, items_to_remove), items))
 
@@ -97,8 +100,11 @@ def typicality_min(item, concept, context, similarity_function, remove_zeros=Fal
     items, items_to_remove, _ = _typicality_helper(concept, context, remove_zeros,
                                                    remove_definition_items, mode)
 
-    minimum = min(
-        map(lambda x: similarity_function(item, x, items_to_remove), items))
+    if not items:
+        return 0
+
+    minimum = min(map(lambda x: similarity_function(
+        item, x, items_to_remove), items))
 
     return minimum
 
