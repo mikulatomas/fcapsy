@@ -24,7 +24,7 @@ def _find_zero_items(items):
     return items[0].fromint(result).complement()
 
 
-def _typicality_helper(concept, context, definitions_items, remove_zeros, remove_definition_items, mode):
+def _typicality_helper(context, definitions_items, remove_zeros, remove_definition_items, mode):
     if mode is 'objects':
         items = list(compress(context.rows, definitions_items.bools()))
         universum_object = context._Attributes
@@ -48,13 +48,12 @@ def _typicality_helper(concept, context, definitions_items, remove_zeros, remove
     return items, items_to_remove
 
 
-def typicality_avg(item, concept, context, definitions_items, similarity_function, remove_zeros=False, remove_definition_items=False, mode='objects'):
+def typicality_avg(item, context, definitions_items, similarity_function, remove_zeros=False, remove_definition_items=False, mode='objects'):
     """
     Calculates average typicality for given item (object or attribute).
 
     Parameters:
     item: one item, object or attribute
-    concept: concept in which typicality is calculated
     context: context in which concept exists
     similarity_function: similarity functions used for typicality calculation
     remove_zeros (bool): if zeroes should be removed from universum
@@ -65,7 +64,7 @@ def typicality_avg(item, concept, context, definitions_items, similarity_functio
     float: typicality of given item
 
    """
-    items, items_to_remove = _typicality_helper(concept, context, definitions_items, remove_zeros,
+    items, items_to_remove = _typicality_helper(context, definitions_items, remove_zeros,
                                                 remove_definition_items, mode)
 
     if not items:
@@ -77,7 +76,7 @@ def typicality_avg(item, concept, context, definitions_items, similarity_functio
     return suma / len(definitions_items)
 
 
-def typicality_min(item, concept, context, definitions_items, similarity_function, remove_zeros=False, remove_definition_items=False, mode='objects'):
+def typicality_min(item, context, definitions_items, similarity_function, remove_zeros=False, remove_definition_items=False, mode='objects'):
     """
     Calculates minimal typicality for given item (object or attribute).
 
@@ -95,7 +94,7 @@ def typicality_min(item, concept, context, definitions_items, similarity_functio
 
    """
 
-    items, items_to_remove = _typicality_helper(concept, context, definitions_items, remove_zeros,
+    items, items_to_remove = _typicality_helper(context, definitions_items, remove_zeros,
                                                 remove_definition_items, mode)
 
     if not items:
