@@ -1,6 +1,6 @@
 import pytest
 from bitsets import bitset
-from fcapy.typicality import _find_zero_attributes, typicality_rosch
+from fcapy.typicality import _find_zero_items, typicality_rosch
 from fcapy import Concept, Context
 
 
@@ -14,7 +14,7 @@ def test_find_zero_attributes():
         Attributes.frommembers([3])
     ]
 
-    assert _find_zero_attributes(objects) == Attributes.frommembers([4])
+    assert _find_zero_items(objects) == Attributes.frommembers([4])
 
 
 def test_typicality_rosch():
