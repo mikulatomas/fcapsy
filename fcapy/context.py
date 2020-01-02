@@ -12,6 +12,9 @@ class Context:
     def down(self, attributes):
         return self.__arrow_operator(attributes, self.columns, self._Objects)
 
+    def get_bools(self):
+        return tuple(map(self._Attributes.bools, self.rows))
+
     def __arrow_operator(self, input_set, data, ResultClass):
         result = ResultClass.supremum
 
