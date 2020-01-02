@@ -6,6 +6,12 @@ class Context:
         self._Objects = Objects
         self._Attributes = Attributes
 
+    def get_objects(self):
+        return tuple(self._Objects.supremum)
+
+    def get_attributes(self):
+        return tuple(self._Attributes.supremum)
+
     def up(self, objects):
         return self.__arrow_operator(objects, self.rows, self._Attributes)
 
