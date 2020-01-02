@@ -1,4 +1,5 @@
-from fcapy.cohesion import cohesion_min, cohesion_avg
+from .cohesion import cohesion_min, cohesion_avg
+from .decorators import info
 
 
 def _degree(neighbors_filtered, neighbors):
@@ -102,6 +103,7 @@ def _alpha3_avg(concept, context, lower_neighbors, cohesion_function, similarity
     return (suma / len(neighbors_filtered)) * _degree(neighbors_filtered, lower_neighbors)
 
 
+@info('BL⋀')
 def basic_level_min(concept, context, upper_neighbors, lower_neighbors, cohesion_function, similarity_function, cache=None):
     alpha1 = _alpha1(concept, context, cohesion_function,
                      similarity_function, cache=cache)
@@ -113,6 +115,7 @@ def basic_level_min(concept, context, upper_neighbors, lower_neighbors, cohesion
     return alpha1 * alpha2 * alpha3
 
 
+@info('BL⌀')
 def basic_level_avg(concept, context, upper_neighbors, lower_neighbors, cohesion_function, similarity_function, cache=None):
     alpha1 = _alpha1(concept, context, cohesion_function,
                      similarity_function, cache=cache)

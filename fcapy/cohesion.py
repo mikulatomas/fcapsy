@@ -1,8 +1,10 @@
 from itertools import starmap
 from itertools import combinations, combinations_with_replacement
 from itertools import compress
+from .decorators import info
 
 
+@info('coh⋀')
 def cohesion_min(concept, context, similarity_function, cache=None):
     if cache is not None:
         concept_id = 'c' + str(int(concept.intent))
@@ -34,6 +36,7 @@ def cohesion_min(concept, context, similarity_function, cache=None):
     return result
 
 
+@info('coh⌀')
 def cohesion_avg(concept, context, similarity_function, cache=None):
     if len(concept.extent) == 0:
         return 0

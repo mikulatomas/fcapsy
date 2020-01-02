@@ -1,6 +1,7 @@
 from itertools import starmap
 from itertools import combinations_with_replacement
 from itertools import compress
+from .decorators import info
 
 
 # def _find_zero_attributes(objects):
@@ -48,6 +49,7 @@ def _typicality_helper(context, definitions_items, remove_zeros, remove_definiti
     return items, items_to_remove
 
 
+@info('Typ⌀')
 def typicality_avg(item, context, definitions_items, similarity_function, remove_zeros=False, remove_definition_items=False, mode='objects'):
     """
     Calculates average typicality for given item (object or attribute).
@@ -76,6 +78,7 @@ def typicality_avg(item, context, definitions_items, similarity_function, remove
     return suma / len(definitions_items)
 
 
+@info('Typ⋀')
 def typicality_min(item, context, definitions_items, similarity_function, remove_zeros=False, remove_definition_items=False, mode='objects'):
     """
     Calculates minimal typicality for given item (object or attribute).
@@ -153,6 +156,7 @@ def _calculate_weights(objects):
     return [sum(y) for y in zip(*objects)]
 
 
+@info('Rosch')
 def typicality_rosch(obj, concept, context):
     concept_objects = list(compress(context.rows, concept.extent.bools()))
 

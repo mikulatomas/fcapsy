@@ -1,3 +1,7 @@
+from .decorators import info
+
+
+@info('SMC')
 def similarity_smc(attrs1, attrs2, attributes_to_remove=None, cache=None):
     if attributes_to_remove is None:
         attributes_to_remove = attrs1.infimum
@@ -20,6 +24,7 @@ def similarity_smc(attrs1, attrs2, attributes_to_remove=None, cache=None):
     return result
 
 
+@info('Jaccard')
 def similarity_jaccard(attrs1, attrs2, attributes_to_remove=None, cache=None):
     if attributes_to_remove is None:
         attributes_to_remove = attrs1.infimum

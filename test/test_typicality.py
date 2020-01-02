@@ -1,6 +1,6 @@
 import pytest
 from bitsets import bitset
-from fcapy.typicality import _find_zero_items, typicality_rosch
+from fcapy.typicality import _find_zero_items, typicality_rosch, typicality_avg, typicality_min
 from fcapy import Concept, Context
 
 
@@ -39,3 +39,9 @@ def test_typicality_rosch():
     assert typicality_rosch(objects[0], concept, context) == 7
     assert typicality_rosch(objects[1], concept, context) == 4
     assert typicality_rosch(objects[2], concept, context) == 2
+
+
+def test_typicality_info():
+    assert typicality_rosch.display_name == 'Rosch'
+    assert typicality_avg.display_name == 'Typ⌀'
+    assert typicality_min.display_name == 'Typ⋀'
