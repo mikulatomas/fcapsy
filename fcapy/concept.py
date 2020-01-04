@@ -13,6 +13,9 @@ class Concept:
     def __hash__(self):
         return (hash(self._extent) ^ hash(self._intent)) ^ hash((self._extent, self._intent))
 
+    def get_id(self):
+        return int(self._intent)
+
     @property
     def extent(self):
         return self._extent
