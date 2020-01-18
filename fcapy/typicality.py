@@ -2,7 +2,7 @@ from itertools import starmap
 from itertools import combinations_with_replacement
 from itertools import compress
 from .decorators import info
-
+import math
 
 # def _find_zero_attributes(objects):
 #     result = objects[0]
@@ -163,3 +163,12 @@ def typicality_rosch(obj, concept, context):
     weights = _calculate_weights(concept_objects)
 
     return sum(compress(weights, obj.bools()))
+
+
+@info('Rosch ln')
+def typicality_rosch_ln(obj, concept, context):
+    concept_objects = list(compress(context.rows, concept.extent.bools()))
+
+    weights = _calculate_weights(concept_objects)
+
+    return sum(compress(map(math.log, weights), obj.bools()))
