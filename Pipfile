@@ -7,10 +7,11 @@ verify_ssl = true
 pytest = "*"
 fcapy = {editable = true,path = "."}
 pytest-benchmark = "*"
+xmltodict = "*"
+pytest-datafiles = "*"
 
 [packages]
 bitsets = "*"
-scipy = "*"
 
 [requires]
 python_version = "3.7"

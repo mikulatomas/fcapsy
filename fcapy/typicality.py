@@ -4,151 +4,67 @@ from itertools import compress
 from .decorators import info
 import math
 
-# def _find_zero_attributes(objects):
-#     result = objects[0]
 
-#     for row in objects[1:]:
+# def _find_zero_items(items):
+#     if not items:
+#         return 0
+
+#     result = items[0]
+
+#     for row in items[1:]:
 #         result |= row
 
-#     return objects[0].fromint(result).complement()
+#     return items[0].fromint(result).complement()
 
 
-def _find_zero_items(items):
-    if not items:
-        return 0
+# def _typicality_helper(item, remove_zeros, remove_definition_items):
+#     type(item) is context._Attributes:
+#         # Calculating typicality for Objects
 
-    result = items[0]
+#     elif type(item) is context._Objects:
+#         # Calculating typicality for Attributes
 
-    for row in items[1:]:
-        result |= row
+#     items_to_remove = item.infimum
 
-    return items[0].fromint(result).complement()
+#     if remove_zeros:
+#         items_to_remove |= _find_zero_items(items)
+#         items_to_remove = item.fromint(
+#             items_to_remove)
+
+#     if remove_definition_items:
+#         items_to_remove |=
+#         items_to_remove = item.fromint(
+#             items_to_remove)
+
+#     return items, items_to_remove
+
+# typ(item, items, context, similarity_measure)
 
 
-def _typicality_helper(context, definitions_items, remove_zeros, remove_definition_items, mode):
-    if mode is 'objects':
-        items = list(compress(context.rows, definitions_items.bools()))
-        universum_object = context._Attributes
-
-    elif mode is 'attributes':
-        items = list(compress(context.columns, definitions_items.bools()))
-        universum_object = context._Objects
-
-    items_to_remove = universum_object.infimum
-
-    if remove_zeros:
-        items_to_remove |= _find_zero_items(items)
-        items_to_remove = universum_object.fromint(
-            items_to_remove)
-
-    if remove_definition_items:
-        items_to_remove |= definitions_items
-        items_to_remove = universum_object.fromint(
-            items_to_remove)
-
-    return items, items_to_remove
+def _calculate_similarities(item, items_to_compare, similarity_function):
+    return map(lambda other: similarity_function(item, other), items_to_compare)
 
 
 @info('Typ⌀')
-def typicality_avg(item, context, definitions_items, similarity_function, remove_zeros=False, remove_definition_items=False, mode='objects'):
-    """
-    Calculates average typicality for given item (object or attribute).
+def typicality_avg(item, items_to_compare, similarity_function):
+    if type(item) is not type(items_to_compare[0]):
+        raise ValueError("Wrong type of items!")
 
-    Parameters:
-    item: one item, object or attribute
-    context: context in which concept exists
-    similarity_function: similarity functions used for typicality calculation
-    remove_zeros (bool): if zeroes should be removed from universum
-    remove_definition_items (bool): if definition items (extent or intent) should be removed
-    mode ('objects' or 'attributes') if objects or attributes are used for typicality calculation
+    similarities = _calculate_similarities(
+        item, items_to_compare, similarity_function)
 
-    Returns:
-    float: typicality of given item
-
-   """
-    items, items_to_remove = _typicality_helper(context, definitions_items, remove_zeros,
-                                                remove_definition_items, mode)
-
-    if not items:
-        return 0
-
-    suma = sum(map(lambda x: similarity_function(
-        item, x, items_to_remove), items))
-
-    return suma / len(definitions_items)
+    return sum(similarities) / len(items_to_compare)
 
 
 @info('Typ⋀')
-def typicality_min(item, context, definitions_items, similarity_function, remove_zeros=False, remove_definition_items=False, mode='objects'):
-    """
-    Calculates minimal typicality for given item (object or attribute).
+def typicality_min(item, items_to_compare, similarity_function):
+    if type(item) is not type(items_to_compare[0]):
+        raise ValueError("Wrong type of items!")
 
-    Parameters:
-    item: one item, object or attribute
-    concept: concept in which typicality is calculated
-    context: context in which concept exists
-    similarity_function: similarity functions used for typicality calculation
-    remove_zeros (bool): if zeroes should be removed from universum
-    remove_definition_items (bool): if definition items (extent or intent) should be removed
-    mode ('objects' or 'attributes') if objects or attributes are used for typicality calculation
+    similarities = _calculate_similarities(
+        item, items_to_compare, similarity_function)
 
-    Returns:
-    float: typicality of given item
-
-   """
-
-    items, items_to_remove = _typicality_helper(context, definitions_items, remove_zeros,
-                                                remove_definition_items, mode)
-
-    if not items:
-        return 0
-
-    minimum = min(map(lambda x: similarity_function(
-        item, x, items_to_remove), items))
-
-    return minimum
-
-
-# def typicality_avg(obj, concept, context, similarity_function, remove_zeros=False, remove_intent=False):
-#     concept_objects = list(compress(context.rows, concept.extent.bools()))
-
-#     attributes_to_remove = context._Attributes.infimum
-
-#     if remove_zeros:
-#         attributes_to_remove |= _find_zero_attributes(concept_objects)
-#         attributes_to_remove = context._Attributes.fromint(
-#             attributes_to_remove)
-
-#     if remove_intent:
-#         attributes_to_remove |= concept.intent
-#         attributes_to_remove = context._Attributes.fromint(
-#             attributes_to_remove)
-
-#     suma = sum(map(lambda x: similarity_function(
-#         obj, x, attributes_to_remove), concept_objects))
-
-#     return suma / len(concept.extent)
-
-
-# def typicality_min(obj, concept, context, similarity_function, remove_zeros=False, remove_intent=False):
-#     concept_objects = list(compress(context.rows, concept.extent.bools()))
-
-#     attributes_to_remove = context._Attributes.infimum
-
-#     if remove_zeros:
-#         attributes_to_remove |= _find_zero_attributes(concept_objects)
-#         attributes_to_remove = context._Attributes.fromint(
-#             attributes_to_remove)
-
-#     if remove_intent:
-#         attributes_to_remove |= concept.intent
-#         attributes_to_remove = context._Attributes.fromint(
-#             attributes_to_remove)
-
-#     minimum = min(
-#         map(lambda x: similarity_function(obj, x, attributes_to_remove), concept_objects))
-
-#     return minimum
+    return min(similarities)
 
 
 def _calculate_weights(objects):
@@ -157,18 +73,21 @@ def _calculate_weights(objects):
 
 
 @info('Rosch')
-def typicality_rosch(obj, concept, context):
-    concept_objects = list(compress(context.rows, concept.extent.bools()))
+def typicality_rosch(item, items_to_compare):
+    if type(item) is not type(items_to_compare[0]):
+        raise ValueError("Wrong type of items!")
 
-    weights = _calculate_weights(concept_objects)
+    weights = _calculate_weights(items_to_compare)
 
-    return sum(compress(weights, obj.bools()))
+    return sum(compress(weights, item.bools()))
 
 
 @info('Rosch ln')
-def typicality_rosch_ln(obj, concept, context):
-    concept_objects = list(compress(context.rows, concept.extent.bools()))
+def typicality_rosch_ln(item, items_to_compare):
+    if type(item) is not type(items_to_compare[0]):
+        raise ValueError("Wrong type of items!")
 
-    weights = _calculate_weights(concept_objects)
+    weights = _calculate_weights(items_to_compare)
+    weights = map(lambda x: math.log(x) if x != 0 else -math.inf, weights)
 
-    return sum(compress(map(math.log, weights), obj.bools()))
+    return sum(compress(weights, item.bools()))

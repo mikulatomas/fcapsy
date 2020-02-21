@@ -1,6 +1,5 @@
 import csv
 from bitsets import bitset
-from scipy.sparse import random
 
 
 def load_sparse_csv(filename, filename_attributes, delimiter=','):
