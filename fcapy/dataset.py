@@ -6,7 +6,7 @@ def load_sparse_csv(filename, filename_attributes, delimiter=','):
     """
     Loads .csv in format from dataset and universum:
     object1, attribute1, attribute10, attribute 20
-    object2, attribute2, attribute 30
+    object2, attribute2, attribute30
     """
 
     attributes = __load_items_from_file(filename_attributes)
@@ -31,6 +31,8 @@ def load_sparse_csv(filename, filename_attributes, delimiter=','):
         Attributes = bitset('Attributes', tuple(attributes))
 
         return Objects, Attributes, bools
+
+# TODO: rewrite and simplify
 
 
 def load_csv(filename, filename_objects=None, filename_attributes=None, delimiter=','):
