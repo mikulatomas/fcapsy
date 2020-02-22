@@ -110,7 +110,7 @@ ALL_LATTICES = pytest.mark.datafiles(*load_all_lattices())
 
 
 @ALL_LATTICES
-def test_fast_close_by_one(datafiles):
+def test_lattice(datafiles):
     for lattice in datafiles.listdir():
         lattice_dict = cex_to_list(lattice)
 

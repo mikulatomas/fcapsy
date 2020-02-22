@@ -12,6 +12,8 @@ pytest-datafiles = "*"
 
 [packages]
 bitsets = "*"
+pandas = "*"
+scipy = "*"
 
 [requires]
 python_version = "3.7"
