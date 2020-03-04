@@ -67,8 +67,8 @@ class Lattice:
     def get_lower(self, concept):
         return self.__get_neighbors(concept).get(self._LOWER)
 
-    def get_concept_by_id(self, id):
-        return self._lattice[id][self._CONCEPT]
+    def get_concept_by_id(self, idx):
+        return self._lattice[idx][self._CONCEPT]
 
     def get_concepts(self):
         return tuple(map(lambda x: x[self._CONCEPT], self._lattice.values()))
@@ -149,8 +149,8 @@ class SubsetLattice:
     def get_lower(self, concept):
         return self.__get_neighbors(concept).get(self._LOWER)
 
-    def get_concept_by_id(self, id):
-        return self._subset_lattice[id][self._CONCEPT]
+    def get_concept_by_id(self, idx):
+        return self._subset_lattice[idx][self._CONCEPT]
 
     def get_concepts(self):
         return tuple(map(lambda x: x[self._CONCEPT], self._subset_lattice.values()))
