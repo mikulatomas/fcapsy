@@ -1,5 +1,7 @@
 from fcapy import Concept
 from collections import deque
+from itertools import combinations
+from fcapy.similarity import similarity_jaccard
 
 
 class Lattice:
@@ -70,3 +72,85 @@ class Lattice:
 
     def get_concepts(self):
         return tuple(map(lambda x: x[self._CONCEPT], self._lattice.values()))
+
+
+class SubsetLattice:
+    def __init__(self, context):
+        self._UPPER = 'upper'
+        self._LOWER = 'lower'
+        self._CONCEPT = 'concept'
+        self._subset_lattice = {}
+
+        Objects = context._Objects
+        Attributes = context._Attributes
+
+        init_intent = context._Attributes.supremum
+        init_extent = context._Objects.fromint(context.down(init_intent))
+
+        init_concept = Concept(init_extent, init_intent)
+
+        atoms = Objects.supremum.atoms()
+
+        worklist = set([Concept(Objects.fromint(context.down(context.up(extent))),
+                                Attributes.fromint(context.up(extent))) for extent in atoms])
+
+        self._subset_lattice[init_concept.get_id()] = {
+            self._UPPER: worklist.copy(), self._LOWER: set(), self._CONCEPT: init_concept}
+
+        # add worklist to subset lattice
+        for atom in worklist:
+            self._subset_lattice[atom.get_id()] = {
+                self._UPPER: set(), self._LOWER: set([init_concept]), self._CONCEPT: atom}
+
+        while len(worklist) > 1:
+            concept_combinations = tuple(combinations(worklist, 2))
+            distances = [1 - similarity_jaccard(
+                concepts[0].intent, concepts[1].intent) for concepts in concept_combinations]
+
+            min_distance = min(distances)
+
+            for concept_tuple, distance in zip(concept_combinations, distances):
+                if distance == min_distance:
+                    new_intent = context.up(
+                        concept_tuple[0].extent | concept_tuple[1].extent)
+                    new_extent = context.down(new_intent)
+
+                    new_concept = Concept(Objects.fromint(
+                        new_extent), Attributes.fromint(new_intent))
+
+                    for concept in concept_tuple:
+                        worklist.remove(concept)
+
+                        existing_neighbor = self._subset_lattice.get(
+                            new_concept.get_id())
+
+                        if not existing_neighbor:
+                            self._subset_lattice[new_concept.get_id()] = {
+                                self._UPPER: set(), self._LOWER: set((concept, )), self._CONCEPT: new_concept}
+                        else:
+                            existing_neighbor[self._LOWER].add(concept)
+
+                        self._subset_lattice[concept.get_id()][self._UPPER].add(
+                            new_concept)
+
+                    worklist.add(new_concept)
+
+    def __get_neighbors(self, concept):
+        neighbors = self._subset_lattice.get(concept.get_id())
+
+        if not neighbors:
+            raise ValueError('Concept is not in subset lattice.')
+
+        return neighbors
+
+    def get_upper(self, concept):
+        return self.__get_neighbors(concept).get(self._UPPER)
+
+    def get_lower(self, concept):
+        return self.__get_neighbors(concept).get(self._LOWER)
+
+    def get_concept_by_id(self, id):
+        return self._subset_lattice[id][self._CONCEPT]
+
+    def get_concepts(self):
+        return tuple(map(lambda x: x[self._CONCEPT], self._subset_lattice.values()))
