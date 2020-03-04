@@ -23,7 +23,7 @@ class Lattice:
             concept = queue.pop()
 
             for neighbor in self.__calculate_upper_neighbors(context, concept):
-                existing_neighbor = self._lattice.get(neighbor)
+                existing_neighbor = self._lattice.get(neighbor.get_id())
 
                 if not existing_neighbor:
                     self._lattice[neighbor.get_id()] = {
