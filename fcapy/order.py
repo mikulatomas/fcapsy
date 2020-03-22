@@ -1,7 +1,7 @@
 from fcapy import Concept
 from collections import deque
 from itertools import combinations
-from fcapy.similarity import similarity_jaccard
+from functools import reduce
 
 
 class Lattice:
@@ -75,7 +75,7 @@ class Lattice:
 
 
 class SubsetLattice:
-    def __init__(self, context):
+    def __init__(self, context, similarity_measure):
         self._UPPER = 'upper'
         self._LOWER = 'lower'
         self._CONCEPT = 'concept'
@@ -101,39 +101,46 @@ class SubsetLattice:
         for atom in worklist:
             self._subset_lattice[atom.get_id()] = {
                 self._UPPER: set(), self._LOWER: set([init_concept]), self._CONCEPT: atom}
-
         while len(worklist) > 1:
             concept_combinations = tuple(combinations(worklist, 2))
-            distances = [1 - similarity_jaccard(
+
+            distances = [1 - similarity_measure(
                 concepts[0].intent, concepts[1].intent) for concepts in concept_combinations]
 
             min_distance = min(distances)
 
+            found = set()
+
             for concept_tuple, distance in zip(concept_combinations, distances):
                 if distance == min_distance:
-                    new_intent = context.up(
-                        concept_tuple[0].extent | concept_tuple[1].extent)
-                    new_extent = context.down(new_intent)
+                    found.add(concept_tuple[0])
+                    found.add(concept_tuple[1])
 
-                    new_concept = Concept(Objects.fromint(
-                        new_extent), Attributes.fromint(new_intent))
+            worklist = worklist.difference(found)
 
-                    for concept in concept_tuple:
-                        worklist.remove(concept)
+            extent = reduce(lambda c1, c2: c1 | c2,
+                            map(lambda x: x.extent, found))
 
-                        existing_neighbor = self._subset_lattice.get(
-                            new_concept.get_id())
+            new_intent = context.up(extent)
+            new_extent = context.down(new_intent)
 
-                        if not existing_neighbor:
-                            self._subset_lattice[new_concept.get_id()] = {
-                                self._UPPER: set(), self._LOWER: set((concept, )), self._CONCEPT: new_concept}
-                        else:
-                            existing_neighbor[self._LOWER].add(concept)
+            new_concept = Concept(Objects.fromint(
+                new_extent), Attributes.fromint(new_intent))
 
-                        self._subset_lattice[concept.get_id()][self._UPPER].add(
-                            new_concept)
+            existing_neighbor = self._subset_lattice.get(
+                new_concept.get_id())
 
-                    worklist.add(new_concept)
+            for concept in found:
+                if not existing_neighbor:
+                    self._subset_lattice[new_concept.get_id()] = {
+                        self._UPPER: set(), self._LOWER: set((concept, )), self._CONCEPT: new_concept}
+                else:
+                    existing_neighbor[self._LOWER].add(concept)
+
+                self._subset_lattice[concept.get_id()][self._UPPER].add(
+                    new_concept)
+
+            worklist.add(new_concept)
 
     def __get_neighbors(self, concept):
         neighbors = self._subset_lattice.get(concept.get_id())

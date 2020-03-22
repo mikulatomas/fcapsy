@@ -1,5 +1,5 @@
 import pytest
-from fcapy.dataset import __load_items_from_file, load_sparse_csv
+from fcapy.tools import __load_items_from_file, load_sparse_csv
 from bitsets import bitset
 
 
