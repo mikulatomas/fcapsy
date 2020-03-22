@@ -27,8 +27,8 @@ fcapy requires:
 
 Created 2019 by Tomáš Mikula
 
-.. |Tests| image:: https://travis-ci.org/mikulatomas/formal-concepts.svg?branch=master
-    :target: https://travis-ci.org/mikulatomas/formal-concepts
+.. |Tests| image:: https://travis-ci.org/mikulatomas/fcapy.svg?branch=master
+    :target: https://travis-ci.org/mikulatomas/fcapy
 
-.. |Codecov| image:: https://codecov.io/gh/mikulatomas/formal-concepts/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/mikulatomas/formal-concepts
+.. |Codecov| image:: https://codecov.io/gh/mikulatomas/fcapy/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/mikulatomas/fcapy
