@@ -25,7 +25,7 @@ Dependencies
 
 fcapy requires:
 
-- Python (>= 3.4)
+- Python (>= 3.6)
 - bitsets
 
 Created 2019 by Tomáš Mikula
