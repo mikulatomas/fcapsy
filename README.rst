@@ -4,7 +4,7 @@ fcapy
 |Tests|
 |Codecov|
 
-My personal implementation of Formal Concept Analysis in context of cognitive psychology (basic leve, typicality, ...).
+My personal implementation of Formal Concept Analysis in context of cognitive psychology (basic level, typicality, ...).
 
 Library is inspired by https://github.com/xflr6/concepts and it is based on https://github.com/xflr6/bitsets (probably fastest implementation of bitset in Python).
 
