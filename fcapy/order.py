@@ -74,6 +74,7 @@ class Lattice:
         return tuple(map(lambda x: x[self._CONCEPT], self._lattice.values()))
 
 
+# Experimental
 class SubsetLattice:
     def __init__(self, context, similarity_measure):
         self._UPPER = 'upper'

@@ -1,0 +1,15 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
+install:
+  - python setup.py develop
+script:
+  - pytest --cov=./ --benchmark-skip
+before_install:
+  - pip install codecov pytest-cov pytest-runner pytest-benchmark
+after_success:
+  - codecov
