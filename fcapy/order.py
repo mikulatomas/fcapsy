@@ -5,6 +5,13 @@ from functools import reduce
 
 
 class Lattice:
+    """
+    Based on Upper neighbor algorithm
+
+    Lindig, Christian. "Fast concept analysis."
+    Working with Conceptual Structures-Contributions to ICCS 2000 (2000): 152-161.
+    """
+
     def __init__(self, context):
         self._UPPER = 'upper'
         self._LOWER = 'lower'
@@ -74,8 +81,14 @@ class Lattice:
         return tuple(map(lambda x: x[self._CONCEPT], self._lattice.values()))
 
 
-# Experimental
 class SubsetLattice:
+    """
+    Experimental implementation of
+
+    Rice, Michael D., and Michael Siff. "Clusters, concepts, and pseudometrics." 
+    Electronic Notes in Theoretical Computer Science 40 (2001): 323-346.
+    """
+
     def __init__(self, context, similarity_measure):
         self._UPPER = 'upper'
         self._LOWER = 'lower'

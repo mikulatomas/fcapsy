@@ -1,3 +1,8 @@
+# Typicality implementation
+#
+# Rosch, Eleanor, and Carolyn B. Mervis. "Family resemblances: Studies in the internal structure of categories."
+# Cognitive psychology 7.4 (1975): 573-605.
+
 from itertools import starmap
 from itertools import combinations_with_replacement
 from itertools import compress
@@ -15,30 +20,6 @@ import math
 #         result |= row
 
 #     return items[0].fromint(result).complement()
-
-
-# def _typicality_helper(item, remove_zeros, remove_definition_items):
-#     type(item) is context._Attributes:
-#         # Calculating typicality for Objects
-
-#     elif type(item) is context._Objects:
-#         # Calculating typicality for Attributes
-
-#     items_to_remove = item.infimum
-
-#     if remove_zeros:
-#         items_to_remove |= _find_zero_items(items)
-#         items_to_remove = item.fromint(
-#             items_to_remove)
-
-#     if remove_definition_items:
-#         items_to_remove |=
-#         items_to_remove = item.fromint(
-#             items_to_remove)
-
-#     return items, items_to_remove
-
-# typ(item, items, context, similarity_measure)
 
 
 def _calculate_similarities(item, items_to_compare, similarity_function):

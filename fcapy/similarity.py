@@ -1,3 +1,14 @@
+# Similarities implementation
+#
+# Belohlavek, Radim, and Martin Trnecka. "Basic level in formal concept analysis: Interesting concepts and psychological ramifications."
+# Twenty-Third International Joint Conference on Artificial Intelligence. 2013.
+#
+# Belohlavek, Radim, and Martin Trnecka. "Basic level of concepts in formal concept analysis."
+# International Conference on Formal Concept Analysis. Springer, Berlin, Heidelberg, 2012.
+#
+# Rosch, Eleanor, and Carolyn B. Mervis. "Family resemblances: Studies in the internal structure of categories."
+# Cognitive psychology 7.4 (1975): 573-605.
+
 from .decorators import info
 
 

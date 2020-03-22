@@ -1,3 +1,11 @@
+# Basic level implementation
+#
+# Belohlavek, Radim, and Martin Trnecka. "Basic level in formal concept analysis: Interesting concepts and psychological ramifications."
+# Twenty-Third International Joint Conference on Artificial Intelligence. 2013.
+#
+# Belohlavek, Radim, and Martin Trnecka. "Basic level of concepts in formal concept analysis."
+# International Conference on Formal Concept Analysis. Springer, Berlin, Heidelberg, 2012.
+
 from .cohesion import cohesion_min, cohesion_avg
 from .decorators import info
 
