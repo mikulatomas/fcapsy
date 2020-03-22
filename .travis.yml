@@ -10,6 +10,6 @@ install:
 script:
   - pytest --cov=./ --benchmark-skip
 before_install:
-  - pip install codecov pytest-cov pytest-runner pytest-benchmark
+  - pip install codecov pytest-cov pytest-runner pytest-benchmark xmltodict pytest-datafiles
 after_success:
   - codecov
