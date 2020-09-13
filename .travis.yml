@@ -7,7 +7,7 @@ install:
   - pip install -e .
   - python setup.py test
 script:
-  - pytest --cov=./ --benchmark-skip
+  - pytest --cov=./
 before_install:
   - pip install codecov pytest-cov
 after_success:
