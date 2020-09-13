@@ -1,22 +1,55 @@
-from setuptools import find_packages, setup
+#!/usr/bin/env python
 
-from fcapy import __version__
+"""The setup script."""
 
-with open('README.rst', 'r') as fh:
-    long_description = fh.read()
+from setuptools import setup, find_packages
 
-setup(name='fcapy',
-      version=__version__,
-      description='Python implementation of Formal Concept Analysis',
-      long_description=long_description,
-      long_description_content_type='text/x-rst',
-      keywords='fca formal concept analysis',
-      packages=find_packages(),
-      python_requires='>=3.6',
-      author='Tomas Mikula',
-      author_email='mail@tomasmikula.cz',
-      license='MIT',
-      install_requires=['bitsets'],
-      tests_require=['pytest', 'pytest-benchmark',
-                     'pytest-datafiles', 'xmltodict'],
-      zip_safe=False)
+__author__ = 'Tomáš Mikula, Roman Vyjídáček'
+__email__ = 'mail@tomasmikula.cz, r.vyjidacek@gmail.com'
+__version__ = '0.1.0'
+__license__ = 'MIT license'
+
+with open('README.md') as readme_file:
+    readme = readme_file.read()
+
+with open('HISTORY.md') as history_file:
+    history = history_file.read()
+
+# Requirements for end-user
+requirements = [
+    'bitsets>=0.7']
+
+# Requirements for test
+setup_requirements = ['pytest-runner', ]
+test_requirements = ['pytest>=3', ]
+
+setup(
+    author=__author__,
+    author_email=__email__,
+    python_requires='>=3.6',
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+    ],
+    description="Python implementation of Formal Concept Analysis",
+    install_requires=requirements,
+    license=__license__,
+    long_description=readme + '\n\n' + history,
+    long_description_content_type='text/markdown',
+    include_package_data=True,
+    keywords='fca formal concept analysis',
+    name='fcapy',
+    packages=find_packages(include=['fcapy', 'fcapy.*']),
+    setup_requires=setup_requirements,
+    test_suite='tests',
+    tests_require=test_requirements,
+    url='https://github.com/mikulatomas/fcapy',
+    version=__version__,
+    zip_safe=False,
+)
