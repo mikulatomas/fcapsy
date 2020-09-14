@@ -15,6 +15,22 @@ https://en.wikipedia.org/wiki/Formal_concept_analysis
 ## Links
 * Basic info about FCA: https://phoenix.inf.upol.cz/esf/ucebni/formal.pdf
 
+## Development
+
+Clone this repository to the folder, then:
+
+```bash
+# create virtualenv (optional)
+$ mkvirtualenv fcapy -p python3
+
+#if is not actived (optional)
+$ workon fcapy 
+
+$ pip install -e .
+
+$ python setup.py test
+```
+
 ## Dependencies
 
 fcapy requires:
