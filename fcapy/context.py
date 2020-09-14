@@ -35,4 +35,4 @@ class Context:
             if not input_set:
                 break
 
-        return result
+        return ResultClass.fromint(result)
