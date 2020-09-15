@@ -1,4 +1,5 @@
 from itertools import compress
+from bitsets import bitset
 
 
 class Context:
@@ -8,6 +9,35 @@ class Context:
 
         self._Objects = Objects
         self._Attributes = Attributes
+
+    @classmethod
+    def from_fimi(cls, filename, objects_labels=None, attribute_labels=None):
+        with open(filename, 'r') as file:
+            max_attribute = 0
+            rows = []
+
+            for line in file:
+                # remove '\n' from line
+                line = line.strip()
+                row_attributes = []
+
+                for value in line.split():
+                    attribute = int(value)
+                    row_attributes.append(attribute)
+                    max_attribute = max(attribute, max_attribute)
+
+                rows.append(row_attributes)
+
+            bools = [[True if i in row else False for i in range(max_attribute + 1)]
+                     for row in rows]
+
+        if objects_labels is None:
+            objects_labels = range(len(bools))
+
+        if attribute_labels is None:
+            attribute_labels = range(len(bools[0]))
+
+        return cls(bools, bitset("Objects", objects_labels), bitset("Attributes", attribute_labels))
 
     def up(self, objects):
         return self.__arrow_operator(objects, self.rows, self._Attributes)
