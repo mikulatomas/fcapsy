@@ -1,5 +1,9 @@
+from bitsets.bases import BitSet
+from typing import Type
+
+
 class Concept:
-    def __init__(self, extent, intent):
+    def __init__(self, extent: Type[BitSet], intent: Type[BitSet]):
         self._extent = extent
         self._intent = intent
 
@@ -13,7 +17,7 @@ class Concept:
     def __hash__(self):
         return (hash(self._extent) ^ hash(self._intent)) ^ hash((self._extent, self._intent))
 
-    def get_id(self):
+    def get_id(self) -> int:
         return int(self._intent)
 
     @property

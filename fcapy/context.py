@@ -1,17 +1,19 @@
 from itertools import compress
+from bitsets.bases import BitSet
+from typing import Type
 from bitsets import bitset
 
 
 class Context:
-    def __init__(self, matrix, Objects, Attributes):
-        self.rows = tuple(map(Attributes.frombools, matrix))
-        self.columns = tuple(map(Objects.frombools, zip(*matrix)))
+    def __init__(self, matrix: list, objects_labels: list, attributes_labels: list):
+        self._Objects = bitset('Objects', objects_labels)
+        self._Attributes = bitset('Attributes', attributes_labels)
 
-        self._Objects = Objects
-        self._Attributes = Attributes
+        self.rows = tuple(map(self._Attributes.frombools, matrix))
+        self.columns = tuple(map(self._Objects.frombools, zip(*matrix)))
 
     @classmethod
-    def from_fimi(cls, filename, objects_labels=None, attribute_labels=None):
+    def from_fimi(cls, filename: str, objects_labels: list = None, attribute_labels: list = None):
         with open(filename, 'r') as file:
             max_attribute = 0
             rows = []
@@ -39,22 +41,22 @@ class Context:
 
         return cls(bools, bitset("Objects", objects_labels), bitset("Attributes", attribute_labels))
 
-    def up(self, objects):
+    def up(self, objects: Type[BitSet]) -> Type[BitSet]:
         return self.__arrow_operator(objects, self.rows, self._Attributes)
 
-    def down(self, attributes):
+    def down(self, attributes: Type[BitSet]) -> Type[BitSet]:
         return self.__arrow_operator(attributes, self.columns, self._Objects)
 
-    def get_bools(self):
+    def get_bools(self) -> tuple:
         return tuple(map(self._Attributes.bools, self.rows))
 
-    def filter_rows_by_extent(self, extent):
+    def filter_rows_by_extent(self, extent: Type[BitSet]) -> tuple:
         return tuple(compress(self.rows, extent.bools()))
 
-    def filter_columns_by_intent(self, intent):
+    def filter_columns_by_intent(self, intent: Type[BitSet]) -> tuple:
         return tuple(compress(self.columns, intent.bools()))
 
-    def __arrow_operator(self, input_set, data, ResultClass):
+    def __arrow_operator(self, input_set: Type[BitSet], data: tuple, ResultClass) -> Type[BitSet]:
         """Experimental implementation based on:
         https://stackoverflow.com/q/63917579/3456664"""
 

@@ -4,30 +4,31 @@ from bitsets import bitset
 
 def test_context_bools():
     bools = ((0, 1), (1, 1))
-    Objects = bitset('Objects', ('a', 'b'))
-    Attributes = bitset('Attributes', ('1', '2'))
+    objects = ('a', 'b')
+    attributes = ('1', '2')
 
-    context = Context(bools, Objects, Attributes)
+    context = Context(bools, objects, attributes)
 
     assert context.get_bools() == bools
 
 
 def test_context_up():
     bools = ((0, 1), (1, 1))
-    Objects = bitset('Objects', ('a', 'b'))
-    Attributes = bitset('Attributes', ('1', '2'))
+    objects = ('a', 'b')
+    attributes = ('1', '2')
 
-    context = Context(bools, Objects, Attributes)
+    context = Context(bools, objects, attributes)
 
-    assert context.up(Objects.frommembers('a')) == Attributes.frommembers('2')
+    assert context.up(context._Objects.frommembers(
+        'a')) == context._Attributes.frommembers('2')
 
 
 def test_context_down():
     bools = ((0, 1), (1, 1))
-    Objects = bitset('Objects', ('a', 'b'))
-    Attributes = bitset('Attributes', ('1', '2'))
+    objects = ('a', 'b')
+    attributes = ('1', '2')
 
-    context = Context(bools, Objects, Attributes)
+    context = Context(bools, objects, attributes)
 
-    assert context.down(Attributes.frommembers(
-        '2')) == Objects.frommembers(['a', 'b'])
+    assert context.down(context._Attributes.frommembers(
+        '2')) == context._Objects.frommembers(['a', 'b'])
