@@ -55,14 +55,23 @@ class Context:
         return tuple(compress(self.columns, intent.bools()))
 
     def __arrow_operator(self, input_set, data, ResultClass):
+        """Experimental implementation based on:
+        https://stackoverflow.com/q/63917579/3456664"""
+
         result = ResultClass.supremum
+        i = 0
 
-        for row in data:
-            if input_set & 1:
-                result &= row
-            input_set >>= 1
-
-            if not input_set:
+        while i < len(data):
+            if input_set:
+                trailing_zeros = (input_set ^ -input_set).bit_length() - 2
+                if trailing_zeros:
+                    input_set >>= trailing_zeros
+                    i += trailing_zeros
+                else:
+                    result &= data[i]
+                    input_set >>= 1
+                    i += 1
+            else:
                 break
 
         return ResultClass.fromint(result)
