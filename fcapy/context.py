@@ -2,6 +2,7 @@ from itertools import compress
 from bitsets.bases import BitSet
 from typing import Type
 from bitsets import bitset
+import csv
 
 
 class Context:
@@ -11,6 +12,28 @@ class Context:
 
         self.rows = tuple(map(self._Attributes.frombools, matrix))
         self.columns = tuple(map(self._Objects.frombools, zip(*matrix)))
+
+    @classmethod
+    def from_csv(cls, filename: str, objects_labels: list = [], attribute_labels: list = [], delimiter: str = ','):
+        with open(filename, 'r') as file:
+            csv_reader = csv.reader(file, delimiter=delimiter)
+
+            bools = []
+            labels = []
+
+            for idx, row in enumerate(csv_reader):
+                if idx == 0 and not attribute_labels:
+                    attribute_labels = tuple(row[1:])
+                else:
+                    if not objects_labels:
+                        labels.append(row.pop(0))
+
+                    bools.append(tuple(map(int, row)))
+
+            if not objects_labels:
+                objects_labels = labels
+
+        return cls(bools, tuple(objects_labels), tuple(attribute_labels))
 
     @classmethod
     def from_fimi(cls, filename: str, objects_labels: list = None, attribute_labels: list = None):
@@ -34,12 +57,12 @@ class Context:
                      for row in rows]
 
         if objects_labels is None:
-            objects_labels = range(len(bools))
+            objects_labels = tuple(map(str, range(len(bools))))
 
         if attribute_labels is None:
-            attribute_labels = range(len(bools[0]))
+            attribute_labels = tuple(map(str, range(len(bools[0]))))
 
-        return cls(bools, bitset("Objects", objects_labels), bitset("Attributes", attribute_labels))
+        return cls(bools, objects_labels, attribute_labels)
 
     def up(self, objects: Type[BitSet]) -> Type[BitSet]:
         return self.__arrow_operator(objects, self.rows, self._Attributes)
