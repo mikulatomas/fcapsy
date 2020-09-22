@@ -9,14 +9,10 @@ def upper_neighbors(context: Context, concept: Concept):
         new_intent = context.up(concept.extent | objects)
         new_extent = context.down(new_intent)
 
-        if minimal & (new_extent & ~objects):
+        if (new_extent & ~objects) & minimal:
             minimal &= ~objects
         else:
-            neighbor = Concept(
-                context._Objects.fromint(new_extent),
-                context._Attributes.fromint(new_intent))
-
-            yield neighbor
+            yield Concept(new_extent, new_intent)
 
 
 def lower_neighbors(context: Context, concept: Concept):
@@ -27,11 +23,7 @@ def lower_neighbors(context: Context, concept: Concept):
         new_extent = context.down(concept.intent | attributes)
         new_intent = context.up(new_extent)
 
-        if minimal & (new_intent & ~attributes):
+        if (new_intent & ~attributes) & minimal:
             minimal &= ~attributes
         else:
-            neighbor = Concept(
-                context._Objects.fromint(new_extent),
-                context._Attributes.fromint(new_intent))
-
-            yield neighbor
+            yield Concept(new_extent, new_intent)

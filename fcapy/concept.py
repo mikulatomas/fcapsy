@@ -1,11 +1,30 @@
 from bitsets.bases import BitSet
 from typing import Type
+from fcapy.context import Context
 
 
 class Concept:
     def __init__(self, extent: Type[BitSet], intent: Type[BitSet]):
         self._extent = extent
         self._intent = intent
+
+    @classmethod
+    def from_intent(cls, intent: Type[BitSet], context: Context):
+        return cls(context.down(intent), intent)
+
+    @classmethod
+    def from_extent(cls, extent: Type[BitSet], context: Context):
+        return cls(extent, context.down(intent))
+
+    @classmethod
+    def from_intent_members(cls, intent: list, context: Context):
+        intent = context._Attributes.frommembers(intent)
+        return cls(context.down(intent), intent)
+
+    @classmethod
+    def from_extent_members(cls, extent: list, context: Context):
+        extent = context._Objects.frommembers(extent)
+        return cls(extent, context.down(intent))
 
     def __repr__(self):
         return "Concept({}, {})".format(repr(self._extent), repr(self._intent))
@@ -17,13 +36,10 @@ class Concept:
     def __hash__(self):
         return (hash(self._extent) ^ hash(self._intent)) ^ hash((self._extent, self._intent))
 
-    def get_id(self) -> int:
-        return int(self._intent)
-
-    @property
+    @ property
     def extent(self):
         return self._extent
 
-    @property
+    @ property
     def intent(self):
         return self._intent
