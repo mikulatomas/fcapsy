@@ -64,17 +64,17 @@ def test_lattice_concepts():
     expected_concepts = [Concept.from_intent_members(intent, context)
                          for intent in expected_intents]
 
-    for concept in lattice.concepts():
+    for concept in lattice.concepts:
         assert concept in expected_concepts
 
-    assert len(lattice.concepts()) == 8
+    assert len(lattice.concepts == 8
 
 
 def test_lattice_order():
-    lattice = Lattice(context)
+    lattice=Lattice(context)
 
     for intent, neighbors in expected_order.items():
-        concept = Concept.from_intent_members(intent, context)
+        concept=Concept.from_intent_members(intent, context)
 
         for lower in neighbors['lower']:
             assert concept.from_intent_members(
