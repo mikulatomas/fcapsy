@@ -86,9 +86,11 @@ class Context:
         result = ResultClass.supremum
         i = 0
 
+        bit_lenght = int.bit_length
+
         while i < len(data):
             if input_set:
-                trailing_zeros = (input_set ^ -input_set).bit_length() - 2
+                trailing_zeros = (input_set ^ (input_set - 1)).bit_length() - 1
                 if trailing_zeros:
                     input_set >>= trailing_zeros
                     i += trailing_zeros
