@@ -24,7 +24,7 @@ class Concept:
     @classmethod
     def from_extent_members(cls, extent: list, context: Context):
         extent = context._Objects.frommembers(extent)
-        return cls(extent, context.up(intent))
+        return cls(extent, context.up(extent))
 
     def __repr__(self):
         return "Concept({}, {})".format(repr(self._extent), repr(self._intent))
