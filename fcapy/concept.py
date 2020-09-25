@@ -14,7 +14,7 @@ class Concept:
 
     @classmethod
     def from_extent(cls, extent: Type[BitSet], context: Context):
-        return cls(extent, context.down(intent))
+        return cls(extent, context.down(extent))
 
     @classmethod
     def from_intent_members(cls, intent: list, context: Context):
