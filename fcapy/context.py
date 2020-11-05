@@ -14,6 +14,10 @@ class Context:
         self.columns = tuple(map(self._Objects.frombools, zip(*matrix)))
 
     @classmethod
+    def from_pandas(cls, dataframe):
+        return cls(dataframe.values, tuple(dataframe.index), tuple(dataframe.columns))
+
+    @classmethod
     def from_csv(cls, filename: str, objects_labels: list = [], attribute_labels: list = [], delimiter: str = ','):
         with open(filename, 'r') as file:
             csv_reader = csv.reader(file, delimiter=delimiter)
