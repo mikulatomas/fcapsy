@@ -1,8 +1,10 @@
 from fcapy import Concept
 from collections import deque
 from copy import copy
+from fcapy.decorators import metadata
 
 
+@metadata(name='FastCloseByOne', short_name='FCbO')
 def fcbo(context: Context) -> list:
     """Calculates all concept of given concept"""
 
