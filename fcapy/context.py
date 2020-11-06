@@ -3,6 +3,7 @@ from bitsets.bases import BitSet
 from typing import Type
 from bitsets import bitset
 import csv
+import random
 
 
 class Context:
@@ -12,6 +13,13 @@ class Context:
 
         self.rows = tuple(map(self._Attributes.frombools, matrix))
         self.columns = tuple(map(self._Objects.frombools, zip(*matrix)))
+
+    @classmethod
+    def from_random(cls, number_of_objects, number_of_attributes):
+        matrix = [random.choices([0, 1], k=number_of_attributes)
+                  for i in range(number_of_objects)]
+
+        return cls(matrix, tuple(range(number_of_objects)), tuple(range(number_of_attributes)))
 
     @classmethod
     def from_pandas(cls, dataframe):
