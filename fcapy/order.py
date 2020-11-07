@@ -2,7 +2,6 @@ from fcapy import Concept
 from fcapy.algorithms.lindig import upper_neighbors
 from collections import deque, namedtuple
 from collections.abc import Mapping
-from itertools import combinations
 from functools import reduce
 from typing import Iterator
 
