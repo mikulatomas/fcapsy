@@ -1,4 +1,4 @@
-from fcapy import Concept
+from fcapy import Concept, Context
 from collections import deque
 from copy import copy
 from fcapy.decorators import metadata
