@@ -1,5 +1,6 @@
-from fcapy import SubsetLattice, Lattice, Context, Concept
+from fcapy import Lattice, Context, Concept
 from fcapy.similarity.objects import jaccard
+from fcapy.algorithms.rice_siff import concept_subset
 
 object_labels = tuple(range(5))
 attribute_labels = tuple(range(4))
@@ -13,9 +14,9 @@ bools = [
 context = Context(bools, object_labels, attribute_labels)
 
 
-def test_subsetlattice_concepts():
+def test_rice_siff_algorithm():
     lattice = Lattice(context)
-    subsetlattice = SubsetLattice(context, jaccard)
+    concepts = concept_subset(context, jaccard)
 
-    for concept in subsetlattice.concepts:
-        assert concept in subsetlattice.concepts
+    for concept in concepts:
+        assert concept in lattice.concepts
