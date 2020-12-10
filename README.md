@@ -2,7 +2,7 @@
 
 Python implementation of Formal Concept Analysis with focus on Cognitive Psychology.
 
-Library is inspired by https://github.com/xflr6/concepts and it is based on https://github.com/xflr6/bitsets (probably fastest implementation of bitset in Python).
+Library is inspired by [concepts](https://github.com/xflr6/concepts) and it is based on [bitsets](https://github.com/xflr6/bitsets) (probably fastest implementation of bitset in Python).
 
 ⚠️ Library is mainly used for our research, not ready for production, feedback is welcomed.
 
@@ -41,4 +41,4 @@ $ python setup.py test
 fcapy requires:
 
 * Python (>= 3.6)
-* bitsets
+* [bitsets](https://github.com/xflr6/bitsets)
