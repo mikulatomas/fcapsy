@@ -2,9 +2,6 @@ import pytest
 from bitsets import bitset
 from fcapy.psychology.typicality import typicality_avg
 from fcapy.similarity.objects import jaccard, smc, rosch
-from fcapy import Concept, Context
-from itertools import compress
-import math
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
