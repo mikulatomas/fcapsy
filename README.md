@@ -1,10 +1,15 @@
 # fcapy
 
-Python implementation of Formal Concept Analysis.
+Python implementation of Formal Concept Analysis with focus on Cognitive Psychology.
 
 Library is inspired by https://github.com/xflr6/concepts and it is based on https://github.com/xflr6/bitsets (probably fastest implementation of bitset in Python).
 
 ⚠️ Library is mainly used for our research, not ready for production, feedback is welcomed.
+
+## Used in papers
+
+> Belohlavek, R., & Mikula, T. (2020). Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis. Proceedings of CLA 2020, 33-45.
+http://ceur-ws.org/Vol-2668/paper2.pdf
 
 ## What is Formal Concept Analysis?
 
@@ -14,11 +19,6 @@ https://en.wikipedia.org/wiki/Formal_concept_analysis
 
 ## Links
 * Basic info about FCA: https://phoenix.inf.upol.cz/esf/ucebni/formal.pdf
-
-## Used in papers
-
-> Belohlavek, R., & Mikula, T. (2020). Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis. Proceedings of CLA 2020, 33-45.
-
 
 ## Development
 
