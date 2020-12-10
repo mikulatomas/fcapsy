@@ -15,6 +15,10 @@ https://en.wikipedia.org/wiki/Formal_concept_analysis
 ## Links
 * Basic info about FCA: https://phoenix.inf.upol.cz/esf/ucebni/formal.pdf
 
+## Used in papers
+
+> Belohlavek, R., & Mikula, T. (2020). Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis. Proceedings of CLA 2020, 33-45.
+
 ## Development
 
 Clone this repository to the folder, then:
