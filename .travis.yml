@@ -10,6 +10,6 @@ install:
 script:
   - pytest --cov=./
 before_install:
-  - pip install codecov pytest-cov
+  - pip install codecov pytest-cov pandas
 after_success:
   - codecov
