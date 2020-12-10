@@ -1,6 +1,6 @@
 # fcapy
 
-Python implementation of Formal Concept Analysis with focus on Cognitive Psychology.
+Python implementation of [Formal Concept Analysis](https://en.wikipedia.org/wiki/Formal_concept_analysis) with focus on [Cognitive Psychology](https://en.wikipedia.org/wiki/Cognitive_psychology).
 
 Library is inspired by [concepts](https://github.com/xflr6/concepts) and it is based on [bitsets](https://github.com/xflr6/bitsets) (probably fastest implementation of bitset in Python).
 
