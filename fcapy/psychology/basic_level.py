@@ -100,7 +100,7 @@ def _bl_helper(concept, context, upper_neighbors, lower_neighbors, cohesion_func
     return alpha1 * alpha2 * alpha3
 
 
-@ metadata(name='Minimal Basic Level', short_name='BL_min')
+@metadata(name='Minimal Basic Level', short_name='BL_min')
 def basic_level_min(concept, context, upper_neighbors, lower_neighbors, cohesion_function, similarity_function):
     return _bl_helper(
         concept,
@@ -112,7 +112,7 @@ def basic_level_min(concept, context, upper_neighbors, lower_neighbors, cohesion
         variant='min')
 
 
-@ metadata(name='Average Basic Level', short_name='BL_avg')
+@metadata(name='Average Basic Level', short_name='BL_avg')
 def basic_level_avg(concept, context, upper_neighbors, lower_neighbors, cohesion_function, similarity_function):
     return _bl_helper(
         concept,
