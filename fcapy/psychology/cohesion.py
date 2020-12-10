@@ -46,7 +46,7 @@ def cohesion_avg(concept, context, similarity_function):
     return suma / (len(concept.extent) * (len(concept.extent) + 1) / 2)
 
 
-@ metadata(name='Average Concept Cohesion Deprecated', short_name='Coh_avg_dep')
+@metadata(name='Average Concept Cohesion Deprecated', short_name='Coh_avg_dep')
 def cohesion_avg_deprecated(concept, context, similarity_function):
     if len(concept.extent) == 0:
         return 0
