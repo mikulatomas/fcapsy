@@ -19,6 +19,7 @@ https://en.wikipedia.org/wiki/Formal_concept_analysis
 
 > Belohlavek, R., & Mikula, T. (2020). Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis. Proceedings of CLA 2020, 33-45.
 
+
 ## Development
 
 Clone this repository to the folder, then:
