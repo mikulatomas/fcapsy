@@ -6,6 +6,7 @@
 # Belohlavek, Radim, and Tomas Mikula. "Typicality in conceptual structures within the framework of formal concept analysis."
 
 from itertools import compress
+from fcapy.decorators import metadata
 import math
 
 
@@ -13,6 +14,7 @@ def _calculate_similarities(item, items_to_compare, similarity_function):
     return map(lambda other: similarity_function(item, other), items_to_compare)
 
 
+@metadata(name='Average Inner Typicality', short_name='Typ_avg')
 def typicality_avg(item, items_to_compare, similarity_function):
     if type(item) is not type(items_to_compare[0]):
         raise ValueError("Wrong type of items!")
@@ -23,6 +25,7 @@ def typicality_avg(item, items_to_compare, similarity_function):
     return sum(similarities) / len(items_to_compare)
 
 
+@metadata(name='Minimal Inner Typicality', short_name='Typ_min')
 def typicality_min(item, items_to_compare, similarity_function):
     if type(item) is not type(items_to_compare[0]):
         raise ValueError("Wrong type of items!")
@@ -38,6 +41,7 @@ def _calculate_weights(objects):
     return [sum(y) for y in zip(*objects)]
 
 
+@metadata(name='Rosch Inner Typicality', short_name='Typ_rosch')
 def typicality_rosch(item, items_to_compare):
     if type(item) is not type(items_to_compare[0]):
         raise ValueError("Wrong type of items!")
@@ -47,6 +51,7 @@ def typicality_rosch(item, items_to_compare):
     return sum(compress(weights, item.bools()))
 
 
+@metadata(name='Rosch Logarithm Inner Typicality', short_name='Typ_rosch_ln')
 def typicality_rosch_ln(item, items_to_compare):
     if type(item) is not type(items_to_compare[0]):
         raise ValueError("Wrong type of items!")
