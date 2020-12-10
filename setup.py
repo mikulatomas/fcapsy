@@ -21,7 +21,7 @@ requirements = [
 
 # Requirements for test
 setup_requirements = ['pytest-runner', ]
-test_requirements = ['pytest>=3', ]
+test_requirements = ['pytest>=3', 'pandas']
 
 setup(
     author=__author__,
