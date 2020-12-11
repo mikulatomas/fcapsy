@@ -29,7 +29,8 @@ def test_context_from_fimi(data_file, json_file):
     )) == expected_json['attributes']
     assert list(context._Objects.supremum.members(
     )) == expected_json['objects']
-    assert context.get_bools() == tuple(map(tuple, expected_json['bools']))
+    assert tuple(context.to_bools()) == tuple(
+        map(tuple, expected_json['bools']))
 
 
 TEST_DATA_DIR_CSV = os.path.join(
@@ -55,7 +56,8 @@ def test_context_from_csv(data_file, json_file):
     )) == expected_json['attributes']
     assert list(context._Objects.supremum.members(
     )) == expected_json['objects']
-    assert context.get_bools() == tuple(map(tuple, expected_json['bools']))
+    assert tuple(context.to_bools()) == tuple(
+        map(tuple, expected_json['bools']))
 
 
 TEST_DATA_DIR_CSV_DELIMITER = os.path.join(
@@ -81,7 +83,8 @@ def test_context_from_csv_delimiter(data_file, json_file):
     )) == expected_json['attributes']
     assert list(context._Objects.supremum.members(
     )) == expected_json['objects']
-    assert context.get_bools() == tuple(map(tuple, expected_json['bools']))
+    assert tuple(context.to_bools()) == tuple(
+        map(tuple, expected_json['bools']))
 
 
 def test_context_from_pandas():
@@ -97,7 +100,7 @@ def test_context_from_pandas():
 
     context = Context.from_pandas(pd.DataFrame(bools))
 
-    assert context.get_bools() == expected_bools
+    assert tuple(context.to_bools()) == expected_bools
 
 
 def test_context_from_pandas_truth_values():
@@ -115,4 +118,4 @@ def test_context_from_pandas_truth_values():
 
     context = Context.from_pandas(df > 2)
 
-    assert context.get_bools() == expected_bools
+    assert tuple(context.to_bools()) == expected_bools

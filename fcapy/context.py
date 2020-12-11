@@ -1,6 +1,6 @@
 from itertools import compress
 from bitsets.bases import BitSet
-from typing import Type
+from typing import Type, Tuple, Iterator
 from bitsets import bitset
 import csv
 import random
@@ -76,20 +76,24 @@ class Context:
 
         return cls(bools, objects_labels, attribute_labels)
 
+    @property
+    def shape(self) -> Tuple[int, int]:
+        return (len(self.rows), len(self.columns))
+
     def up(self, objects: Type[BitSet]) -> Type[BitSet]:
         return self.__arrow_operator(objects, self.rows, self._Attributes)
 
     def down(self, attributes: Type[BitSet]) -> Type[BitSet]:
         return self.__arrow_operator(attributes, self.columns, self._Objects)
 
-    def get_bools(self) -> tuple:
-        return tuple(map(self._Attributes.bools, self.rows))
+    def to_bools(self) -> Iterator[tuple]:
+        return map(self._Attributes.bools, self.rows)
 
-    def filter_rows_by_extent(self, extent: Type[BitSet]) -> tuple:
-        return tuple(compress(self.rows, extent.bools()))
+    def filter_rows_by_extent(self, extent: Type[BitSet]) -> Iterator[Type[BitSet]]:
+        return compress(self.rows, extent.bools())
 
-    def filter_columns_by_intent(self, intent: Type[BitSet]) -> tuple:
-        return tuple(compress(self.columns, intent.bools()))
+    def filter_columns_by_intent(self, intent: Type[BitSet]) -> Iterator[Type[BitSet]]:
+        return compress(self.columns, intent.bools())
 
     def __arrow_operator(self, input_set: Type[BitSet], data: tuple, ResultClass) -> Type[BitSet]:
         """Experimental implementation based on:

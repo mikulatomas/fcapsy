@@ -9,7 +9,27 @@ def test_context_bools():
 
     context = Context(bools, objects, attributes)
 
-    assert context.get_bools() == bools
+    assert tuple(context.to_bools()) == bools
+
+
+def test_context_bools_shape():
+    bools = ((0, 1), (1, 1), (0, 1))
+    objects = ('a', 'b', 'c')
+    attributes = ('1', '2')
+
+    context = Context(bools, objects, attributes)
+
+    assert context.shape == (3, 2)
+
+
+def test_context_to_bools():
+    bools = ((0, 1), (1, 1), (0, 1))
+    objects = ('a', 'b', 'c')
+    attributes = ('1', '2')
+
+    context = Context(bools, objects, attributes)
+
+    assert tuple(context.to_bools()) == bools
 
 
 def test_context_up():
