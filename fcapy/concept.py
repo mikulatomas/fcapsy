@@ -30,7 +30,7 @@ class Concept:
         return "Concept({}x{})".format(len(self._extent.members()), len(self._intent.members()))
 
     def __str__(self):
-        return "Concept({}, {})".format(str(self._extent), str(self._intent))
+        return "Concept({}, {})".format(str(self._extent.members()), str(self._intent.members()))
 
     def __eq__(self, other):
         if isinstance(self, type(other)):

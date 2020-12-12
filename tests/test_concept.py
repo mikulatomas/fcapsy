@@ -17,4 +17,4 @@ def test_concept_str():
 
     concept = Concept(Objects(['a', 'b']), Attributes(['3']))
 
-    assert str(concept) == "Concept(Objects(['a', 'b']), Attributes(['3']))"
+    assert str(concept) == "Concept(('a', 'b'), ('3',))"
