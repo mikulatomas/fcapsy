@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/mikulatomas/fcapy.svg?branch=development)](https://travis-ci.com/mikulatomas/fcapy)
+[![codecov](https://codecov.io/gh/mikulatomas/fcapy/branch/development/graph/badge.svg?token=ky2GUW51mj)](https://codecov.io/gh/mikulatomas/fcapy)
+
 # fcapy
 
 Python implementation of [Formal Concept Analysis](https://en.wikipedia.org/wiki/Formal_concept_analysis) with focus on [Cognitive Psychology](https://en.wikipedia.org/wiki/Cognitive_psychology).
