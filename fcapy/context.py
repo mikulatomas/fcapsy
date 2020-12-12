@@ -89,11 +89,15 @@ class Context:
     def to_bools(self) -> Iterator[tuple]:
         return map(self._Attributes.bools, self.rows)
 
-    def filter_rows_by_extent(self, extent: Type[BitSet]) -> Iterator[Type[BitSet]]:
-        return compress(self.rows, extent.bools())
+    def filter(self, by: Type[BitSet]) -> Iterator[Type[BitSet]]:
+        if isinstance(by, self._Objects):
+            filter_target = self.rows
+        elif isinstance(by, self._Attributes):
+            filter_target = self.columns
+        else:
+            raise ValueError
 
-    def filter_columns_by_intent(self, intent: Type[BitSet]) -> Iterator[Type[BitSet]]:
-        return compress(self.columns, intent.bools())
+        return compress(filter_target, by.bools())
 
     def __arrow_operator(self, input_set: Type[BitSet], data: tuple, ResultClass) -> Type[BitSet]:
         """Experimental implementation based on:

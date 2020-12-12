@@ -31,7 +31,7 @@ def test_cohesion_min(similarity_function):
 
     concept = Concept.from_extent_members([0, 1], context)
 
-    rows = tuple(context.filter_rows_by_extent(concept.extent))
+    rows = tuple(context.filter(concept.extent))
 
     expected_typ = min(
         similarity_function(rows[0], rows[0]),
@@ -54,7 +54,7 @@ def test_cohesion_min_2(similarity_function):
 
     concept = Concept.from_extent_members([0, 1, 2], context)
 
-    rows = tuple(context.filter_rows_by_extent(concept.extent))
+    rows = tuple(context.filter(concept.extent))
 
     expected_typ = min(
         similarity_function(rows[0], rows[0]),

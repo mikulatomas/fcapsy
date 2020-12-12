@@ -21,7 +21,7 @@ def cohesion_min(concept, context, similarity_function):
     if len(concept.extent) == 1:
         return 1
 
-    concept_objects = context.filter_rows_by_extent(concept.extent)
+    concept_objects = context.filter(concept.extent)
 
     combs = combinations(concept_objects, 2)
 
@@ -36,7 +36,7 @@ def cohesion_avg(concept, context, similarity_function):
     if len(concept.extent) == 1:
         return 1
 
-    concept_objects = context.filter_rows_by_extent(concept.extent)
+    concept_objects = context.filter(concept.extent)
 
     combs = combinations(concept_objects, 2)
 
@@ -54,7 +54,7 @@ def cohesion_avg_deprecated(concept, context, similarity_function):
     if len(concept.extent) == 1:
         return 1
 
-    concept_objects = context.filter_rows_by_extent(concept.extent)
+    concept_objects = context.filter(concept.extent)
 
     combs = combinations(concept_objects, 2)
 
