@@ -76,18 +76,12 @@ class Context:
 
         return cls(bools, objects_labels, attribute_labels)
 
+    def to_bools(self) -> Iterator[tuple]:
+        return map(self._Attributes.bools, self.rows)
+
     @property
     def shape(self) -> Tuple[int, int]:
         return (len(self.rows), len(self.columns))
-
-    def up(self, objects: Type[BitSet]) -> Type[BitSet]:
-        return self.__arrow_operator(objects, self.rows, self._Attributes)
-
-    def down(self, attributes: Type[BitSet]) -> Type[BitSet]:
-        return self.__arrow_operator(attributes, self.columns, self._Objects)
-
-    def to_bools(self) -> Iterator[tuple]:
-        return map(self._Attributes.bools, self.rows)
 
     def filter(self, by: Type[BitSet]) -> Iterator[Type[BitSet]]:
         if isinstance(by, self._Objects):
@@ -120,3 +114,9 @@ class Context:
                 break
 
         return ResultClass.fromint(result)
+
+    def up(self, objects: Type[BitSet]) -> Type[BitSet]:
+        return self.__arrow_operator(objects, self.rows, self._Attributes)
+
+    def down(self, attributes: Type[BitSet]) -> Type[BitSet]:
+        return self.__arrow_operator(attributes, self.columns, self._Objects)

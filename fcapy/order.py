@@ -44,35 +44,6 @@ class Lattice(Mapping):
 
                 queue.append(neighbor)
 
-    def __comparable_upper_concepts(self, concept: Concept) -> Iterator[Concept]:
-        for neighbor in self[concept].upper:
-            for x in self.comparable_upper_concepts(neighbor):
-                yield x
-        yield concept
-
-    def comparable_upper_concepts(self, concept: Concept) -> set:
-        return set(self.__comparable_upper_concepts(concept))
-
-    def __comparable_lower_concepts(self, concept: Concept) -> Iterator[Concept]:
-        for neighbor in self[concept].lower:
-            for x in self.comparable_lower_concepts(neighbor):
-                yield x
-        yield concept
-
-    def comparable_lower_concepts(self, concept: Concept) -> set:
-        return set(self.__comparable_lower_concepts(concept))
-
-    def __comparable_concepts(self, concept: Concept) -> Iterator[Concept]:
-        if not concept is None:
-            for neighbor in self[concept].upper:
-                yield from self.comparable_upper_concepts(neighbor)
-
-            for neighbor in self[concept].lower:
-                yield from self.comparable_lower_concepts(neighbor)
-
-    def comparable_concepts(self, concept: Concept) -> set:
-        return set(self.__comparable_concepts(concept))
-
     def __getitem__(self, concept: Concept):
         return self._mapping[concept]
 
