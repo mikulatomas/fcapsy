@@ -7,14 +7,14 @@ from fcapy import Concept, Context
 @pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
 def test_cohesion_singleton_avg(similarity_function):
     bools = (
-        (1, 0, 1),
-        (1, 1, 1),
+        (1, 0, 0),
+        (1, 1, 0),
         (0, 0, 1)
     )
 
     context = Context(bools, range(3), range(3))
 
-    concept = Concept.from_extent_members([0], context)
+    concept = Concept.from_extent_members([2], context)
 
     assert cohesion_avg(concept, context, similarity_function) == 1
 
@@ -30,7 +30,8 @@ def test_cohesion_avg(similarity_function):
     context = Context(bools, range(3), range(3))
 
     concept = Concept.from_extent_members([0, 1], context)
-
+    print(concept.extent)
+    print(concept.intent)
     rows = tuple(context.filter(concept.extent))
 
     expected_typ = (similarity_function(rows[0], rows[1]) + 2) / (2 * 3 / 2)

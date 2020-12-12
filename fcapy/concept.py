@@ -10,21 +10,23 @@ class Concept:
 
     @classmethod
     def from_intent(cls, intent: Type[BitSet], context: Context):
-        return cls(context.down(intent), intent)
+        extent = context.down(intent)
+        return cls(extent, context.up(extent))
 
     @classmethod
     def from_extent(cls, extent: Type[BitSet], context: Context):
-        return cls(extent, context.down(extent))
+        intent = context.up(extent)
+        return cls(context.down(intent), intent)
 
     @classmethod
     def from_intent_members(cls, intent: list, context: Context):
         intent = context._Attributes.frommembers(intent)
-        return cls(context.down(intent), intent)
+        return Concept.from_intent(intent, context)
 
     @classmethod
     def from_extent_members(cls, extent: list, context: Context):
         extent = context._Objects.frommembers(extent)
-        return cls(extent, context.up(extent))
+        return Concept.from_extent(extent, context)
 
     def __repr__(self):
         return "Concept({}x{})".format(len(self._extent.members()), len(self._intent.members()))

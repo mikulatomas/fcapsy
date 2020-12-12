@@ -1,4 +1,4 @@
-from fcapy import Concept
+from fcapy import Concept, Context
 from bitsets import bitset
 
 
@@ -18,3 +18,37 @@ def test_concept_str():
     concept = Concept(Objects(['a', 'b']), Attributes(['3']))
 
     assert str(concept) == "Concept(('a', 'b'), ('3',))"
+
+
+def test_concept_from_intent():
+    bools = ((0, 1), (1, 1))
+    objects = ('a', 'b')
+    attributes = ('1', '2')
+
+    context = Context(bools, objects, attributes)
+
+    expected_concept = Concept(
+        context._Objects.frommembers(['b']),
+        context._Attributes.frommembers(['1', '2']))
+
+    concept = Concept.from_intent(
+        context._Attributes.frommembers(['1']), context)
+
+    assert concept == expected_concept
+
+
+def test_concept_from_extent():
+    bools = ((0, 1), (1, 1))
+    objects = ('a', 'b')
+    attributes = ('1', '2')
+
+    context = Context(bools, objects, attributes)
+
+    expected_concept = Concept(
+        context._Objects.frommembers(['b']),
+        context._Attributes.frommembers(['1', '2']))
+
+    concept = Concept.from_extent(
+        context._Objects.frommembers(['b']), context)
+
+    assert concept == expected_concept
