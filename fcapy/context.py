@@ -15,7 +15,7 @@ class Context:
         self.columns = tuple(map(self._Objects.frombools, zip(*matrix)))
 
     def __repr__(self):
-        return f"Context({len(self.rows)}x{len(self.columns)})"
+        return "Context({}x{})".format(len(self.rows), len(self.columns))
 
     @classmethod
     def from_random(cls, number_of_objects, number_of_attributes):

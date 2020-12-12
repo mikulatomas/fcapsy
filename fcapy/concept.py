@@ -27,10 +27,10 @@ class Concept:
         return cls(extent, context.up(extent))
 
     def __repr__(self):
-        return f"Concept({len(self._extent.members())}x{len(self._intent.members())})"
+        return "Concept({}x{})".format(len(self._extent.members()), len(self._intent.members()))
 
     def __str__(self):
-        return f"Concept({str(self._extent)}, {str(self._intent)})"
+        return "Concept({}, {})".format(str(self._extent), str(self._intent))
 
     def __eq__(self, other):
         if isinstance(self, type(other)):
