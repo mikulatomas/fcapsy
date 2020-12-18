@@ -41,10 +41,10 @@ class Concept:
     def __hash__(self):
         return (hash(self._extent) ^ hash(self._intent)) ^ hash((self._extent, self._intent))
 
-    @ property
+    @property
     def extent(self):
         return self._extent
 
-    @ property
+    @property
     def intent(self):
         return self._intent
