@@ -9,6 +9,10 @@
 # Rosch, Eleanor, and Carolyn B. Mervis. "Family resemblances: Studies in the internal structure of categories."
 # Cognitive psychology 7.4 (1975): 573-605.
 
+from fcapy.decorators import metadata
+
+
+@metadata(name='Simple Matching Coefficient', short_name='SMC')
 def smc(attrs1, attrs2):
 
     intersection = attrs1.fromint(attrs1 & attrs2)
@@ -21,6 +25,7 @@ def smc(attrs1, attrs2):
     return (len(intersection) + len(complement)) / len(universum)
 
 
+@metadata(name='Jaccard', short_name='J')
 def jaccard(attrs1, attrs2):
 
     intersection = attrs1.fromint(attrs1 & attrs2)
@@ -30,6 +35,7 @@ def jaccard(attrs1, attrs2):
     return len(intersection) / len(union)
 
 
+@metadata(name='Rosch', short_name='R')
 def rosch(attrs1, attrs2):
 
     intersection = attrs1.fromint(attrs1 & attrs2)
