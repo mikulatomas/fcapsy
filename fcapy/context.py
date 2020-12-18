@@ -86,15 +86,17 @@ class Context:
     def shape(self) -> Tuple[int, int]:
         return (len(self.rows), len(self.columns))
 
-    def filter(self, by: Type[BitSet]) -> Iterator[Type[BitSet]]:
-        if isinstance(by, self._Objects):
-            filter_target = self.rows
-        elif isinstance(by, self._Attributes):
-            filter_target = self.columns
+    def filter(self, items: list = None, axis: int = 0) -> Iterator[Type[BitSet]]:
+        if axis == 0:
+            target = self.rows
+            data_class = self._Objects
+        elif axis == 1:
+            target = self.columns
+            data_class = self._Attributes
         else:
-            raise ValueError
+            ValueError("Axis should be 0 or 1.")
 
-        return compress(filter_target, by.bools())
+        return compress(target, data_class(items).bools())
 
     def __arrow_operator(self, input_set: Type[BitSet], data: tuple, ResultClass) -> Type[BitSet]:
         """Experimental implementation based on:

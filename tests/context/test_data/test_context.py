@@ -29,8 +29,8 @@ def test_context_filter_rows():
 
     context = Context(bools, objects, attributes)
 
-    assert tuple(context.filter(context._Objects.frommembers(
-        ['a'])))[0] == context._Attributes.frommembers(['2'])
+    assert tuple(context.filter(['a']))[
+        0] == context._Attributes.frommembers(['2'])
 
 
 def test_context_filter_columns():
@@ -40,8 +40,8 @@ def test_context_filter_columns():
 
     context = Context(bools, objects, attributes)
 
-    assert tuple(context.filter(context._Attributes.frommembers(
-        ['1'])))[0] == context._Objects.frommembers(['b'])
+    assert tuple(context.filter(['1'], axis=1))[
+        0] == context._Objects.frommembers(['b'])
 
 
 def test_context_bools_shape():
