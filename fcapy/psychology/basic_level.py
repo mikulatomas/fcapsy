@@ -10,6 +10,7 @@
 
 from .cohesion import cohesion_min, cohesion_avg
 from fcapy.decorators import metadata
+from fcapy.utils import iterator_mean
 import operator
 
 
@@ -57,7 +58,7 @@ def _alpha2(concept, context, upper_neighbors, cohesion_function, similarity_fun
         neighbor, context, similarity_function) / concept_cohesion, neighbors_filtered)
 
     if variant == 'avg':
-        intermediate_result = sum(cohesion_ratio) / len(neighbors_filtered)
+        intermediate_result = iterator_mean(cohesion_ratio)
     else:
         intermediate_result = max(cohesion_ratio)
 
@@ -82,7 +83,7 @@ def _alpha3(concept, context, lower_neighbors, cohesion_function, similarity_fun
         neighbor, context, similarity_function), neighbors_filtered)
 
     if variant == 'avg':
-        intermediate_result = sum(cohesion_ratio) / len(neighbors_filtered)
+        intermediate_result = iterator_mean(cohesion_ratio)
     else:
         intermediate_result = min(cohesion_ratio)
 
@@ -96,7 +97,7 @@ def _bl_helper(concept, context, upper_neighbors, lower_neighbors, cohesion_func
                      cohesion_function, similarity_function, variant)
     alpha3 = _alpha3(concept, context, lower_neighbors,
                      cohesion_function, similarity_function, variant)
-
+    print(alpha1, alpha2, alpha3)
     return alpha1 * alpha2 * alpha3
 
 
