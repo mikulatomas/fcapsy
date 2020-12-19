@@ -14,7 +14,7 @@ def test_cohesion_singleton_min(similarity_function):
 
     context = Context(bools, range(3), range(3))
 
-    concept = Concept.from_extent_members([2], context)
+    concept = Concept.from_extent([2], context)
 
     assert cohesion_min(concept, context, similarity_function) == 1
 
@@ -29,7 +29,7 @@ def test_cohesion_min(similarity_function):
 
     context = Context(bools, range(3), range(3))
 
-    concept = Concept.from_extent_members([0, 1], context)
+    concept = Concept.from_extent([0, 1], context)
 
     rows = tuple(context.filter(concept.extent))
 
@@ -52,7 +52,7 @@ def test_cohesion_min_2(similarity_function):
 
     context = Context(bools, range(3), range(3))
 
-    concept = Concept.from_extent_members([0, 1, 2], context)
+    concept = Concept.from_extent([0, 1, 2], context)
 
     rows = tuple(context.filter(concept.extent))
 

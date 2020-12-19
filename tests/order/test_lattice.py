@@ -61,7 +61,7 @@ expected_order = {
 def test_lattice_concepts():
     lattice = Lattice(context)
 
-    expected_concepts = [Concept.from_intent_members(intent, context)
+    expected_concepts = [Concept.from_intent(intent, context)
                          for intent in expected_intents]
 
     for concept in lattice.concepts:
@@ -74,12 +74,12 @@ def test_lattice_order():
     lattice = Lattice(context)
 
     for intent, neighbors in expected_order.items():
-        concept = Concept.from_intent_members(intent, context)
+        concept = Concept.from_intent(intent, context)
 
         for lower in neighbors['lower']:
-            assert concept.from_intent_members(
+            assert concept.from_intent(
                 lower, context) in lattice[concept].lower
 
         for upper in neighbors['upper']:
-            assert concept.from_intent_members(
+            assert concept.from_intent(
                 upper, context) in lattice[concept].upper
