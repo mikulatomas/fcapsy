@@ -1,14 +1,17 @@
 # Typicality implementation
 #
-# Rosch, Eleanor, and Carolyn B. Mervis. "Family resemblances: Studies in the internal structure of categories."
+# Rosch, Eleanor, and Carolyn B. Mervis.
+# "Family resemblances: Studies in the internal structure of categories."
 # Cognitive psychology 7.4 (1975): 573-605.
 #
-# Belohlavek, Radim, and Tomas Mikula. "Typicality in conceptual structures within the framework of formal concept analysis."
+# Belohlavek, Radim, and Tomas Mikula.
+# "Typicality in conceptual structures within the framework of formal concept analysis."
+
+import math
 
 from itertools import compress
 from fcapy.decorators import metadata
 from fcapy.utils import iterator_mean
-import math
 
 
 def _calculate_similarities(item, items_to_compare, similarity_function):

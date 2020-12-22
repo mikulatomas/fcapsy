@@ -30,7 +30,7 @@ def test_context_filter_rows():
     context = Context(bools, objects, attributes)
 
     assert tuple(context.filter(['a']))[
-        0] == context._Attributes.frommembers(['2'])
+        0] == context.Attributes.frommembers(['2'])
 
 
 def test_context_filter_columns():
@@ -41,7 +41,7 @@ def test_context_filter_columns():
     context = Context(bools, objects, attributes)
 
     assert tuple(context.filter(['1'], axis=1))[
-        0] == context._Objects.frommembers(['b'])
+        0] == context.Objects.frommembers(['b'])
 
 
 def test_context_bools_shape():
@@ -71,8 +71,8 @@ def test_context_up():
 
     context = Context(bools, objects, attributes)
 
-    assert context.up(context._Objects.frommembers(
-        'a')) == context._Attributes.frommembers('2')
+    assert context.up(context.Objects.frommembers(
+        'a')) == context.Attributes.frommembers('2')
 
 
 def test_context_up_empty():
@@ -82,7 +82,7 @@ def test_context_up_empty():
 
     context = Context(bools, objects, attributes)
 
-    assert context.up(context._Objects.infimum) == context._Attributes.supremum
+    assert context.up(context.Objects.infimum) == context.Attributes.supremum
 
 
 def test_context_down():
@@ -92,8 +92,8 @@ def test_context_down():
 
     context = Context(bools, objects, attributes)
 
-    assert context.down(context._Attributes.frommembers(
-        '2')) == context._Objects.frommembers(['a', 'b'])
+    assert context.down(context.Attributes.frommembers(
+        '2')) == context.Objects.frommembers(['a', 'b'])
 
 
 def test_context_down_empty():
@@ -104,4 +104,4 @@ def test_context_down_empty():
     context = Context(bools, objects, attributes)
 
     assert context.down(
-        context._Attributes.infimum) == context._Objects.supremum
+        context.Attributes.infimum) == context.Objects.supremum

@@ -15,17 +15,17 @@ context = Context(bools, object_labels, attribute_labels)
 
 
 def test_upper_neighbors():
-    concept = Concept(context._Objects.frommembers(
-        [1, 3]), context._Attributes.frommembers([0, 1]))
+    concept = Concept(context.Objects.frommembers(
+        [1, 3]), context.Attributes.frommembers([0, 1]))
 
     upper_concepts = tuple(upper_neighbors(context, concept))
     expected_concepts = [
         Concept(
-            context._Objects.frommembers([1, 2, 3]),
-            context._Attributes.frommembers([1])),
+            context.Objects.frommembers([1, 2, 3]),
+            context.Attributes.frommembers([1])),
         Concept(
-            context._Objects.frommembers([0, 1, 3]),
-            context._Attributes.frommembers([0]))
+            context.Objects.frommembers([0, 1, 3]),
+            context.Attributes.frommembers([0]))
     ]
 
     assert len(upper_concepts) == 2
@@ -34,14 +34,14 @@ def test_upper_neighbors():
 
 
 def test_lower_neighbors():
-    concept = Concept(context._Objects.frommembers(
-        [1, 3]), context._Attributes.frommembers([0, 1]))
+    concept = Concept(context.Objects.frommembers(
+        [1, 3]), context.Attributes.frommembers([0, 1]))
 
     lower_concepts = tuple(lower_neighbors(context, concept))
     expected_concepts = [
         Concept(
-            context._Objects.frommembers([1]),
-            context._Attributes.frommembers([0, 1, 2])),
+            context.Objects.frommembers([1]),
+            context.Attributes.frommembers([0, 1, 2])),
     ]
 
     assert len(lower_concepts) == 1

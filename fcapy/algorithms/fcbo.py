@@ -1,6 +1,7 @@
-from fcapy import Concept, Context
 from collections import deque
 from copy import copy
+
+from fcapy import Concept, Context
 from fcapy.decorators import metadata
 
 
@@ -8,13 +9,13 @@ from fcapy.decorators import metadata
 def fcbo(context: Context) -> list:
     """Calculates all concept of given concept"""
 
-    initial_concept = Concept(context._Objects.supremum,
-                              context.up(context._Objects.supremum))
+    initial_concept = Concept(context.Objects.supremum,
+                              context.up(context.Objects.supremum))
 
-    Attributes = context._Attributes
-    Objects = context._Objects
+    Attributes = context.Attributes
+    Objects = context.Objects
 
-    attribute_count = context._Attributes.supremum.count()
+    attribute_count = context.Attributes.supremum.count()
     concepts = []
     attribute_sets = [0] * attribute_count
 

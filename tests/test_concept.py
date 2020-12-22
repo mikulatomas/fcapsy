@@ -28,11 +28,11 @@ def test_concept_from_intent():
     context = Context(bools, objects, attributes)
 
     expected_concept = Concept(
-        context._Objects.frommembers(['b']),
-        context._Attributes.frommembers(['1', '2']))
+        context.Objects.frommembers(['b']),
+        context.Attributes.frommembers(['1', '2']))
 
     concept = Concept.from_intent(
-        context._Attributes.frommembers(['1']), context)
+        context.Attributes.frommembers(['1']), context)
 
     assert concept == expected_concept
 
@@ -45,8 +45,8 @@ def test_concept_from_intent2():
     context = Context(bools, objects, attributes)
 
     expected_concept = Concept(
-        context._Objects.frommembers(['b']),
-        context._Attributes.frommembers(['1', '2']))
+        context.Objects.frommembers(['b']),
+        context.Attributes.frommembers(['1', '2']))
 
     concept = Concept.from_intent(['1'], context)
 
@@ -61,11 +61,11 @@ def test_concept_from_extent():
     context = Context(bools, objects, attributes)
 
     expected_concept = Concept(
-        context._Objects.frommembers(['b']),
-        context._Attributes.frommembers(['1', '2']))
+        context.Objects.frommembers(['b']),
+        context.Attributes.frommembers(['1', '2']))
 
     concept = Concept.from_extent(
-        context._Objects.frommembers(['b']), context)
+        context.Objects.frommembers(['b']), context)
 
     assert concept == expected_concept
 
@@ -78,8 +78,8 @@ def test_concept_from_extent2():
     context = Context(bools, objects, attributes)
 
     expected_concept = Concept(
-        context._Objects.frommembers(['b']),
-        context._Attributes.frommembers(['1', '2']))
+        context.Objects.frommembers(['b']),
+        context.Attributes.frommembers(['1', '2']))
 
     concept = Concept.from_extent(['b'], context)
 

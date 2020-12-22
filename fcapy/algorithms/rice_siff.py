@@ -1,6 +1,7 @@
+from itertools import combinations
+
 from fcapy.decorators import metadata
 from fcapy import Concept, Context
-from itertools import combinations
 
 
 @metadata(name='RiceSiffConcepts', short_name='RSConcepts')
@@ -11,12 +12,12 @@ def concept_subset(context: Context, similarity_measure) -> list:
     Electronic Notes in Theoretical Computer Science 40 (2001): 323-346.
     """
 
-    init_intent = context._Attributes.supremum
+    init_intent = context.Attributes.supremum
     init_extent = context.down(init_intent)
 
     init_concept = Concept(init_extent, init_intent)
 
-    atoms = context._Objects.supremum.atoms()
+    atoms = context.Objects.supremum.atoms()
 
     # init worklist with all atoms
     worklist = set(
@@ -45,8 +46,6 @@ def concept_subset(context: Context, similarity_measure) -> list:
         # flatten pairs and transform them to set
         concepts_from_pairs = set(
             [concept for concept_pair in concept_pairs_min_distance for concept in concept_pair])
-
-        new_concepts = set()
 
         # calculate new concepts and add them to worklist and result concepts
         for concept_tuple in concept_pairs_min_distance:

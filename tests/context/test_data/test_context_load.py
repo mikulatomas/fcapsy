@@ -25,9 +25,9 @@ def test_context_from_fimi(data_file, json_file):
         expected_json = json.load(f)
 
     # Compare
-    assert list(context._Attributes.supremum.members(
+    assert list(context.Attributes.supremum.members(
     )) == expected_json['attributes']
-    assert list(context._Objects.supremum.members(
+    assert list(context.Objects.supremum.members(
     )) == expected_json['objects']
     assert tuple(context.to_bools()) == tuple(
         map(tuple, expected_json['bools']))
@@ -52,9 +52,9 @@ def test_context_from_csv(data_file, json_file):
         expected_json = json.load(f)
 
     # Compare
-    assert list(context._Attributes.supremum.members(
+    assert list(context.Attributes.supremum.members(
     )) == expected_json['attributes']
-    assert list(context._Objects.supremum.members(
+    assert list(context.Objects.supremum.members(
     )) == expected_json['objects']
     assert tuple(context.to_bools()) == tuple(
         map(tuple, expected_json['bools']))
@@ -79,9 +79,9 @@ def test_context_from_csv_delimiter(data_file, json_file):
         expected_json = json.load(f)
 
     # Compare
-    assert list(context._Attributes.supremum.members(
+    assert list(context.Attributes.supremum.members(
     )) == expected_json['attributes']
-    assert list(context._Objects.supremum.members(
+    assert list(context.Objects.supremum.members(
     )) == expected_json['objects']
     assert tuple(context.to_bools()) == tuple(
         map(tuple, expected_json['bools']))

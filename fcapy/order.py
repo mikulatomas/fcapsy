@@ -1,9 +1,9 @@
-from fcapy import Concept
-from fcapy.algorithms.lindig import upper_neighbors
 from collections import deque, namedtuple
 from collections.abc import Mapping
-from functools import reduce
-from typing import Iterator
+
+from fcapy import Concept
+from fcapy.algorithms.lindig import upper_neighbors
+
 
 LatticeNode = namedtuple("LatticeNode", ["upper", "lower"])
 
@@ -18,7 +18,7 @@ class Lattice(Mapping):
     def __init__(self, context):
         self._mapping = {}
 
-        init_intent = context._Attributes.supremum
+        init_intent = context.Attributes.supremum
         init_extent = context.down(init_intent)
 
         init_concept = Concept(init_extent, init_intent)

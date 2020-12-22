@@ -1,5 +1,6 @@
-from bitsets.bases import BitSet
 from typing import Type
+
+from bitsets.bases import BitSet
 from fcapy.context import Context
 
 
@@ -10,13 +11,13 @@ class Concept:
 
     @classmethod
     def from_intent(cls, intent, context: Context):
-        intent = context._Attributes(intent)
+        intent = context.Attributes(intent)
         extent = context.down(intent)
         return cls(extent, context.up(extent))
 
     @classmethod
     def from_extent(cls, extent, context: Context):
-        extent = context._Objects(extent)
+        extent = context.Objects(extent)
         intent = context.up(extent)
         return cls(context.down(intent), intent)
 

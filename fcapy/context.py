@@ -1,18 +1,19 @@
-from itertools import compress
-from bitsets.bases import BitSet
-from typing import Type, Tuple, Iterator
-from bitsets import bitset
 import csv
 import random
+from typing import Type, Tuple, Iterator
+from itertools import compress
+
+from bitsets.bases import BitSet
+from bitsets import bitset
 
 
 class Context:
     def __init__(self, matrix: list, objects_labels: list, attributes_labels: list):
-        self._Objects = bitset('Objects', objects_labels)
-        self._Attributes = bitset('Attributes', attributes_labels)
+        self.Objects = bitset('Objects', objects_labels)
+        self.Attributes = bitset('Attributes', attributes_labels)
 
-        self.rows = tuple(map(self._Attributes.frombools, matrix))
-        self.columns = tuple(map(self._Objects.frombools, zip(*matrix)))
+        self.rows = tuple(map(self.Attributes.frombools, matrix))
+        self.columns = tuple(map(self.Objects.frombools, zip(*matrix)))
 
     def __repr__(self):
         return "Context({}x{})".format(len(self.rows), len(self.columns))
@@ -29,7 +30,8 @@ class Context:
         return cls(dataframe.values, tuple(dataframe.index), tuple(dataframe.columns))
 
     @classmethod
-    def from_csv(cls, filename: str, objects_labels: list = [], attribute_labels: list = [], delimiter: str = ','):
+    def from_csv(cls, filename: str, objects_labels: list = [],
+                 attribute_labels: list = [], delimiter: str = ','):
         with open(filename, 'r') as file:
             csv_reader = csv.reader(file, delimiter=delimiter)
 
@@ -80,7 +82,7 @@ class Context:
         return cls(bools, objects_labels, attribute_labels)
 
     def to_bools(self) -> Iterator[tuple]:
-        return map(self._Attributes.bools, self.rows)
+        return map(self.Attributes.bools, self.rows)
 
     @property
     def shape(self) -> Tuple[int, int]:
@@ -89,10 +91,10 @@ class Context:
     def filter(self, items: list = None, axis: int = 0) -> Iterator[Type[BitSet]]:
         if axis == 0:
             target = self.rows
-            data_class = self._Objects
+            data_class = self.Objects
         elif axis == 1:
             target = self.columns
-            data_class = self._Attributes
+            data_class = self.Attributes
         else:
             ValueError("Axis should be 0 or 1.")
 
@@ -121,7 +123,7 @@ class Context:
         return ResultClass.fromint(result)
 
     def up(self, objects: Type[BitSet]) -> Type[BitSet]:
-        return self.__arrow_operator(objects, self.rows, self._Attributes)
+        return self.__arrow_operator(objects, self.rows, self.Attributes)
 
     def down(self, attributes: Type[BitSet]) -> Type[BitSet]:
-        return self.__arrow_operator(attributes, self.columns, self._Objects)
+        return self.__arrow_operator(attributes, self.columns, self.Objects)

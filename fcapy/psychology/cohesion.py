@@ -1,13 +1,17 @@
 # Cohesion implementation
 #
-# Belohlavek, Radim, and Martin Trnecka. "Basic level in formal concept analysis: Interesting concepts and psychological ramifications."
+# Belohlavek, Radim, and Martin Trnecka.
+# "Basic level in formal concept analysis: Interesting concepts and psychological ramifications."
 # Twenty-Third International Joint Conference on Artificial Intelligence. 2013.
 #
-# Belohlavek, Radim, and Martin Trnecka. "Basic level of concepts in formal concept analysis."
+# Belohlavek, Radim, and Martin Trnecka.
+# "Basic level of concepts in formal concept analysis."
 # International Conference on Formal Concept Analysis. Springer, Berlin, Heidelberg, 2012.
 
 # New cohesion implementation from
-# Belohlavek, Radim, and Martin Trnecka. "Basic level of concepts in formal concept analysis 1: formalization and utilization." International Journal of General Systems(2020): 1 - 18.
+# Belohlavek, Radim, and Martin Trnecka.
+# "Basic level of concepts in formal concept analysis 1: formalization and utilization."
+# International Journal of General Systems(2020): 1 - 18.
 
 from itertools import combinations
 from fcapy.decorators import metadata
