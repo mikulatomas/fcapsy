@@ -1,35 +1,34 @@
 import pytest
 from bitsets import bitset
+from fcapy import Concept, Context
 from fcapy.psychology.typicality import typicality_avg
 from fcapy.similarity.objects import jaccard, smc, rosch
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
 def test_typicality_avg_1(similarity_function):
-    Attributes = bitset('Attributes', range(4))
+    context = Context.from_random(1, 4)
+    concept = Concept.from_extent([0], context)
 
-    objects = [
-        Attributes.frommembers([0, 1, 2, 3]),
-    ]
+    similarities = (similarity_function(
+        next(context.filter([0])), next(context.filter([0]))),)
 
-    similarities = (similarity_function(objects[0], objects[0]),)
+    expected = sum(similarities)
 
-    expected = sum(similarities) / len(objects)
-
-    assert typicality_avg(objects[0], objects,
-                          similarity_function) == expected
+    assert typicality_avg(0, concept, context, similarity_function) == expected
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
 def test_typicality_avg_2(similarity_function):
-    Attributes = bitset('Attributes', range(4))
 
-    objects = [
-        Attributes.frommembers([0]),
-        Attributes.frommembers([1]),
-        Attributes.frommembers([2]),
-        Attributes.frommembers([3]),
-    ]
+    context = Context([[1, 0, 0, 0],
+                       [0, 1, 0, 0],
+                       [0, 0, 1, 0],
+                       [0, 0, 0, 1]], range(4), range(4))
+
+    concept = Concept.from_extent(list(range(4)), context)
+
+    objects = tuple(context.filter(concept.extent))
 
     similarities = (similarity_function(objects[0], objects[0]),
                     similarity_function(objects[0], objects[1]),
@@ -38,19 +37,18 @@ def test_typicality_avg_2(similarity_function):
 
     expected = sum(similarities) / len(objects)
 
-    assert typicality_avg(objects[0], objects,
-                          similarity_function) == expected
+    assert typicality_avg(0, concept, context, similarity_function) == expected
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
 def test_typicality_avg_3(similarity_function):
-    Attributes = bitset('Attributes', range(4))
+    context = Context([[1, 1, 1, 1],
+                       [1, 0, 1, 0],
+                       [0, 0, 0, 1]], range(3), range(4))
 
-    objects = [
-        Attributes.frommembers([0, 1, 2, 3]),
-        Attributes.frommembers([0, 2]),
-        Attributes.frommembers([3])
-    ]
+    concept = Concept.from_extent(list(range(3)), context)
+
+    objects = tuple(context.filter(concept.extent))
 
     similarities = (similarity_function(objects[0], objects[0]),
                     similarity_function(objects[0], objects[1]),
@@ -58,23 +56,21 @@ def test_typicality_avg_3(similarity_function):
 
     expected = sum(similarities) / len(objects)
 
-    assert typicality_avg(objects[0], objects,
-                          similarity_function) == expected
+    assert typicality_avg(0, concept, context, similarity_function) == expected
 
 
 @pytest.mark.parametrize("similarity_function", [smc, rosch])
 def test_typicality_avg_4(similarity_function):
-    Attributes = bitset('Attributes', range(4))
+    context = Context([[0, 0, 0, 0],
+                       [1, 1, 1, 1]], range(2), range(4))
 
-    objects = [
-        Attributes.frommembers([]),
-        Attributes.frommembers([0, 1, 2, 3]),
-    ]
+    concept = Concept.from_extent(list(range(2)), context)
+
+    objects = tuple(context.filter(concept.extent))
 
     similarities = (similarity_function(objects[0], objects[0]),
                     similarity_function(objects[0], objects[1]))
 
     expected = sum(similarities) / len(objects)
 
-    assert typicality_avg(objects[0], objects,
-                          similarity_function) == expected
+    assert typicality_avg(0, concept, context, similarity_function) == expected

@@ -7,77 +7,75 @@ import math
 
 
 def test_typicality_rosch_1():
-    Attributes = bitset('Attributes', range(4))
+    context = Context([[1, 1, 1, 1]], range(1), range(4))
 
-    objects = [
-        Attributes.frommembers([0, 1, 2, 3]),
-    ]
+    concept = Concept.from_extent(range(0), context)
 
     weights = [1, 1, 1, 1]
 
-    assert typicality_rosch(objects[0], objects) == sum(weights)
+    assert typicality_rosch(0, concept, context) == sum(weights)
 
-    assert typicality_rosch_ln(objects[0], objects) == sum(
+    assert typicality_rosch_ln(0, concept, context) == sum(
         [math.log(x) for x in weights])
 
 
 def test_typicality_rosch_2():
-    Attributes = bitset('Attributes', range(4))
+    context = Context([[1, 0, 0, 0],
+                       [0, 1, 0, 0],
+                       [0, 0, 1, 0],
+                       [0, 0, 0, 1]], range(4), range(4))
 
-    objects = [
-        Attributes.frommembers([0]),
-        Attributes.frommembers([1]),
-        Attributes.frommembers([2]),
-        Attributes.frommembers([3]),
-    ]
+    concept = Concept.from_extent(list(range(4)), context)
+
+    objects = tuple(context.filter(concept.extent))
 
     weights = [1, 1, 1, 1]
 
-    assert typicality_rosch(objects[0], objects) == sum(
+    assert typicality_rosch(0, concept, context) == sum(
         compress(weights, objects[0].bools()))
 
-    assert typicality_rosch_ln(objects[0], objects) == sum(
+    assert typicality_rosch_ln(0, concept, context) == sum(
         compress([math.log(x) for x in weights], objects[0].bools()))
 
 
 def test_typicality_rosch_3():
-    Attributes = bitset('Attributes', range(4))
+    context = Context([[1, 1, 1, 1],
+                       [1, 0, 1, 0],
+                       [0, 0, 0, 1]], range(3), range(4))
 
-    objects = [
-        Attributes.frommembers([0, 1, 2, 3]),
-        Attributes.frommembers([0, 2]),
-        Attributes.frommembers([3])
-    ]
+    concept = Concept.from_extent(list(range(3)), context)
+
+    objects = tuple(context.filter(concept.extent))
 
     weights = [2, 1, 2, 2]
 
-    assert typicality_rosch(objects[0], objects) == sum(
+    assert typicality_rosch(0, concept, context) == sum(
         compress(weights, objects[0].bools()))
-    assert typicality_rosch(objects[1], objects) == sum(
+    assert typicality_rosch(1, concept, context) == sum(
         compress(weights, objects[1].bools()))
-    assert typicality_rosch(objects[2], objects) == sum(
+    assert typicality_rosch(2, concept, context) == sum(
         compress(weights, objects[2].bools()))
 
-    assert typicality_rosch_ln(objects[0], objects) == sum(
+    assert typicality_rosch_ln(0, concept, context) == sum(
         compress([math.log(x) for x in weights], objects[0].bools()))
-    assert typicality_rosch_ln(objects[1], objects) == sum(
+    assert typicality_rosch_ln(1, concept, context) == sum(
         compress([math.log(x) for x in weights], objects[1].bools()))
-    assert typicality_rosch_ln(objects[2], objects) == sum(
+    assert typicality_rosch_ln(2, concept, context) == sum(
         compress([math.log(x) for x in weights], objects[2].bools()))
 
 
 def test_typicality_rosch_4():
-    Attributes = bitset('Attributes', range(4))
+    context = Context([[0, 0, 0, 0],
+                       [1, 1, 1, 1]], range(2), range(4))
 
-    objects = [
-        Attributes.frommembers([]),
-        Attributes.frommembers([0, 1, 2, 3]),
-    ]
+    concept = Concept.from_extent(list(range(2)), context)
+
+    objects = tuple(context.filter(concept.extent))
 
     weights = [1, 1, 1, 1]
 
-    assert typicality_rosch(objects[0], objects) == sum(
+    assert typicality_rosch(0, concept, context) == sum(
         compress(weights, objects[0].bools()))
 
-    assert typicality_rosch_ln(objects[0], objects) == sum(
+    assert typicality_rosch_ln(0, concept, context) == sum(
         compress([math.log(x) for x in weights], objects[0].bools()))
