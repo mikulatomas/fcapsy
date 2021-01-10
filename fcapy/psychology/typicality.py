@@ -30,7 +30,7 @@ def typicality_avg(item, concept, context, similarity_function):
 
 @metadata(name='Average Inner Typicality without Intent', short_name='TypØI')
 def typicality_avg_without_intent(item, concept, context, similarity_function):
-    item = tuple(context.filter([item]))[0]
+    item = next(context.filter([item]))
 
     item = item.difference(concept.intent)
 
@@ -45,7 +45,7 @@ def typicality_avg_without_intent(item, concept, context, similarity_function):
 
 @metadata(name='Minimal Inner Typicality', short_name='Typ_min')
 def typicality_min(item, concept, context, similarity_function):
-    item = tuple(context.filter([item]))[0]
+    item = next(context.filter([item]))
 
     similarities = _calculate_similarities(
         item, context.filter(concept.extent), similarity_function)
@@ -60,7 +60,7 @@ def _calculate_weights(objects):
 
 @metadata(name='Rosch Inner Typicality', short_name='Typ_rosch')
 def typicality_rosch(item, concept, context):
-    item = tuple(context.filter([item]))[0]
+    item = next(context.filter([item]))
 
     weights = _calculate_weights(context.filter(concept.extent))
 
@@ -69,7 +69,7 @@ def typicality_rosch(item, concept, context):
 
 @metadata(name='Rosch Logarithm Inner Typicality', short_name='Typ_rosch_ln')
 def typicality_rosch_ln(item, concept, context):
-    item = tuple(context.filter([item]))[0]
+    item = next(context.filter([item]))
 
     weights = _calculate_weights(context.filter(concept.extent))
     weights = map(lambda x: math.log(x) if x != 0 else -math.inf, weights)
