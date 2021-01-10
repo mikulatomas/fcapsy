@@ -5,17 +5,12 @@ from fcapy.psychology.typicality import typicality_avg
 from fcapy.similarity.objects import jaccard, smc, rosch
 
 
-@pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
+@pytest.mark.parametrize("similarity_function", [jaccard, smc])
 def test_typicality_avg_1(similarity_function):
     context = Context.from_random(1, 4)
     concept = Concept.from_extent([0], context)
 
-    similarities = (similarity_function(
-        next(context.filter([0])), next(context.filter([0]))),)
-
-    expected = sum(similarities)
-
-    assert typicality_avg(0, concept, context, similarity_function) == expected
+    assert typicality_avg(0, concept, context, similarity_function) == 1
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
