@@ -7,13 +7,13 @@ from fcapy.similarity.objects import jaccard, smc, rosch
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc])
 def test_typicality_avg_1(similarity_function):
-    context = Context.from_random(1, 4)
+    context = Context([[1, 0, 0, 0]], range(1), range(4))
     concept = Concept.from_extent([0], context)
 
     assert typicality_avg(0, concept, context, similarity_function) == 1
 
 
-@pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
+@ pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
 def test_typicality_avg_2(similarity_function):
 
     context = Context([[1, 0, 0, 0],
@@ -35,7 +35,7 @@ def test_typicality_avg_2(similarity_function):
     assert typicality_avg(0, concept, context, similarity_function) == expected
 
 
-@pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
+@ pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
 def test_typicality_avg_3(similarity_function):
     context = Context([[1, 1, 1, 1],
                        [1, 0, 1, 0],
@@ -54,7 +54,7 @@ def test_typicality_avg_3(similarity_function):
     assert typicality_avg(0, concept, context, similarity_function) == expected
 
 
-@pytest.mark.parametrize("similarity_function", [smc, rosch])
+@ pytest.mark.parametrize("similarity_function", [smc, rosch])
 def test_typicality_avg_4(similarity_function):
     context = Context([[0, 0, 0, 0],
                        [1, 1, 1, 1]], range(2), range(4))
