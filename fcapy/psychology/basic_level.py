@@ -106,7 +106,7 @@ def _bl_helper(concept, context, upper_neighbors, lower_neighbors,
                      cohesion_function, similarity_function, variant)
     alpha3 = _alpha3(concept, context, lower_neighbors,
                      cohesion_function, similarity_function, variant)
-    print(alpha1, alpha2, alpha3)
+
     return alpha1 * alpha2 * alpha3
 
 
