@@ -105,3 +105,23 @@ def test_context_down_empty():
 
     assert context.down(
         context.Attributes.infimum) == context.Objects.supremum
+
+
+def test_context_density():
+    bools = ((0, 1), (1, 0))
+    objects = ('a', 'b')
+    attributes = ('1', '2')
+
+    context = Context(bools, objects, attributes)
+
+    assert context.density == 0.5
+
+
+def test_context_density2():
+    bools = ((0, 1), (1, 1))
+    objects = ('a', 'b')
+    attributes = ('1', '2')
+
+    context = Context(bools, objects, attributes)
+
+    assert context.density == 3 / 4

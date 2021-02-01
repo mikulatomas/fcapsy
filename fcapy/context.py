@@ -85,6 +85,11 @@ class Context:
         return map(self.Attributes.bools, self.rows)
 
     @property
+    def density(self) -> float:
+        return sum([sum(row.bools()) for row in self.rows]) / \
+            (self.shape[0] * self.shape[1])
+
+    @property
     def shape(self) -> Tuple[int, int]:
         return (len(self.rows), len(self.columns))
 
