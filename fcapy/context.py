@@ -8,14 +8,17 @@ from bitsets import bitset
 
 
 class Context:
-    def __init__(self, matrix: list, objects_labels: list, attributes_labels: list):
+    def __init__(self, matrix: list, objects_labels: list, attributes_labels: list, name: str = None):
         self.Objects = bitset('Objects', objects_labels)
         self.Attributes = bitset('Attributes', attributes_labels)
 
         self.rows = tuple(map(self.Attributes.frombools, matrix))
         self.columns = tuple(map(self.Objects.frombools, zip(*matrix)))
+        self.name = name
 
     def __repr__(self):
+        if self.name:
+            return "Context({}, {}x{})".format(self.name, len(self.rows), len(self.columns))
         return "Context({}x{})".format(len(self.rows), len(self.columns))
 
     @classmethod
@@ -26,12 +29,12 @@ class Context:
         return cls(matrix, tuple(range(number_of_objects)), tuple(range(number_of_attributes)))
 
     @classmethod
-    def from_pandas(cls, dataframe):
-        return cls(dataframe.values, tuple(dataframe.index), tuple(dataframe.columns))
+    def from_pandas(cls, dataframe, name: str = None):
+        return cls(dataframe.values, tuple(dataframe.index), tuple(dataframe.columns), name=name)
 
     @classmethod
     def from_csv(cls, filename: str, objects_labels: list = [],
-                 attribute_labels: list = [], delimiter: str = ','):
+                 attribute_labels: list = [], delimiter: str = ',', name: str = None):
         with open(filename, 'r') as file:
             csv_reader = csv.reader(file, delimiter=delimiter)
 
@@ -50,10 +53,10 @@ class Context:
             if not objects_labels:
                 objects_labels = labels
 
-        return cls(bools, tuple(objects_labels), tuple(attribute_labels))
+        return cls(bools, tuple(objects_labels), tuple(attribute_labels), name=name)
 
     @classmethod
-    def from_fimi(cls, filename: str, objects_labels: list = None, attribute_labels: list = None):
+    def from_fimi(cls, filename: str, objects_labels: list = None, attribute_labels: list = None, name: str = None):
         with open(filename, 'r') as file:
             max_attribute = 0
             rows = []
@@ -79,7 +82,7 @@ class Context:
         if attribute_labels is None:
             attribute_labels = tuple(map(str, range(len(bools[0]))))
 
-        return cls(bools, objects_labels, attribute_labels)
+        return cls(bools, objects_labels, attribute_labels, name=name)
 
     def to_bools(self) -> Iterator[tuple]:
         return map(self.Attributes.bools, self.rows)
