@@ -117,7 +117,7 @@ class Context:
 
         while i < len(data):
             if input_set:
-                trailing_zeros = (input_set ^ (input_set - 1)).bit_length() - 1
+                trailing_zeros = (input_set & -input_set).bit_length() - 1
                 if trailing_zeros:
                     input_set >>= trailing_zeros
                     i += trailing_zeros
