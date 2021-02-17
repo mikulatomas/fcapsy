@@ -1,0 +1,28 @@
+import pytest
+from bitsets import bitset
+from fcapy import Concept, Context
+from fcapy.psychology.typicality import typicality_avg_without_intent
+from fcapy.similarity.objects import jaccard, smc, rosch
+
+
+@pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
+def test_typicality_avg_without_intent_1(similarity_function):
+    context = Context([[1, 1, 0, 0],
+                       [0, 1, 0, 0],
+                       [0, 1, 1, 0],
+                       [0, 1, 0, 1]], range(4), range(4))
+
+    concept = Concept.from_extent(list(range(4)), context)
+
+    objects = tuple(map(lambda x: x.difference(
+        concept.intent), context.filter(concept.extent)))
+
+    similarities = (similarity_function(objects[0], objects[0]),
+                    similarity_function(objects[0], objects[1]),
+                    similarity_function(objects[0], objects[2]),
+                    similarity_function(objects[0], objects[3]))
+
+    expected = sum(similarities) / len(objects)
+
+    assert typicality_avg_without_intent(
+        0, concept, context, similarity_function) == expected
