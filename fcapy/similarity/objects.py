@@ -44,14 +44,6 @@ def overlap(attrs1, attrs2):
     return len(intersection) / min(len(attrs1), len(attrs2))
 
 
-@metadata(name='Tanimoto coefficient', short_name='Tanimoto')
-def tanimoto(attrs1, attrs2):
-
-    intersection = attrs1.fromint(attrs1 & attrs2)
-
-    return len(intersection) / (len(intersection) + len(attrs1.fromint(attrs1 & (~attrs2))) + len(attrs1.fromint(attrs2 & (~attrs1))))
-
-
 @metadata(name='Jaccard', short_name='J')
 def jaccard(attrs1, attrs2):
 
