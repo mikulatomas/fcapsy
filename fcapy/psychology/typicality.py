@@ -20,7 +20,7 @@ def _calculate_similarities(item, items_to_compare, similarity_function):
 
 @metadata(name='Average Typicality', short_name='TypØ')
 def typicality_avg(item, concept, context, similarity_function):
-    item = tuple(context.filter([item]))[0]
+    item = next(context.filter([item]))
 
     similarities = _calculate_similarities(
         item, context.filter(concept.extent), similarity_function)
