@@ -57,7 +57,7 @@ def typicality_avg_without_core(item, concept, context, similarity_function, axi
 
 @metadata(name='Minimal Typicality', short_name='Typ_min')
 def typicality_min(item, concept, context, similarity_function, axis=0):
-    item = next(context.filter([item]))
+    item = next(context.filter([item], axis=axis))
 
     item_set = concept.extent
 

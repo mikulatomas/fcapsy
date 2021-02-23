@@ -6,7 +6,7 @@ from fcapy.similarity import jaccard, smc, rosch
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
-def test_typicality_avg_without_core_1(similarity_function):
+def test_objs_typicality_avg_without_core_1(similarity_function):
     context = Context([[1, 1, 0, 0],
                        [0, 1, 0, 0],
                        [0, 1, 1, 0],

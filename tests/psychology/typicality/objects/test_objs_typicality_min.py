@@ -6,7 +6,7 @@ from fcapy.similarity import jaccard, smc, rosch
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc])
-def test_typicality_min_1(similarity_function):
+def test_objs_typicality_min_1(similarity_function):
     context = Context([[1, 0, 0, 0]], range(1), range(4))
     concept = Concept.from_extent([0], context)
 
@@ -14,7 +14,7 @@ def test_typicality_min_1(similarity_function):
 
 
 @ pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
-def test_typicality_min_2(similarity_function):
+def test_objs_typicality_min_2(similarity_function):
 
     context = Context([[1, 0, 0, 0],
                        [0, 1, 0, 0],
@@ -36,7 +36,7 @@ def test_typicality_min_2(similarity_function):
 
 
 @ pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])
-def test_typicality_min_3(similarity_function):
+def test_objs_typicality_min_3(similarity_function):
     context = Context([[1, 1, 1, 1],
                        [1, 0, 1, 0],
                        [0, 0, 0, 1]], range(3), range(4))
@@ -55,7 +55,7 @@ def test_typicality_min_3(similarity_function):
 
 
 @ pytest.mark.parametrize("similarity_function", [smc, rosch])
-def test_typicality_min_4(similarity_function):
+def test_objs_typicality_min_4(similarity_function):
     context = Context([[0, 0, 0, 0],
                        [1, 1, 1, 1]], range(2), range(4))
 
