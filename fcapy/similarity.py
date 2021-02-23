@@ -16,49 +16,49 @@ from fcapy.decorators import metadata
 
 
 @metadata(name='Simple Matching Coefficient', short_name='SMC')
-def smc(attrs1, attrs2):
+def smc(set1, set2):
 
-    intersection = attrs1.fromint(attrs1 & attrs2)
+    intersection = set1.fromint(set1 & set2)
 
-    union = attrs1.fromint(attrs1 | attrs2)
+    union = set1.fromint(set1 | set2)
 
-    universum = attrs1.supremum
+    universum = set1.supremum
     complement = universum.difference(union)
 
     return (len(intersection) + len(complement)) / len(universum)
 
 
 @metadata(name='Sørensen–Dice Coefficient', short_name='DSC')
-def dsc(attrs1, attrs2):
+def dsc(set1, set2):
 
-    intersection = attrs1.fromint(attrs1 & attrs2)
+    intersection = set1.fromint(set1 & set2)
 
-    return (2 * len(intersection)) / (len(attrs1) + len(attrs2))
+    return (2 * len(intersection)) / (len(set1) + len(set2))
 
 
 @metadata(name='Overlap Coefficient', short_name='Overlap')
-def overlap(attrs1, attrs2):
+def overlap(set1, set2):
 
-    intersection = attrs1.fromint(attrs1 & attrs2)
+    intersection = set1.fromint(set1 & set2)
 
-    return len(intersection) / min(len(attrs1), len(attrs2))
+    return len(intersection) / min(len(set1), len(set2))
 
 
 @metadata(name='Jaccard', short_name='J')
-def jaccard(attrs1, attrs2):
+def jaccard(set1, set2):
 
-    intersection = attrs1.fromint(attrs1 & attrs2)
+    intersection = set1.fromint(set1 & set2)
 
-    union = attrs1.fromint(attrs1 | attrs2)
+    union = set1.fromint(set1 | set2)
 
     return len(intersection) / len(union)
 
 
 @metadata(name='Rosch', short_name='R')
-def rosch(attrs1, attrs2):
+def rosch(set1, set2):
 
-    intersection = attrs1.fromint(attrs1 & attrs2)
+    intersection = set1.fromint(set1 & set2)
 
-    universum = attrs1.supremum
+    universum = set1.supremum
 
     return len(intersection) / len(universum)
