@@ -1,5 +1,5 @@
 from fcapy import Lattice, Context, Concept
-from fcapy.similarity.objects import jaccard
+from fcapy.similarity import jaccard
 from fcapy.algorithms.rice_siff import concept_subset
 
 object_labels = tuple(range(5))

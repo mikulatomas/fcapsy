@@ -1,6 +1,6 @@
 import pytest
 from bitsets import bitset
-from fcapy.similarity.objects import overlap
+from fcapy.similarity import overlap
 
 
 @pytest.fixture

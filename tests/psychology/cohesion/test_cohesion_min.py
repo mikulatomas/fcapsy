@@ -1,5 +1,5 @@
 import pytest
-from fcapy.similarity.objects import jaccard, smc, rosch
+from fcapy.similarity import jaccard, smc, rosch
 from fcapy.psychology.cohesion import cohesion_min
 from fcapy import Concept, Context
 
