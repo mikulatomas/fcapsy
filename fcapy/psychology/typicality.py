@@ -19,23 +19,35 @@ def _calculate_similarities(item, items_to_compare, similarity_function):
 
 
 @metadata(name='Average Typicality', short_name='TypØ')
-def typicality_avg(item, concept, context, similarity_function):
-    item = next(context.filter([item]))
+def typicality_avg(item, concept, context, similarity_function, axis=0):
+    item = next(context.filter([item], axis=axis))
+
+    item_set = concept.extent
+
+    if axis == 1:
+        item_set = concept.intent
 
     similarities = _calculate_similarities(
-        item, context.filter(concept.extent), similarity_function)
+        item, context.filter(item_set, axis=axis), similarity_function)
 
     return iterator_mean(similarities)
 
 
-@metadata(name='Average Typicality without Intent', short_name='TypØI')
-def typicality_avg_without_intent(item, concept, context, similarity_function):
-    item = next(context.filter([item]))
+@metadata(name='Average Typicality without Core', short_name='TypØC')
+def typicality_avg_without_core(item, concept, context, similarity_function, axis=0):
+    item = next(context.filter([item], axis=axis))
 
-    item = item.difference(concept.intent)
+    item_set = concept.extent
+    core_set = concept.intent
 
-    others = [row.difference(concept.intent)
-              for row in context.filter(concept.extent)]
+    if axis == 1:
+        item_set = concept.intent
+        core_set = concept.extent
+
+    item = item.difference(core_set)
+
+    others = [row.difference(core_set)
+              for row in context.filter(item_set, axis=axis)]
 
     similarities = _calculate_similarities(
         item, others, similarity_function)
@@ -44,11 +56,16 @@ def typicality_avg_without_intent(item, concept, context, similarity_function):
 
 
 @metadata(name='Minimal Typicality', short_name='Typ_min')
-def typicality_min(item, concept, context, similarity_function):
+def typicality_min(item, concept, context, similarity_function, axis=0):
     item = next(context.filter([item]))
 
+    item_set = concept.extent
+
+    if axis == 1:
+        item_set = concept.intent
+
     similarities = _calculate_similarities(
-        item, context.filter(concept.extent), similarity_function)
+        item, context.filter(item_set, axis=axis), similarity_function)
 
     return min(similarities)
 
