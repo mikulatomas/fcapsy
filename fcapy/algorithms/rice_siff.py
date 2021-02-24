@@ -39,13 +39,12 @@ def concept_subset(context: Context, similarity_measure) -> list:
         min_distance = min(distances)
 
         # get all possible pairs of concepts with minimal distance
-        concept_pairs_min_distance = set(
-            [concept_tuple for concept_tuple, distance in zip(
-                concept_combinations, distances) if distance == min_distance])
+        concept_pairs_min_distance = {concept_tuple for concept_tuple, distance in zip(
+            concept_combinations, distances) if distance == min_distance}
 
         # flatten pairs and transform them to set
-        concepts_from_pairs = set(
-            [concept for concept_pair in concept_pairs_min_distance for concept in concept_pair])
+        concepts_from_pairs = {
+            concept for concept_pair in concept_pairs_min_distance for concept in concept_pair}
 
         # calculate new concepts and add them to worklist and result concepts
         for concept_tuple in concept_pairs_min_distance:
