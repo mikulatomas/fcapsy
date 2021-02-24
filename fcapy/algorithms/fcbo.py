@@ -30,7 +30,11 @@ def fcbo(context: Context) -> list:
         intent_int = int(concept.intent)
 
         for j in range(attribute, attribute_count):
-            tmp = 2 ** j
+            # fast 2**j
+            if j == 0:
+                tmp = 1
+            else:
+                tmp = 2 << (j - 1)
             yj = tmp - 1
             b = intent_int
 
