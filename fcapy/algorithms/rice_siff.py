@@ -20,8 +20,8 @@ def concept_subset(context: Context, similarity_measure) -> list:
     atoms = context.Objects.supremum.atoms()
 
     # init worklist with all atoms
-    worklist = set(
-        [Concept.from_intent(context.up(extent), context) for extent in atoms])
+    worklist = {Concept.from_intent(
+        context.up(extent), context) for extent in atoms}
 
     # init resulting concepts with init_concept and worklist
     concepts = set(worklist)
