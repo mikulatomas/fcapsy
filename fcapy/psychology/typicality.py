@@ -18,7 +18,7 @@ def _calculate_similarities(item, items_to_compare, similarity_function):
     return map(lambda other: similarity_function(item, other), items_to_compare)
 
 
-@metadata(name='Average Typicality', short_name='TypØ')
+@metadata(name='Average Typicality', short_name='typØ')
 def typicality_avg(item, concept, context, similarity_function, axis=0):
     item = next(context.filter([item], axis=axis))
 
@@ -33,7 +33,7 @@ def typicality_avg(item, concept, context, similarity_function, axis=0):
     return iterator_mean(similarities)
 
 
-@metadata(name='Average Typicality without Core', short_name='TypØC')
+@metadata(name='Average Typicality without Core', short_name='typØc')
 def typicality_avg_without_core(item, concept, context, similarity_function, axis=0):
     item = next(context.filter([item], axis=axis))
 
@@ -55,7 +55,7 @@ def typicality_avg_without_core(item, concept, context, similarity_function, axi
     return iterator_mean(similarities)
 
 
-@metadata(name='Minimal Typicality', short_name='Typ_min')
+@metadata(name='Minimal Typicality', short_name='typ∧')
 def typicality_min(item, concept, context, similarity_function, axis=0):
     item = next(context.filter([item], axis=axis))
 
@@ -75,7 +75,7 @@ def _calculate_weights(objects):
     return [sum(y) for y in zip(*objects)]
 
 
-@metadata(name='Rosch Typicality', short_name='Typ_rosch')
+@metadata(name='Rosch Typicality', short_name='typR')
 def typicality_rosch(item, concept, context):
     item = next(context.filter([item]))
 
@@ -84,7 +84,7 @@ def typicality_rosch(item, concept, context):
     return sum(compress(weights, item.bools()))
 
 
-@metadata(name='Rosch Logarithm Typicality', short_name='Typ_rosch_ln')
+@metadata(name='Rosch Logarithm Typicality', short_name='typR_ln')
 def typicality_rosch_ln(item, concept, context):
     item = next(context.filter([item]))
 
