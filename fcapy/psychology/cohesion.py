@@ -17,7 +17,7 @@ from itertools import combinations
 from fcapy.decorators import metadata
 
 
-@metadata(name='Minimal Concept Cohesion', short_name='Coh_m')
+@metadata(name='Minimal Concept Cohesion', short_name='Coh_m', latex='coh_\\mathrm{min}')
 def cohesion_min(concept, context, similarity_function):
     if len(concept.extent) == 0:
         return 0
@@ -32,7 +32,7 @@ def cohesion_min(concept, context, similarity_function):
     return min([similarity_function(x, y) for x, y in combs])
 
 
-@metadata(name='Average Concept Cohesion', short_name='Coh_avg')
+@metadata(name='Average Concept Cohesion', short_name='Coh_avg', latex='coh_\\mathrm{avg}')
 def cohesion_avg(concept, context, similarity_function):
     if len(concept.extent) == 0:
         return 0
