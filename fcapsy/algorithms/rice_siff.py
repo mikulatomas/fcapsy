@@ -1,7 +1,7 @@
 from itertools import combinations
 
-from fcapy.decorators import metadata
-from fcapy import Concept, Context
+from fcapsy.decorators import metadata
+from fcapsy import Concept, Context
 
 
 @metadata(name='RiceSiffConcepts', short_name='RSConcepts')

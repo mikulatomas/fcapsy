@@ -1,8 +1,8 @@
 from collections import deque
 from copy import copy
 
-from fcapy import Concept, Context
-from fcapy.decorators import metadata
+from fcapsy import Concept, Context
+from fcapsy.decorators import metadata
 
 
 @metadata(name='FastCloseByOne', short_name='FCbO')

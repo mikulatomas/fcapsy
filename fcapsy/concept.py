@@ -1,7 +1,7 @@
 from typing import Type
 
 from bitsets.bases import BitSet
-from fcapy.context import Context
+from fcapsy.context import Context
 
 
 class Concept:

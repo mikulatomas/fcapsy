@@ -1,6 +1,6 @@
 import pytest
 from bitsets import bitset
-from fcapy.similarity import jaccard
+from fcapsy.similarity import jaccard
 
 
 @pytest.fixture

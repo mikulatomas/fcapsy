@@ -1,6 +1,6 @@
 import pytest
 from bitsets import bitset
-from fcapy.similarity import smc
+from fcapsy.similarity import smc
 
 
 @pytest.fixture

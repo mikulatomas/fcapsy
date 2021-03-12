@@ -12,7 +12,7 @@
 # "Family resemblances: Studies in the internal structure of categories."
 # Cognitive psychology 7.4 (1975): 573-605.
 
-from fcapy.decorators import metadata
+from fcapsy.decorators import metadata
 
 
 @metadata(name='Simple Matching Coefficient', short_name='SMC')

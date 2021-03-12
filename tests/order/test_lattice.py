@@ -1,4 +1,4 @@
-from fcapy import Lattice, Context, Concept
+from fcapsy import Lattice, Context, Concept
 
 object_labels = tuple(range(5))
 attribute_labels = tuple(range(4))

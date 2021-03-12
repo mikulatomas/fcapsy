@@ -1,7 +1,7 @@
 import pytest
-from fcapy.similarity import jaccard, smc, rosch
-from fcapy.psychology.cohesion import cohesion_avg
-from fcapy import Concept, Context
+from fcapsy.similarity import jaccard, smc, rosch
+from fcapsy.psychology.cohesion import cohesion_avg
+from fcapsy import Concept, Context
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc, rosch])

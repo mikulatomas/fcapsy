@@ -1,8 +1,8 @@
 import pytest
 from bitsets import bitset
-from fcapy import Concept, Context
-from fcapy.psychology.typicality import typicality_min
-from fcapy.similarity import jaccard, smc, rosch
+from fcapsy import Concept, Context
+from fcapsy.psychology.typicality import typicality_min
+from fcapsy.similarity import jaccard, smc, rosch
 
 
 @pytest.mark.parametrize("similarity_function", [jaccard, smc])

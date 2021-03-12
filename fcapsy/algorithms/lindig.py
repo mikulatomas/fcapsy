@@ -1,4 +1,4 @@
-from fcapy import Context, Concept
+from fcapsy import Context, Concept
 
 
 def upper_neighbors(context: Context, concept: Concept):

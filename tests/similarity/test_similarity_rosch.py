@@ -1,6 +1,6 @@
 import pytest
 from bitsets import bitset
-from fcapy.similarity import rosch
+from fcapsy.similarity import rosch
 
 
 @pytest.fixture

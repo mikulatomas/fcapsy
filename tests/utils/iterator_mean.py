@@ -1,4 +1,4 @@
-from fcapy.utils import iterator_mean
+from fcapsy.utils import iterator_mean
 
 
 def test_iterator_mean():

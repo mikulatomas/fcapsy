@@ -1,4 +1,4 @@
-from fcapy import Context
+from fcapsy import Context
 from bitsets import bitset
 
 

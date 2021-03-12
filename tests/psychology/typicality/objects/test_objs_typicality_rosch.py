@@ -1,7 +1,7 @@
 import pytest
 from bitsets import bitset
-from fcapy.psychology.typicality import typicality_rosch, typicality_rosch_ln
-from fcapy import Concept, Context
+from fcapsy.psychology.typicality import typicality_rosch, typicality_rosch_ln
+from fcapsy import Concept, Context
 from itertools import compress
 import math
 

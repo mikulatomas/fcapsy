@@ -12,8 +12,8 @@
 
 import operator
 
-from fcapy.decorators import metadata
-from fcapy.utils import iterator_mean
+from fcapsy.decorators import metadata
+from fcapsy.utils import iterator_mean
 
 
 def _degree(neighbors_filtered, neighbors):

@@ -1,6 +1,6 @@
-from fcapy import Context, Concept
+from fcapsy import Context, Concept
 from bitsets import bitset
-from fcapy.algorithms.lindig import upper_neighbors, lower_neighbors
+from fcapsy.algorithms.lindig import upper_neighbors, lower_neighbors
 
 object_labels = tuple(range(5))
 attribute_labels = tuple(range(4))

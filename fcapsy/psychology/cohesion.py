@@ -14,7 +14,7 @@
 # International Journal of General Systems(2020): 1 - 18.
 
 from itertools import combinations
-from fcapy.decorators import metadata
+from fcapsy.decorators import metadata
 
 
 @metadata(name='Minimal Concept Cohesion', short_name='Coh_m', latex='coh_\\mathrm{min}')

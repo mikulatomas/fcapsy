@@ -1,8 +1,8 @@
 from collections import deque, namedtuple
 from collections.abc import Mapping
 
-from fcapy import Concept
-from fcapy.algorithms.lindig import upper_neighbors
+from fcapsy import Concept
+from fcapsy.algorithms.lindig import upper_neighbors
 
 
 LatticeNode = namedtuple("LatticeNode", ["upper", "lower"])

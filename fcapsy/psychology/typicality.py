@@ -10,8 +10,8 @@
 import math
 
 from itertools import compress
-from fcapy.decorators import metadata
-from fcapy.utils import iterator_mean
+from fcapsy.decorators import metadata
+from fcapsy.utils import iterator_mean
 
 
 def _calculate_similarities(item, items_to_compare, similarity_function):

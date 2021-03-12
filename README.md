@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.com/mikulatomas/fcapy.svg?branch=development)](https://travis-ci.com/mikulatomas/fcapy)
-[![codecov](https://codecov.io/gh/mikulatomas/fcapy/branch/development/graph/badge.svg?token=ky2GUW51mj)](https://codecov.io/gh/mikulatomas/fcapy)
+[![Build Status](https://travis-ci.com/mikulatomas/fcapsy.svg?branch=development)](https://travis-ci.com/mikulatomas/fcapsy)
+[![codecov](https://codecov.io/gh/mikulatomas/fcapsy/branch/development/graph/badge.svg?token=ky2GUW51mj)](https://codecov.io/gh/mikulatomas/fcapsy)
 
-# fcapy
+# fcapsy
 
 Python implementation of [Formal Concept Analysis](https://en.wikipedia.org/wiki/Formal_concept_analysis) with focus on [Cognitive Psychology](https://en.wikipedia.org/wiki/Cognitive_psychology).
 
@@ -39,10 +39,10 @@ Clone this repository to the folder, then:
 
 ```bash
 # create virtualenv (optional)
-$ mkvirtualenv fcapy -p python3
+$ mkvirtualenv fcapsy -p python3
 
 #if is not actived (optional)
-$ workon fcapy 
+$ workon fcapsy 
 
 $ pip install -e .
 
@@ -51,7 +51,7 @@ $ python setup.py test
 
 ## Dependencies
 
-fcapy requires:
+fcapsy requires:
 
 * Python (>= 3.6)
 * [bitsets](https://github.com/xflr6/bitsets)

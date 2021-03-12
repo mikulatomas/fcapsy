@@ -1,6 +1,6 @@
-from fcapy import Lattice, Context, Concept
-from fcapy.similarity import jaccard
-from fcapy.algorithms.rice_siff import concept_subset
+from fcapsy import Lattice, Context, Concept
+from fcapsy.similarity import jaccard
+from fcapsy.algorithms.rice_siff import concept_subset
 
 object_labels = tuple(range(5))
 attribute_labels = tuple(range(4))

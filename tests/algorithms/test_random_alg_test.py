@@ -1,8 +1,8 @@
 import pytest
-from fcapy import Context, Lattice
-from fcapy.algorithms.fcbo import fcbo
-from fcapy.algorithms.rice_siff import concept_subset
-from fcapy.similarity import jaccard
+from fcapsy import Context, Lattice
+from fcapsy.algorithms.fcbo import fcbo
+from fcapsy.algorithms.rice_siff import concept_subset
+from fcapsy.similarity import jaccard
 
 
 random_data = [Context.from_random(20, 10) for i in range(10)]
