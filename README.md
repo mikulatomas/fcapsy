@@ -9,6 +9,8 @@ Library is inspired by [concepts](https://github.com/xflr6/concepts) and it is b
 
 ⚠️ Library is mainly used for our research, not ready for production, feedback is welcomed.
 
+![logo](logo.png)
+
 ## Used in papers
 
 > Belohlavek, R., & Mikula, T. (2020). Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis. Proceedings of CLA 2020, 33-45.
