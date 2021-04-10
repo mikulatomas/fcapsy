@@ -87,3 +87,20 @@ def test_lattice_order(alg):
         for upper in neighbors['upper']:
             assert concept.from_intent(
                 upper, context) in lattice[concept].upper
+
+
+random_data = [Context.from_random(20, 10) for i in range(10)]
+
+
+@pytest.mark.parametrize("context", random_data)
+def test_random_lattices(context):
+    lattice_lindig = Lattice(context, algorithm='lindig')
+    lattice_fcbo = Lattice(context, algorithm='fcbo')
+
+    assert set(lattice_lindig.concepts) == set(lattice_fcbo.concepts)
+
+    for concept in lattice_lindig.concepts:
+        assert lattice_fcbo.get(
+            concept).upper == lattice_lindig.get(concept).upper
+        assert lattice_fcbo.get(
+            concept).lower == lattice_lindig.get(concept).lower
