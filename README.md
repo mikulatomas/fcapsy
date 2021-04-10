@@ -9,7 +9,7 @@ Library is inspired by [concepts](https://github.com/xflr6/concepts) and it is b
 
 ⚠️ Library is mainly used for our research, not ready for production, feedback is welcomed.
 
-![logo](logo.png)
+![logo](https://github.com/mikulatomas/fcapsy/raw/development/logo.png)
 
 ## Used in papers
 
