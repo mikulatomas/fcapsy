@@ -62,7 +62,7 @@ expected_order = {
 
 @pytest.mark.parametrize("alg", ['fcbo', 'lindig'])
 def test_lattice_concepts(alg):
-    lattice = Lattice(context, algorithm=alg)
+    lattice = Lattice.from_context(context, algorithm=alg)
 
     expected_concepts = [Concept.from_intent(intent, context)
                          for intent in expected_intents]
@@ -75,7 +75,7 @@ def test_lattice_concepts(alg):
 
 @pytest.mark.parametrize("alg", ['fcbo', 'lindig'])
 def test_lattice_order(alg):
-    lattice = Lattice(context, algorithm=alg)
+    lattice = Lattice.from_context(context, algorithm=alg)
 
     for intent, neighbors in expected_order.items():
         concept = Concept.from_intent(intent, context)
@@ -94,8 +94,8 @@ random_data = [Context.from_random(20, 10) for i in range(10)]
 
 @pytest.mark.parametrize("context", random_data)
 def test_random_lattices(context):
-    lattice_lindig = Lattice(context, algorithm='lindig')
-    lattice_fcbo = Lattice(context, algorithm='fcbo')
+    lattice_lindig = Lattice.from_context(context, algorithm='lindig')
+    lattice_fcbo = Lattice.from_context(context, algorithm='fcbo')
 
     assert set(lattice_lindig.concepts) == set(lattice_fcbo.concepts)
 
@@ -104,3 +104,20 @@ def test_random_lattices(context):
             concept).upper == lattice_lindig.get(concept).upper
         assert lattice_fcbo.get(
             concept).lower == lattice_lindig.get(concept).lower
+
+
+def test_lattice_to_json_from_json(tmpdir):
+    json_lattice = tmpdir.join("test.json")
+
+    lattice = Lattice.from_context(context)
+    lattice.to_json(json_lattice)
+
+    lattice_loaded = Lattice.from_json(json_lattice, context)
+
+    assert set(lattice.concepts) == set(lattice_loaded.concepts)
+
+    for concept in lattice.concepts:
+        assert lattice_loaded.get(
+            concept).upper == lattice.get(concept).upper
+        assert lattice_loaded.get(
+            concept).lower == lattice.get(concept).lower

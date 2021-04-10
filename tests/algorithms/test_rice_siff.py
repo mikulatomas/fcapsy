@@ -15,7 +15,7 @@ context = Context(bools, object_labels, attribute_labels)
 
 
 def test_rice_siff_algorithm():
-    lattice = Lattice(context)
+    lattice = Lattice.from_context(context)
     concepts = concept_subset(context, jaccard)
 
     for concept in concepts:
