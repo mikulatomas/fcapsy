@@ -7,7 +7,6 @@ from fcapsy import Concept, Context
 @metadata(name='RiceSiffConcepts', short_name='RSConcepts')
 def concept_subset(context: Context, similarity_measure) -> list:
     """
-    Experimental implementation of
     Rice, Michael D., and Michael Siff. "Clusters, concepts, and pseudometrics."
     Electronic Notes in Theoretical Computer Science 40 (2001): 323-346.
     """

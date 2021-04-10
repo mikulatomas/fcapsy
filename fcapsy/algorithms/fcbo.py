@@ -7,7 +7,12 @@ from fcapsy.decorators import metadata
 
 @metadata(name='FastCloseByOne', short_name='FCbO')
 def fcbo(context: Context) -> list:
-    """Calculates all concept of given concept"""
+    """Calculates all concept of given concept.
+
+    Outrata, Jan, and Vilem Vychodil. "Fast algorithm for computing fixpoints of Galois 
+    connections induced by object-attribute relational data."
+    Information Sciences 185.1 (2012): 114-127
+    """
 
     initial_concept = Concept(context.Objects.supremum,
                               context.up(context.Objects.supremum))
