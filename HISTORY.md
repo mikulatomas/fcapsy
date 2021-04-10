@@ -8,3 +8,6 @@
 
 ## Version 0.1.1.a1
 * Implementation of fast concept lattice builder
+
+## Version 0.1.1.a2
+* Fix README.md logo
