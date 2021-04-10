@@ -1,3 +1,5 @@
+import pytest
+
 from fcapsy import Lattice, Context, Concept
 
 object_labels = tuple(range(5))
@@ -58,8 +60,9 @@ expected_order = {
 }
 
 
-def test_lattice_concepts():
-    lattice = Lattice(context)
+@pytest.mark.parametrize("alg", ['fcbo', 'lindig'])
+def test_lattice_concepts(alg):
+    lattice = Lattice(context, algorithm=alg)
 
     expected_concepts = [Concept.from_intent(intent, context)
                          for intent in expected_intents]
@@ -70,8 +73,9 @@ def test_lattice_concepts():
     assert len(lattice.concepts) == 8
 
 
-def test_lattice_order():
-    lattice = Lattice(context)
+@pytest.mark.parametrize("alg", ['fcbo', 'lindig'])
+def test_lattice_order(alg):
+    lattice = Lattice(context, algorithm=alg)
 
     for intent, neighbors in expected_order.items():
         concept = Concept.from_intent(intent, context)
