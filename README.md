@@ -16,7 +16,7 @@ Library is inspired by [concepts](https://github.com/xflr6/concepts) and it is b
 > Belohlavek, R., & Mikula, T. (2020). Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis. Proceedings of CLA 2020, 33-45.
 http://ceur-ws.org/Vol-2668/paper2.pdf
 
-## Based on papers
+## Based on papers (books)
 > Belohlavek, R., & Trnecka, M. (2020). Basic level of concepts in formal concept analysis 1: formalization and utilization. International Journal of General Systems, 1-18.
 
 > Rice, M. D., & Siff, M. (2001). Clusters, concepts, and pseudometrics. Electronic Notes in Theoretical Computer Science, 40, 323-346.
@@ -24,6 +24,8 @@ http://ceur-ws.org/Vol-2668/paper2.pdf
 > Lindig, C. (2000). Fast concept analysis. Working with Conceptual Structures-Contributions to ICCS, 2000, 152-161.
 
 > Outrata, J., & Vychodil, V. (2012). Fast algorithm for computing fixpoints of Galois connections induced by object-attribute relational data. Information Sciences, 185(1), 114-127.
+
+> Carpineto, C., & Romano, G. (2004). Concept data analysis: Theory and applications. John Wiley & Sons.
 
 
 ## Installation

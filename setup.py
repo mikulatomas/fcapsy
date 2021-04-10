@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 __author__ = 'Tomáš Mikula, Roman Vyjídáček'
 __email__ = 'mail@tomasmikula.cz, r.vyjidacek@gmail.com'
-__version__ = '0.1.0.a2'
+__version__ = '0.1.1.a1'
 __license__ = 'MIT license'
 
 with open('README.md') as readme_file:
