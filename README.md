@@ -11,6 +11,42 @@ Library is inspired by [concepts](https://github.com/xflr6/concepts) and it is b
 
 ![logo](https://github.com/mikulatomas/fcapsy/raw/development/logo.png)
 
+## Basic usage
+```python
+import random
+import pandas as pd
+
+from fcapsy import Context, Lattice
+from fcapsy.algorithms.fcbo import fcbo
+
+df = pd.read_csv('your_favourite_boolean_dataset.csv')
+
+# create formal context
+context = Context.from_pandas(df)
+
+# or generate random one
+random_context = Context.from_random(10, 20)
+
+# build concept lattice
+lattice = Lattice.from_context(context)
+
+# get random formal concept
+concept = random.choice(lattice.concepts)
+
+# get all upper neighbors of given concept (more general concepts)
+more_general_concepts = lattice.get(concept).upper
+
+# if u need only formal concepts, you can directly calcualte them
+concepts = fcbo(context)
+```
+
+## Installation
+Package is avaliable in alpha version via `pip`.
+
+```bash
+$ pip install fcapsy
+```
+
 ## Used in papers
 
 > Belohlavek, R., & Mikula, T. (2020). Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis. Proceedings of CLA 2020, 33-45.
@@ -27,13 +63,6 @@ http://ceur-ws.org/Vol-2668/paper2.pdf
 
 > Carpineto, C., & Romano, G. (2004). Concept data analysis: Theory and applications. John Wiley & Sons.
 
-
-## Installation
-Package is avaliable in alpha version via `pip`.
-
-```bash
-$ pip install fcapsy
-```
 
 ## What is Formal Concept Analysis?
 
