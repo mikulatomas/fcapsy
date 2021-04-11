@@ -60,7 +60,7 @@ expected_order = {
 }
 
 
-@pytest.mark.parametrize("alg", ['fcbo', 'lindig'])
+@pytest.mark.parametrize("alg", ['fcbo', 'lindig', 'fcbo_parallel'])
 def test_lattice_concepts(alg):
     lattice = Lattice.from_context(context, algorithm=alg)
 
@@ -73,7 +73,7 @@ def test_lattice_concepts(alg):
     assert len(lattice.concepts) == 8
 
 
-@pytest.mark.parametrize("alg", ['fcbo', 'lindig'])
+@pytest.mark.parametrize("alg", ['fcbo', 'lindig', 'fcbo_parallel'])
 def test_lattice_order(alg):
     lattice = Lattice.from_context(context, algorithm=alg)
 
