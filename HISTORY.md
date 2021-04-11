@@ -11,3 +11,7 @@
 
 ## Version 0.1.1.a2
 * Fix README.md logo
+
+## Version 0.2.0.a1
+* New class for concept lattice
+* Parallel version of fast concept lattice builder
