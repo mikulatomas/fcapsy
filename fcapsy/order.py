@@ -66,8 +66,10 @@ class Lattice(Mapping):
         return mapping
 
     @staticmethod
-    def calculate_mapping_parallel(concept_chunk, context, concepts, index, queue):
-        for concept in concept_chunk:
+    def calculate_mapping_parallel(concept_chunk_indexes, context, index, queue):
+        concepts = tuple(index.values())
+
+        for concept in concepts[concept_chunk_indexes[0]:concept_chunk_indexes[1]]:
             counter = dict.fromkeys(concepts, 0)
             difference = context.Attributes.supremum - concept.intent
 
@@ -86,26 +88,27 @@ class Lattice(Mapping):
         Parallel version of `build_mapping_with_fcbo()`.
         """
 
-        def split(a, n):
+        def split_indexes(a, n):
             k, m = divmod(len(a), n)
-            return (a[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
+            return ((i * k + min(i, m), (i + 1) * k + min(i + 1, m)) for i in range(n))
 
         concepts = fcbo(context)
 
         mapping = dict(zip(concepts, [LatticeNode(
             upper=set(), lower=set()) for i in range(len(concepts))]))
 
-        concept_chunks = tuple(split(concepts, number_of_workers))
+        concept_chunks_indexes = tuple(
+            split_indexes(concepts, number_of_workers))
 
         index = dict(zip([int(concept.extent)
                           for concept in concepts], concepts))
 
         proces_queue_pairs = []
 
-        for concept_chunk in concept_chunks:
+        for concept_chunk_indexes in concept_chunks_indexes:
             queue = Queue()
             process = Process(target=Lattice.calculate_mapping_parallel, args=(
-                concept_chunk, context, concepts, index, queue))
+                concept_chunk_indexes, context, index, queue))
 
             proces_queue_pairs.append((process, queue))
 
