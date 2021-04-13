@@ -82,6 +82,8 @@ class Lattice(Mapping):
                 if (len(found_concept.intent) - len(concept.intent)) == counter[found_concept]:
                     queue.put((concept, found_concept))
 
+        queue.put(False)
+
     @ staticmethod
     def build_mapping_with_fcbo_parallel(context, number_of_workers):
         """
@@ -115,22 +117,26 @@ class Lattice(Mapping):
         for process, _ in proces_queue_pairs:
             process.start()
 
-        running = True
+        n_of_finished_workers = 0
 
-        while running:
-            running = False
+        while n_of_finished_workers != number_of_workers:
             for process, queue in proces_queue_pairs:
-                process.join(timeout=0)
-
-                running = process.is_alive()
                 try:
                     result = queue.get(block=False)
+
+                    if not result:
+                        n_of_finished_workers += 1
+                        break
+
                     concept, lower_neighbor = result
 
                     mapping[concept].lower.add(lower_neighbor)
                     mapping[lower_neighbor].upper.add(concept)
                 except Empty:
-                    running = running or False
+                    pass
+
+        for process, _ in proces_queue_pairs:
+            process.join()
 
         return mapping
 
