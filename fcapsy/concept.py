@@ -22,6 +22,10 @@ class Concept:
         intent = context.up(extent)
         return cls(context.down(intent), intent, name)
 
+    @property
+    def ratio(self):
+        return self.extent.count() / self.intent.count() if self.intent.count() else 0
+
     def __repr__(self):
         if self.name:
             return "Concept({}, {}x{})".format(self.name, len(self.extent.members()), len(self.intent.members()))

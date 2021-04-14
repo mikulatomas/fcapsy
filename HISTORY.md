@@ -15,3 +15,6 @@
 ## Version 0.2.0.a1
 * New class for concept lattice
 * Parallel version of fast concept lattice builder
+
+## Version 0.2.1.a1
+* Concept.ratio added
