@@ -30,11 +30,15 @@ class Concept:
     def size(self):
         return self.extent.count() * self.intent.count()
 
+    @property
+    def shape(self):
+        return (self.extent.count(), self.intent.count())
+
     def __repr__(self):
         if self.name:
-            return "Concept({}, {}x{})".format(self.name, len(self.extent.members()), len(self.intent.members()))
+            return "Concept({}, {}x{})".format(self.name, self.shape[0], self.shape[1])
 
-        return "Concept({}x{})".format(len(self.extent.members()), len(self.intent.members()))
+        return "Concept({}x{})".format(self.shape[0], self.shape[1])
 
     def __str__(self):
         if self.name:
