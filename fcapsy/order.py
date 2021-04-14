@@ -59,7 +59,7 @@ class Lattice(Mapping):
                 found_concept = index[intersection]
                 counter[found_concept] += 1
 
-                if (len(found_concept.intent) - len(concept.intent)) == counter[found_concept]:
+                if (found_concept.intent.count() - concept.intent.count()) == counter[found_concept]:
                     mapping[concept].lower.add(found_concept)
                     mapping[found_concept].upper.add(concept)
 
@@ -79,7 +79,7 @@ class Lattice(Mapping):
                 found_concept = index[intersection]
                 counter[found_concept] += 1
 
-                if (len(found_concept.intent) - len(concept.intent)) == counter[found_concept]:
+                if (found_concept.intent.count() - concept.intent.count()) == counter[found_concept]:
                     queue.put((concept, found_concept))
 
         queue.put(False)

@@ -24,21 +24,21 @@ class Concept:
 
     @property
     def ratio(self):
-        return self.extent.count() / self.intent.count() if self.intent.count() else 0
+        return len(self.extent) / len(self.intent) if len(self.intent) else 0
 
     @property
     def size(self):
-        return self.extent.count() * self.intent.count()
+        return len(self.extent) * len(self.intent)
 
     @property
     def shape(self):
-        return (self.extent.count(), self.intent.count())
+        return (len(self.extent), len(self.intent))
 
     def __repr__(self):
         if self.name:
-            return "Concept({}, {}x{})".format(self.name, self.shape[0], self.shape[1])
+            return "Concept({}, {}x{})".format(self.name, len(self.extent), len(self.intent))
 
-        return "Concept({}x{})".format(self.shape[0], self.shape[1])
+        return "Concept({}x{})".format(len(self.extent), len(self.intent))
 
     def __str__(self):
         if self.name:
