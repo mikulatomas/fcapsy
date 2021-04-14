@@ -20,3 +20,4 @@
 * Concept.ratio added
 * Concept.size added
 * Concept.shape added
+* Context.from_csv removed, better to use Pandas for csv loading
