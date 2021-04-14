@@ -33,29 +33,6 @@ class Context:
         return cls(dataframe.values, tuple(dataframe.index), tuple(dataframe.columns), name=name)
 
     @classmethod
-    def from_csv(cls, filename: str, objects_labels: list = [],
-                 attribute_labels: list = [], delimiter: str = ',', name: str = None):
-        with open(filename, 'r') as file:
-            csv_reader = csv.reader(file, delimiter=delimiter)
-
-            bools = []
-            labels = []
-
-            for idx, row in enumerate(csv_reader):
-                if idx == 0 and not attribute_labels:
-                    attribute_labels = tuple(row[1:])
-                else:
-                    if not objects_labels:
-                        labels.append(row.pop(0))
-
-                    bools.append(tuple(map(int, row)))
-
-            if not objects_labels:
-                objects_labels = labels
-
-        return cls(bools, tuple(objects_labels), tuple(attribute_labels), name=name)
-
-    @classmethod
     def from_fimi(cls, filename: str, objects_labels: list = None, attribute_labels: list = None, name: str = None):
         with open(filename, 'r') as file:
             max_attribute = 0
