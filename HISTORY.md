@@ -18,3 +18,4 @@
 
 ## Version 0.2.1.a1
 * Concept.ratio added
+* Concept.size added
