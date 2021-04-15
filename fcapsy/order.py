@@ -1,12 +1,12 @@
 import json
-from multiprocessing import Process, Queue, cpu_count
-from queue import Empty
+from multiprocessing import cpu_count
 
 from collections import deque, namedtuple
 from collections.abc import Mapping
 
 from fcapsy import Concept
 from fcapsy.algorithms.lindig import upper_neighbors
+from fcapsy.algorithms.concepts_cover import concept_cover, concept_cover_parallel
 from fcapsy.algorithms.fcbo import fcbo
 
 
@@ -18,21 +18,18 @@ class Lattice(Mapping):
         self._mapping = mapping
 
     @classmethod
-    def from_context(cls, context, algorithm='fcbo', number_of_workers=cpu_count()):
-        if algorithm == 'fcbo':
-            mapping = cls.build_mapping_with_fcbo(context)
-        elif algorithm == 'fcbo_parallel':
-            mapping = cls.build_mapping_with_fcbo_parallel(
-                context, number_of_workers)
+    def from_context(cls, context, algorithm='concept_cover', n_of_workers=1):
+        if algorithm == 'concept_cover':
+            mapping = cls.concept_cover_mapping(context, n_of_workers)
         elif algorithm == 'lindig':
-            mapping = cls.build_mapping_with_lindig(context)
+            mapping = cls.lindig_mapping(context)
         else:
             raise ValueError('Unknow algorithm for building concept lattice.')
 
         return cls(mapping)
 
     @ staticmethod
-    def build_mapping_with_fcbo(context):
+    def concept_cover_mapping(context, n_of_workers=1):
         """
         First, all concepts are calculated via FcBO algorithm, then they are ordered via
         Concepts Cover algorithm.
@@ -45,103 +42,19 @@ class Lattice(Mapping):
         mapping = dict(zip(concepts, [LatticeNode(
             upper=set(), lower=set()) for i in range(len(concepts))]))
 
-        index = dict(zip([int(concept.extent)
-                          for concept in concepts], concepts))
+        if n_of_workers > 1:
+            edges = concept_cover_parallel(concepts, context, n_of_workers)
+        else:
+            edges = concept_cover(concepts, context)
 
-        for concept in concepts:
-            counter = dict.fromkeys(concepts, 0)
-
-            difference = context.Attributes.supremum - concept.intent
-
-            for atom in context.Attributes.fromint(difference).atoms():
-                intersection = concept.extent & context.down(atom)
-
-                found_concept = index[intersection]
-                counter[found_concept] += 1
-
-                if (found_concept.intent.count() - concept.intent.count()) == counter[found_concept]:
-                    mapping[concept].lower.add(found_concept)
-                    mapping[found_concept].upper.add(concept)
-
-        return mapping
-
-    @staticmethod
-    def calculate_mapping_parallel(concept_chunk_indexes, context, index, queue):
-        concepts = tuple(index.values())
-
-        for concept in concepts[concept_chunk_indexes[0]:concept_chunk_indexes[1]]:
-            counter = dict.fromkeys(concepts, 0)
-            difference = context.Attributes.supremum - concept.intent
-
-            for atom in context.Attributes.fromint(difference).atoms():
-                intersection = concept.extent & context.down(atom)
-
-                found_concept = index[intersection]
-                counter[found_concept] += 1
-
-                if (found_concept.intent.count() - concept.intent.count()) == counter[found_concept]:
-                    queue.put((concept, found_concept))
-
-        queue.put(False)
-
-    @ staticmethod
-    def build_mapping_with_fcbo_parallel(context, number_of_workers):
-        """
-        Parallel version of `build_mapping_with_fcbo()`.
-        """
-
-        def split_indexes(a, n):
-            k, m = divmod(len(a), n)
-            return ((i * k + min(i, m), (i + 1) * k + min(i + 1, m)) for i in range(n))
-
-        concepts = fcbo(context)
-
-        mapping = dict(zip(concepts, [LatticeNode(
-            upper=set(), lower=set()) for i in range(len(concepts))]))
-
-        concept_chunks_indexes = tuple(
-            split_indexes(concepts, number_of_workers))
-
-        index = dict(zip([int(concept.extent)
-                          for concept in concepts], concepts))
-
-        proces_queue_pairs = []
-
-        for concept_chunk_indexes in concept_chunks_indexes:
-            queue = Queue()
-            process = Process(target=Lattice.calculate_mapping_parallel, args=(
-                concept_chunk_indexes, context, index, queue))
-
-            proces_queue_pairs.append((process, queue))
-
-        for process, _ in proces_queue_pairs:
-            process.start()
-
-        n_of_finished_workers = 0
-
-        while n_of_finished_workers != number_of_workers:
-            for process, queue in proces_queue_pairs:
-                try:
-                    result = queue.get(block=False)
-
-                    if not result:
-                        n_of_finished_workers += 1
-                        break
-
-                    concept, lower_neighbor = result
-
-                    mapping[concept].lower.add(lower_neighbor)
-                    mapping[lower_neighbor].upper.add(concept)
-                except Empty:
-                    pass
-
-        for process, _ in proces_queue_pairs:
-            process.join()
+        for concept, lower_neighbor in edges:
+            mapping[concept].lower.add(lower_neighbor)
+            mapping[lower_neighbor].upper.add(concept)
 
         return mapping
 
     @ staticmethod
-    def build_mapping_with_lindig(context):
+    def lindig_mapping(context):
         """
         Warning, this mode is slow!
 

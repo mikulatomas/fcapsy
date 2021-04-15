@@ -60,7 +60,7 @@ expected_order = {
 }
 
 
-@pytest.mark.parametrize("alg", ['fcbo', 'lindig', 'fcbo_parallel'])
+@pytest.mark.parametrize("alg", ['concept_cover', 'lindig'])
 def test_lattice_concepts(alg):
     lattice = Lattice.from_context(context, algorithm=alg)
 
@@ -73,9 +73,10 @@ def test_lattice_concepts(alg):
     assert len(lattice.concepts) == 8
 
 
-@pytest.mark.parametrize("alg", ['fcbo', 'lindig', 'fcbo_parallel'])
-def test_lattice_order(alg):
-    lattice = Lattice.from_context(context, algorithm=alg)
+@pytest.mark.parametrize("alg, n_of_workers", [('concept_cover', 1), ('concept_cover', 2), ('lindig', 1)])
+def test_lattice_order(alg, n_of_workers):
+    lattice = Lattice.from_context(
+        context, algorithm=alg, n_of_workers=n_of_workers)
 
     for intent, neighbors in expected_order.items():
         concept = Concept.from_intent(intent, context)
@@ -95,14 +96,15 @@ random_data = [Context.from_random(20, 10) for i in range(10)]
 @pytest.mark.parametrize("context", random_data)
 def test_random_lattices(context):
     lattice_lindig = Lattice.from_context(context, algorithm='lindig')
-    lattice_fcbo = Lattice.from_context(context, algorithm='fcbo')
+    lattice_concept_cover = Lattice.from_context(
+        context, algorithm='concept_cover')
 
-    assert set(lattice_lindig.concepts) == set(lattice_fcbo.concepts)
+    assert set(lattice_lindig.concepts) == set(lattice_concept_cover.concepts)
 
     for concept in lattice_lindig.concepts:
-        assert lattice_fcbo.get(
+        assert lattice_concept_cover.get(
             concept).upper == lattice_lindig.get(concept).upper
-        assert lattice_fcbo.get(
+        assert lattice_concept_cover.get(
             concept).lower == lattice_lindig.get(concept).lower
 
 
