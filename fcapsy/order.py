@@ -1,7 +1,7 @@
 import json
 from multiprocessing import cpu_count
 
-from collections import deque, namedtuple
+from collections import deque, namedtuple, OrderedDict
 from collections.abc import Mapping
 
 from fcapsy import Concept
@@ -15,7 +15,9 @@ LatticeNode = namedtuple("LatticeNode", ["upper", "lower"])
 
 class Lattice(Mapping):
     def __init__(self, mapping):
-        self._mapping = mapping
+        sorted_mapping = OrderedDict(
+            sorted(mapping.items(), key=lambda c: c[0].extent.shortlex()))
+        self._mapping = sorted_mapping
 
     @classmethod
     def from_context(cls, context, algorithm='concept_cover', n_of_workers=1):
