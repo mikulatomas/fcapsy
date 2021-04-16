@@ -21,3 +21,6 @@
 * Concept.size added
 * Concept.shape added
 * Context.from_csv removed, better to use Pandas for csv loading
+
+## Version 0.3.0.a1
+* Lattice renamed to ConceptHierarchy and changed to new API
