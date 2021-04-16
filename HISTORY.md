@@ -25,3 +25,4 @@
 ## Version 0.3.0.a1
 * Lattice renamed to ConceptHierarchy and changed to new API
 * Add top/bottom property to ConceptHierarchy
+* Add ConceptHierarchy.from_concepts

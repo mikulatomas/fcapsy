@@ -1,6 +1,7 @@
 import pytest
 
 from fcapsy import ConceptHierarchy, Context, Concept
+from fcapsy.algorithms.fcbo import fcbo
 
 object_labels = tuple(range(5))
 attribute_labels = tuple(range(4))
@@ -74,9 +75,25 @@ def test_hierarchy_concepts(alg):
 
 
 @pytest.mark.parametrize("alg, n_of_workers", [('concept_cover', 1), ('concept_cover', 2), ('lindig', 1)])
-def test_hierarchy_order(alg, n_of_workers):
+def test_hierarchy_order_from_context(alg, n_of_workers):
     hierarchy = ConceptHierarchy.from_context(
         context, algorithm=alg, n_of_workers=n_of_workers)
+
+    for intent, neighbors in expected_order.items():
+        concept = Concept.from_intent(intent, context)
+
+        for subordinate in neighbors['subordinate']:
+            assert concept.from_intent(
+                subordinate, context) in hierarchy.subordinate(concept)
+
+        for superordinate in neighbors['superordinate']:
+            assert concept.from_intent(
+                superordinate, context) in hierarchy.superordinate(concept)
+
+
+def test_hierarchy_order_from_concepts():
+    concepts = fcbo(context)
+    hierarchy = ConceptHierarchy.from_concepts(concepts, context)
 
     for intent, neighbors in expected_order.items():
         concept = Concept.from_intent(intent, context)

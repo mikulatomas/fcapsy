@@ -25,11 +25,18 @@ class ConceptHierarchy():
             self._mapping[concept] = ConceptHierarchyNode(superordinate=frozenset(neighbours.superordinate),
                                                           subordinate=frozenset(neighbours.subordinate))
 
+    @classmethod
+    def from_concepts(cls, concepts, context, n_of_workers=1):
+        mapping = cls.concept_cover_hierarchy(
+            concepts, context, n_of_workers)
+        return cls(context, concepts, mapping)
+
     @ classmethod
     def from_context(cls, context, algorithm='concept_cover', n_of_workers=1):
         if algorithm == 'concept_cover':
-            concepts, mapping = cls.concept_cover_hierarchy(
-                context, n_of_workers)
+            concepts = fcbo(context)
+            mapping = cls.concept_cover_hierarchy(
+                concepts, context, n_of_workers)
         elif algorithm == 'lindig':
             concepts, mapping = cls.lindig_hierarchy(context)
         else:
@@ -39,7 +46,7 @@ class ConceptHierarchy():
         return cls(context, concepts, mapping)
 
     @ staticmethod
-    def concept_cover_hierarchy(context, n_of_workers=1):
+    def concept_cover_hierarchy(concepts, context, n_of_workers=1):
         """
         First, all concepts are calculated via FcBO algorithm, then they are ordered via
         Concepts Cover algorithm.
@@ -47,7 +54,6 @@ class ConceptHierarchy():
         Carpineto, Claudio, and Giovanni Romano. Concept data analysis: Theory and applications.
         John Wiley & Sons, 2004.
         """
-        concepts = fcbo(context)
 
         mapping = dict(zip(concepts, [ConceptHierarchyNode(
             superordinate=set(), subordinate=set()) for i in range(len(concepts))]))
@@ -61,7 +67,7 @@ class ConceptHierarchy():
             mapping[concept].subordinate.add(subordinate_concept)
             mapping[subordinate_concept].superordinate.add(concept)
 
-        return concepts, mapping
+        return mapping
 
     @ staticmethod
     def lindig_hierarchy(context):
