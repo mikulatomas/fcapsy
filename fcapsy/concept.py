@@ -24,7 +24,7 @@ class Concept:
 
     @property
     def ratio(self):
-        return len(self.extent) / len(self.intent) if len(self.intent) else 0
+        return len(self.extent) / len(self.intent) if self.intent else 0
 
     @property
     def size(self):
