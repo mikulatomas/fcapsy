@@ -125,3 +125,19 @@ def test_hierarchy_to_json_from_json(tmpdir):
             concept) == hierarchy.superordinate(concept)
         assert hierarchy_loaded.subordinate(
             concept) == hierarchy.subordinate(concept)
+
+
+def test_hierarchy_top():
+    hierarchy = ConceptHierarchy.from_context(
+        context, algorithm='concept_cover')
+
+    assert hierarchy.top == Concept.from_extent(
+        context.Objects.supremum, context)
+
+
+def test_hierarchy_bottom():
+    hierarchy = ConceptHierarchy.from_context(
+        context, algorithm='concept_cover')
+
+    assert hierarchy.bottom == Concept.from_extent(
+        context.Objects.infimum, context)

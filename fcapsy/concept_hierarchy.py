@@ -141,6 +141,14 @@ class ConceptHierarchy():
     def __len__(self):
         return len(self.concepts)
 
+    @property
+    def top(self):
+        return self.concepts[0]
+
+    @property
+    def bottom(self):
+        return self.concepts[-1]
+
     def superordinate(self, concept):
         return self._mapping[concept].superordinate
 
