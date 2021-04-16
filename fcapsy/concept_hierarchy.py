@@ -14,8 +14,7 @@ ConceptHierarchyNode = namedtuple(
 
 
 class ConceptHierarchy():
-    def __init__(self, context, concepts, mapping, name=None):
-        self.name = name
+    def __init__(self, context, concepts, mapping):
         self.context = context
         self.concepts = tuple(sorted(concepts,
                                      key=lambda concept: concept.extent.longlex()))
