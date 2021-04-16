@@ -1,4 +1,4 @@
-from fcapsy import Lattice, Context, Concept
+from fcapsy import ConceptHierarchy, Context, Concept
 from fcapsy.similarity import jaccard
 from fcapsy.algorithms.rice_siff import concept_subset
 
@@ -15,8 +15,8 @@ context = Context(bools, object_labels, attribute_labels)
 
 
 def test_rice_siff_algorithm():
-    lattice = Lattice.from_context(context)
+    hierarchy = ConceptHierarchy.from_context(context)
     concepts = concept_subset(context, jaccard)
 
     for concept in concepts:
-        assert concept in lattice.concepts
+        assert concept in hierarchy.concepts

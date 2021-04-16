@@ -17,11 +17,11 @@ def _yield_edge(concept_index, context, from_idx=None, to_idx=None):
         for atom in context.Attributes.fromint(difference).atoms():
             intersection = concept.extent & context.down(atom)
 
-            lower_neighbor = concept_index[intersection]
-            counter[lower_neighbor] += 1
+            subordinate = concept_index[intersection]
+            counter[subordinate] += 1
 
-            if (lower_neighbor.intent.count() - concept.intent.count()) == counter[lower_neighbor]:
-                yield concept, lower_neighbor
+            if (subordinate.intent.count() - concept.intent.count()) == counter[subordinate]:
+                yield concept, subordinate
 
 
 def _yield_edge_to_queue(concept_index, context, from_idx, to_idx, queue):
@@ -33,7 +33,7 @@ def _yield_edge_to_queue(concept_index, context, from_idx, to_idx, queue):
 
 def concept_cover(concepts, context):
     """
-    Yields concepts and their lower neighbors.
+    Yields concepts and their subordinate concepts.
 
     Carpineto, Claudio, and Giovanni Romano. Concept data analysis: Theory and applications.
     John Wiley & Sons, 2004.
@@ -69,7 +69,7 @@ def concept_cover_parallel(concepts, context, n_of_workers):
 
     n_of_finished_workers = 0
 
-    concept_lower_neighbor_pairs = []
+    concept_subordinate_pairs = []
 
     while n_of_finished_workers != n_of_workers:
         for process, queue in proces_queue_pairs:
@@ -80,12 +80,12 @@ def concept_cover_parallel(concepts, context, n_of_workers):
                     n_of_finished_workers += 1
                     break
 
-                concept, lower_neighbor = result
-                concept_lower_neighbor_pairs.append((concept, lower_neighbor))
+                concept, subordinate = result
+                concept_subordinate_pairs.append((concept, subordinate))
             except Empty:
                 pass
 
     for process, _ in proces_queue_pairs:
         process.join()
 
-    return concept_lower_neighbor_pairs
+    return concept_subordinate_pairs

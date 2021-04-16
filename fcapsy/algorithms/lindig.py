@@ -1,8 +1,8 @@
 from fcapsy import Context, Concept
 
 
-def upper_neighbors(context: Context, concept: Concept):
-    """Calculates upper neighbors of given concept in given context"""
+def superordinate_concepts(context: Context, concept: Concept):
+    """Calculates superordinate concepts of given concept in given context"""
     minimal = ~concept.extent
 
     for objects in context.Objects.atomic(minimal):
@@ -15,8 +15,8 @@ def upper_neighbors(context: Context, concept: Concept):
             yield Concept(new_extent, new_intent)
 
 
-def lower_neighbors(context: Context, concept: Concept):
-    """Calculates lower neighbors of given concept in given context"""
+def subordinate_concepts(context: Context, concept: Concept):
+    """Calculates subordinate concepts of given concept in given context"""
     minimal = ~concept.intent
 
     for attributes in context.Attributes.atomic(minimal):

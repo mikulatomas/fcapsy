@@ -44,17 +44,17 @@ def _alpha1(concept, context, cohesion_function, similarity_function):
     return cohesion_function(concept, context, similarity_function)
 
 
-def _alpha2(concept, context, upper_neighbors,
+def _alpha2(concept, context, superordinate_concepts,
             cohesion_function, similarity_function, theta, variant='avg'):
     try:
         concept_cohesion = _calculate_concept_cohesion(
-            concept, context, upper_neighbors, cohesion_function, similarity_function)
+            concept, context, superordinate_concepts, cohesion_function, similarity_function)
     except ValueError:
         return 0
 
     neighbors_filtered = _filter_neighbors(
         cohesion_function, context, similarity_function,
-        concept_cohesion, upper_neighbors, operator.le)
+        concept_cohesion, superordinate_concepts, operator.le)
 
     # Prevents division by zero
     if not neighbors_filtered:
@@ -68,20 +68,20 @@ def _alpha2(concept, context, upper_neighbors,
     else:
         intermediate_result = max(cohesion_ratio)
 
-    return (1 - intermediate_result) * _degree(neighbors_filtered, upper_neighbors, theta)
+    return (1 - intermediate_result) * _degree(neighbors_filtered, superordinate_concepts, theta)
 
 
-def _alpha3(concept, context, lower_neighbors,
+def _alpha3(concept, context, subordinate_concepts,
             cohesion_function, similarity_function, theta, variant='avg'):
     try:
         concept_cohesion = _calculate_concept_cohesion(
-            concept, context, lower_neighbors, cohesion_function, similarity_function)
+            concept, context, subordinate_concepts, cohesion_function, similarity_function)
     except ValueError:
         return 0
 
     neighbors_filtered = _filter_neighbors(
         cohesion_function, context, similarity_function,
-        concept_cohesion, lower_neighbors, operator.ge)
+        concept_cohesion, subordinate_concepts, operator.ge)
 
     # Prevents division by zero
     if not neighbors_filtered:
@@ -95,29 +95,29 @@ def _alpha3(concept, context, lower_neighbors,
     else:
         intermediate_result = min(cohesion_ratio)
 
-    return intermediate_result * _degree(neighbors_filtered, lower_neighbors, theta)
+    return intermediate_result * _degree(neighbors_filtered, subordinate_concepts, theta)
 
 
-def _bl_helper(concept, context, upper_neighbors, lower_neighbors,
+def _bl_helper(concept, context, superordinate_concepts, subordinate_concepts,
                cohesion_function, similarity_function, variant, theta):
     alpha1 = _alpha1(concept, context, cohesion_function,
                      similarity_function)
-    alpha2 = _alpha2(concept, context, upper_neighbors,
+    alpha2 = _alpha2(concept, context, superordinate_concepts,
                      cohesion_function, similarity_function, theta, variant)
-    alpha3 = _alpha3(concept, context, lower_neighbors,
+    alpha3 = _alpha3(concept, context, subordinate_concepts,
                      cohesion_function, similarity_function, theta, variant)
 
     return alpha1 * alpha2 * alpha3
 
 
 @metadata(name='Minimal Basic Level', short_name='BL_min', latex='BL_\\mathrm{min}')
-def basic_level_min(concept, context, upper_neighbors, lower_neighbors,
+def basic_level_min(concept, context, superordinate_concepts, subordinate_concepts,
                     cohesion_function, similarity_function, theta=1):
     return _bl_helper(
         concept,
         context,
-        upper_neighbors,
-        lower_neighbors,
+        superordinate_concepts,
+        subordinate_concepts,
         cohesion_function,
         similarity_function,
         theta=theta,
@@ -125,13 +125,13 @@ def basic_level_min(concept, context, upper_neighbors, lower_neighbors,
 
 
 @metadata(name='Average Basic Level', short_name='BL_avg', latex='BL_\\mathrm{avg}')
-def basic_level_avg(concept, context, upper_neighbors, lower_neighbors,
+def basic_level_avg(concept, context, superordinate_concepts, subordinate_concepts,
                     cohesion_function, similarity_function, theta=1):
     return _bl_helper(
         concept,
         context,
-        upper_neighbors,
-        lower_neighbors,
+        superordinate_concepts,
+        subordinate_concepts,
         cohesion_function,
         similarity_function,
         theta=theta,

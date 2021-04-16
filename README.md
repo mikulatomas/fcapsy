@@ -16,7 +16,7 @@ Library is inspired by [concepts](https://github.com/xflr6/concepts) and it is b
 import random
 import pandas as pd
 
-from fcapsy import Context, Lattice
+from fcapsy import Context, ConceptHierarchy
 from fcapsy.algorithms.fcbo import fcbo
 
 df = pd.read_csv('your_favourite_boolean_dataset.csv')
@@ -27,14 +27,14 @@ context = Context.from_pandas(df)
 # or generate random one
 random_context = Context.from_random(10, 20)
 
-# build concept lattice
-lattice = Lattice.from_context(context)
+# build concept hierarchy
+hierarchy = ConceptHierarchy.from_context(context)
 
 # get random formal concept
-concept = random.choice(lattice.concepts)
+concept = random.choice(hierarchy.concepts)
 
-# get all upper neighbors of given concept (more general concepts)
-more_general_concepts = lattice.get(concept).upper
+# get all superordinate concepts of given concept (more general concepts)
+more_general_concepts = hierarchy.superordinate(concept)
 
 # if u need only formal concepts, you can directly calcualte them
 concepts = fcbo(context)
