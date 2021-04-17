@@ -12,9 +12,7 @@ def concept_subset(context: Context, similarity_measure) -> list:
     """
 
     init_intent = context.Attributes.supremum
-    init_extent = context.down(init_intent)
-
-    init_concept = Concept(init_extent, init_intent)
+    init_concept = Concept.from_intent(init_intent, context)
 
     atoms = context.Objects.supremum.atoms()
 
@@ -49,8 +47,7 @@ def concept_subset(context: Context, similarity_measure) -> list:
         for concept_tuple in concept_pairs_min_distance:
             extent = concept_tuple[0].extent | concept_tuple[1].extent
             new_intent = context.up(extent)
-            new_extent = context.down(new_intent)
-            new_concept = Concept(new_extent, new_intent)
+            new_concept = Concept.from_intent(new_intent, context)
 
             worklist.add(new_concept)
             concepts.add(new_concept)
