@@ -26,3 +26,4 @@
 * Lattice renamed to ConceptHierarchy and changed to new API
 * Add top/bottom property to ConceptHierarchy
 * Add ConceptHierarchy.from_concepts
+* Add ConceptHierarchy.from_pandas

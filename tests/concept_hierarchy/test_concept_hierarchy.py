@@ -1,17 +1,18 @@
 import pytest
+import pandas as pd
 
 from fcapsy import ConceptHierarchy, Context, Concept
 from fcapsy.algorithms.fcbo import fcbo
 
 object_labels = tuple(range(5))
 attribute_labels = tuple(range(4))
-bools = [
-    [1, 0, 0, 0],
-    [1, 1, 1, 0],
-    [0, 1, 0, 1],
-    [1, 1, 0, 0],
-    [0, 0, 1, 0],
-]
+bools = (
+    (1, 0, 0, 0),
+    (1, 1, 1, 0),
+    (0, 1, 0, 1),
+    (1, 1, 0, 0),
+    (0, 0, 1, 0),
+)
 context = Context(bools, object_labels, attribute_labels)
 
 expected_intents = [
@@ -117,14 +118,7 @@ def test_random_hierarchies(context):
     hierarchy_concept_cover = ConceptHierarchy.from_context(
         context, algorithm='concept_cover')
 
-    assert set(hierarchy_lindig.concepts) == set(
-        hierarchy_concept_cover.concepts)
-
-    for concept in hierarchy_lindig.concepts:
-        assert hierarchy_concept_cover.superordinate(
-            concept) == hierarchy_lindig.superordinate(concept)
-        assert hierarchy_concept_cover.subordinate(
-            concept) == hierarchy_lindig.subordinate(concept)
+    assert hierarchy_lindig == hierarchy_concept_cover
 
 
 def test_hierarchy_to_json_from_json(tmpdir):
@@ -135,13 +129,7 @@ def test_hierarchy_to_json_from_json(tmpdir):
 
     hierarchy_loaded = ConceptHierarchy.from_json(json_hierarchy, context)
 
-    assert set(hierarchy.concepts) == set(hierarchy_loaded.concepts)
-
-    for concept in hierarchy.concepts:
-        assert hierarchy_loaded.superordinate(
-            concept) == hierarchy.superordinate(concept)
-        assert hierarchy_loaded.subordinate(
-            concept) == hierarchy.subordinate(concept)
+    assert hierarchy == hierarchy_loaded
 
 
 def test_hierarchy_top():
@@ -158,3 +146,19 @@ def test_hierarchy_bottom():
 
     assert hierarchy.bottom == Concept.from_extent(
         context.Objects.infimum, context)
+
+
+def test_hierarchy_from_pandas():
+    bools = (
+        (1, 0, 0, 0),
+        (1, 1, 1, 0),
+        (0, 1, 0, 1),
+        (1, 1, 0, 0),
+        (0, 0, 1, 0),
+    )
+
+    df = pd.DataFrame(bools)
+    context = Context(bools, df.index, df.columns)
+
+    assert ConceptHierarchy.from_pandas(
+        df) == ConceptHierarchy.from_context(context)

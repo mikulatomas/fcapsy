@@ -3,7 +3,7 @@ from multiprocessing import cpu_count
 
 from collections import deque, namedtuple
 
-from fcapsy import Concept
+from fcapsy import Concept, Context
 from fcapsy.algorithms.lindig import superordinate_concepts
 from fcapsy.algorithms.concepts_cover import concept_cover, concept_cover_parallel
 from fcapsy.algorithms.fcbo import fcbo
@@ -31,7 +31,7 @@ class ConceptHierarchy():
             concepts, context, n_of_workers)
         return cls(context, concepts, mapping)
 
-    @ classmethod
+    @classmethod
     def from_context(cls, context, algorithm='concept_cover', n_of_workers=1):
         if algorithm == 'concept_cover':
             concepts = fcbo(context)
@@ -45,7 +45,13 @@ class ConceptHierarchy():
 
         return cls(context, concepts, mapping)
 
-    @ staticmethod
+    @classmethod
+    def from_pandas(cls, dataframe, name: str = None, n_of_workers=1):
+        context = Context.from_pandas(dataframe, name=name)
+
+        return cls.from_context(context, n_of_workers=n_of_workers)
+
+    @staticmethod
     def concept_cover_hierarchy(concepts, context, n_of_workers=1):
         """
         First, all concepts are calculated via FcBO algorithm, then they are ordered via
@@ -108,7 +114,7 @@ class ConceptHierarchy():
 
         return list(mapping.keys()), mapping
 
-    @ classmethod
+    @classmethod
     def from_json(cls, filename, context):
         with open(filename, 'r') as f:
             hierarchy_dict = json.load(f)
@@ -145,6 +151,15 @@ class ConceptHierarchy():
 
     def __len__(self):
         return len(self.concepts)
+
+    def __eq__(self, other):
+        if isinstance(self, type(other)):
+            return ((self.context == other.context) and
+                    (self.concepts == other.concepts) and
+                    (self._mapping == other._mapping))
+
+    def __repr__(self):
+        return "ConceptHierarchy({})".format(len(self.concepts))
 
     @property
     def top(self):
