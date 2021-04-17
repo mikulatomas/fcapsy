@@ -75,7 +75,7 @@ class ConceptHierarchy():
 
         return mapping
 
-    @ staticmethod
+    @staticmethod
     def lindig_hierarchy(context):
         """
         Warning, this mode is slow!
