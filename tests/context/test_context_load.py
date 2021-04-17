@@ -8,7 +8,7 @@ import pandas as pd
 
 TEST_DATA_DIR_FIMI = os.path.join(
     os.path.dirname(os.path.realpath(__file__)),
-    'fimi',
+    'test_data', 'fimi',
 )
 
 

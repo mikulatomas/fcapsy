@@ -125,3 +125,44 @@ def test_context_density2():
     context = Context(bools, objects, attributes)
 
     assert context.density == 3 / 4
+
+
+def test_context_eq():
+    bools = (
+        (0, 0, 1),
+        (1, 0, 0)
+    )
+
+    context1 = Context(bools, range(2), range(3))
+    context2 = Context(bools, range(2), range(3))
+
+    assert context1 == context2
+
+
+def test_context_not_eq():
+    bools1 = (
+        (0, 0, 1),
+        (1, 0, 0)
+    )
+
+    bools2 = (
+        (0, 0, 1),
+        (1, 1, 0)
+    )
+
+    context1 = Context(bools1, range(2), range(3))
+    context2 = Context(bools2, range(2), range(3))
+
+    assert context1 != context2
+
+
+def test_context_not_eq2():
+    bools = (
+        (0, 0, 1),
+        (1, 0, 0)
+    )
+
+    context1 = Context(bools, range(2), range(3))
+    context2 = Context(bools, ['a', 'b'], ['1', '2', '3'])
+
+    assert context1 != context2

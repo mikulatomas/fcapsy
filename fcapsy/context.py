@@ -9,8 +9,8 @@ from bitsets import bitset
 
 class Context:
     def __init__(self, matrix: list, objects_labels: list, attributes_labels: list, name: str = None):
-        self.Objects = bitset('Objects', objects_labels)
-        self.Attributes = bitset('Attributes', attributes_labels)
+        self.Objects = bitset('Objects', tuple(objects_labels))
+        self.Attributes = bitset('Attributes', tuple(attributes_labels))
 
         self.rows = tuple(map(self.Attributes.frombools, matrix))
         self.columns = tuple(map(self.Objects.frombools, zip(*matrix)))
@@ -20,6 +20,14 @@ class Context:
         if self.name:
             return "Context({}, {}x{})".format(self.name, len(self.rows), len(self.columns))
         return "Context({}x{})".format(len(self.rows), len(self.columns))
+
+    def __eq__(self, other):
+        if isinstance(self, type(other)):
+            return ((self.rows == other.rows) and
+                    (self.columns == other.columns) and
+                    (self.name == other.name) and
+                    (self.Objects.supremum.members() == other.Objects.supremum.members()) and
+                    (self.Attributes.supremum.members() == other.Attributes.supremum.members()))
 
     @classmethod
     def from_random(cls, number_of_objects, number_of_attributes):
