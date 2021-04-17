@@ -14,13 +14,12 @@ def fcbo(context: Context) -> list:
     Information Sciences 185.1 (2012): 114-127
     """
 
-    initial_concept = Concept(context.Objects.supremum,
-                              context.up(context.Objects.supremum))
+    initial_concept = Concept.from_extent(context.Objects.supremum, context)
 
     Attributes = context.Attributes
     Objects = context.Objects
 
-    attribute_count = context.Attributes.supremum.count()
+    attribute_count = len(context.Attributes.supremum)
     concepts = []
     attribute_sets = [0] * attribute_count
 

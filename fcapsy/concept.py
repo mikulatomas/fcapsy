@@ -14,12 +14,14 @@ class Concept:
     def from_intent(cls, intent, context: Context, name: str = None):
         intent = context.Attributes(intent)
         extent = context.down(intent)
+
         return cls(extent, context.up(extent), name)
 
     @classmethod
     def from_extent(cls, extent, context: Context, name: str = None):
         extent = context.Objects(extent)
         intent = context.up(extent)
+
         return cls(context.down(intent), intent, name)
 
     @property

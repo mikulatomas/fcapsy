@@ -19,6 +19,7 @@ class Context:
     def __repr__(self):
         if self.name:
             return "Context({}, {}x{})".format(self.name, len(self.rows), len(self.columns))
+
         return "Context({}x{})".format(len(self.rows), len(self.columns))
 
     def __eq__(self, other):

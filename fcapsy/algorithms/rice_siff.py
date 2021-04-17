@@ -11,8 +11,8 @@ def concept_subset(context: Context, similarity_measure) -> list:
     Electronic Notes in Theoretical Computer Science 40 (2001): 323-346.
     """
 
-    init_intent = context.Attributes.supremum
-    init_concept = Concept.from_intent(init_intent, context)
+    initial_intent = context.Attributes.supremum
+    initial_concept = Concept.from_intent(initial_intent, context)
 
     atoms = context.Objects.supremum.atoms()
 
@@ -20,9 +20,9 @@ def concept_subset(context: Context, similarity_measure) -> list:
     worklist = {Concept.from_intent(
         context.up(extent), context) for extent in atoms}
 
-    # init resulting concepts with init_concept and worklist
+    # init resulting concepts with initial_concept and worklist
     concepts = set(worklist)
-    concepts.add(init_concept)
+    concepts.add(initial_concept)
 
     while len(worklist) > 1:
         # create all possible pairs of different concepts from worklist
