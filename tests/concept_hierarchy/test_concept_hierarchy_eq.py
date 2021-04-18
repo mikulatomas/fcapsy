@@ -44,3 +44,20 @@ def test_concept_hierarchy_not_eq():
     hierarchy2 = ConceptHierarchy.from_context(context2)
 
     assert hierarchy1 != hierarchy2
+
+
+def test_concept_hierarchy_not_eq():
+    bools = (
+        (1, 0, 0, 0),
+        (1, 1, 1, 0),
+        (0, 1, 0, 1),
+        (1, 1, 0, 0),
+        (0, 0, 1, 0),
+    )
+    context = Context(bools, range(len(bools)), range(len(bools[0])))
+
+    hierarchy1 = ConceptHierarchy.from_context(context)
+    hierarchy2 = ConceptHierarchy.from_context(context)
+    del hierarchy2._mapping[tuple(hierarchy2._mapping.keys())[0]]
+
+    assert hierarchy1 != hierarchy2
