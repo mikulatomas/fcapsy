@@ -47,6 +47,9 @@ Package is avaliable in alpha version via `pip`.
 $ pip install fcapsy
 ```
 
+## Benchmarks
+Benchmarks of `fcapsy` are avaliable [here](https://github.com/EgorDudyrev/FCApy/blob/feature/benchmarking/notebooks/Performance_Benchmark/Performance_Benchmark.ipynb) (thank you [@EgorDudyrev](https://github.com/EgorDudyrev)).
+
 ## Used in papers
 
 > Belohlavek, R., & Mikula, T. (2020). Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis. Proceedings of CLA 2020, 33-45.
