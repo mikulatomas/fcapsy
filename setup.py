@@ -2,6 +2,7 @@
 
 """The setup script."""
 
+import pathlib
 from setuptools import setup, find_packages
 
 __author__ = 'Tomáš Mikula, Roman Vyjídáček'
@@ -9,11 +10,9 @@ __email__ = 'mail@tomasmikula.cz, r.vyjidacek@gmail.com'
 __version__ = '0.2.0.a1'
 __license__ = 'MIT license'
 
-with open('README.md') as readme_file:
-    readme = readme_file.read()
+readme = pathlib.Path('README.md').read_text(encoding='utf-8')
 
-with open('HISTORY.md') as history_file:
-    history = history_file.read()
+history = pathlib.Path('HISTORY.md').read_text(encoding='utf-8')
 
 # Requirements for end-user
 requirements = [
