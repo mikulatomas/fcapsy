@@ -26,7 +26,6 @@ class Context:
         if isinstance(self, type(other)):
             return ((self.rows == other.rows) and
                     (self.columns == other.columns) and
-                    (self.name == other.name) and
                     (self.Objects.supremum.members() == other.Objects.supremum.members()) and
                     (self.Attributes.supremum.members() == other.Attributes.supremum.members()))
 
