@@ -1,6 +1,6 @@
 # Credits
 
-## Developmen Lead
+## Development Lead
 * Tomáš Mikula <mail@tomasmikula.cz>
 * Roman Vyjídáček <r.vyjidacek@gmail.com>
 
