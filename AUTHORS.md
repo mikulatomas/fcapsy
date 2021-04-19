@@ -5,4 +5,4 @@
 * Roman Vyjídáček <r.vyjidacek@gmail.com>
 
 ## Contributors
-None yet. Why not be the first?
+* Sebastian Bank (https://github.com/xflr6)
