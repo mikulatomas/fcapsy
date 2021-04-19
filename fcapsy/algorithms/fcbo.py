@@ -13,15 +13,11 @@ def fcbo(context: Context) -> list:
     connections induced by object-attribute relational data."
     Information Sciences 185.1 (2012): 114-127
     """
-
-    initial_concept = Concept.from_extent(context.Objects.supremum, context)
-
     Attributes = context.Attributes
     Objects = context.Objects
 
-    attribute_count = len(context.Attributes.supremum)
+    attribute_count = len(Attributes.supremum)
     concepts = []
-    attribute_sets = [0] * attribute_count
 
     def fast_generate_from(concept: Concept, attribute: int, attribute_sets: list):
         concepts.append(concept)
@@ -34,28 +30,23 @@ def fcbo(context: Context) -> list:
         intent_int = int(concept.intent)
 
         for j in range(attribute, attribute_count):
-            # fast 2**j
-            if j == 0:
-                tmp = 1
-            else:
-                tmp = 2 << (j - 1)
+            tmp = 1 << j  # fast 2**j
             yj = tmp - 1
-            b = intent_int
 
             x = attribute_sets[j]
             x &= yj
 
-            y = b
+            y = intent_int
             y &= yj
 
             # faster than other way 'not b & tmp and x & y == x'
-            if x & y == x and not b & tmp:
+            if x & y == x and not intent_int & tmp:
                 c = context.columns[j]
                 c &= concept.extent
 
                 d = int(context.up(c))
 
-                k = b
+                k = intent_int
                 k &= yj
 
                 l = d
@@ -72,6 +63,10 @@ def fcbo(context: Context) -> list:
             fast_generate_from(concept,
                                j,
                                set_my)
+
+    initial_concept = Concept.from_extent(Objects.supremum, context)
+
+    attribute_sets = [0] * attribute_count
 
     fast_generate_from(initial_concept, 0, attribute_sets)
 
