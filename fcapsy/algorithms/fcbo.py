@@ -39,9 +39,7 @@ def fcbo(context: Context) -> list:
             x = attribute_sets[j] & yj
 
             if x & intent_int == x:
-                c = context.columns[j]
-                c &= concept.extent
-
+                c = context.columns[j] & concept.extent
                 d = int(context.up(c))
 
                 if intent_int & yj == d & yj:
