@@ -1,5 +1,4 @@
 from collections import deque
-from copy import copy
 
 from fcapsy import Concept, Context
 from fcapsy.decorators import metadata
@@ -26,7 +25,7 @@ def fcbo(context: Context) -> list:
             return
 
         queue = deque()
-        set_my = copy(attribute_sets)
+        set_my = attribute_sets.copy()
         intent_int = int(concept.intent)
 
         for j in range(attribute, attribute_count):
