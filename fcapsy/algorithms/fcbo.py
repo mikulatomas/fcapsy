@@ -1,5 +1,4 @@
 from collections import deque
-from copy import copy
 
 from fcapsy import Concept, Context
 from fcapsy.decorators import metadata
@@ -26,43 +25,34 @@ def fcbo(context: Context) -> list:
             return
 
         queue = deque()
-        set_my = copy(attribute_sets)
+        set_my = attribute_sets.copy()
         intent_int = int(concept.intent)
 
         for j in range(attribute, attribute_count):
             tmp = 1 << j  # fast 2**j
+
+            if intent_int & tmp:
+                continue
+
             yj = tmp - 1
 
-            x = attribute_sets[j]
-            x &= yj
+            x = attribute_sets[j] & yj
 
-            y = intent_int
-            y &= yj
-
-            # faster than other way 'not b & tmp and x & y == x'
-            if x & y == x and not intent_int & tmp:
+            if x & intent_int == x:
                 c = context.columns[j]
                 c &= concept.extent
 
                 d = int(context.up(c))
 
-                k = intent_int
-                k &= yj
-
-                l = d
-                l &= yj
-
-                if k == l:
-                    queue.append((Concept(Objects.fromint(c),
-                                          Attributes.fromint(d)), j + 1))
+                if intent_int & yj == d & yj:
+                    next_concept = Concept(Objects.fromint(c), Attributes.fromint(d))
+                    queue.append((next_concept, j + 1))
                 else:
                     set_my[j] = d
 
         while queue:
-            concept, j = queue.popleft()
-            fast_generate_from(concept,
-                               j,
-                               set_my)
+            next_concept, j = queue.popleft()
+            fast_generate_from(next_concept, j, set_my)
 
     initial_concept = Concept.from_extent(Objects.supremum, context)
 
