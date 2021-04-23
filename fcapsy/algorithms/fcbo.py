@@ -55,16 +55,14 @@ def fcbo(context: Context) -> list:
                 l &= yj
 
                 if k == l:
-                    queue.append((Concept(Objects.fromint(c),
-                                          Attributes.fromint(d)), j + 1))
+                    next_concept = Concept(Objects.fromint(c), Attributes.fromint(d))
+                    queue.append((next_concept, j + 1))
                 else:
                     set_my[j] = d
 
         while queue:
-            concept, j = queue.popleft()
-            fast_generate_from(concept,
-                               j,
-                               set_my)
+            next_concept, j = queue.popleft()
+            fast_generate_from(next_concept, j, set_my)
 
     initial_concept = Concept.from_extent(Objects.supremum, context)
 
