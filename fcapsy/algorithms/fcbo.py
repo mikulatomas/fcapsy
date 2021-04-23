@@ -16,46 +16,43 @@ def fcbo(context: Context) -> list:
     Objects = context.Objects
 
     attribute_count = len(Attributes.supremum)
-    concepts = []
 
-    def fast_generate_from(concept: Concept, attribute: int, attribute_sets: list):
-        concepts.append(concept)
+    def fast_generate_from(queue: deque):
+        while queue:
+            concept, attribute, attribute_sets = queue.popleft()
 
-        if concept.intent.all() or attribute >= attribute_count:
-            return
+            yield concept
 
-        queue = deque()
-        set_my = attribute_sets.copy()
-        intent_int = int(concept.intent)
-
-        for j in range(attribute, attribute_count):
-            tmp = 1 << j  # fast 2**j
-
-            if intent_int & tmp:
+            if concept.intent.all() or attribute >= attribute_count:
                 continue
 
-            yj = tmp - 1
+            set_my = attribute_sets.copy()
+            intent_int = int(concept.intent)
 
-            x = attribute_sets[j] & yj
+            for j in range(attribute, attribute_count):
+                tmp = 1 << j  # fast 2**j
 
-            if x & intent_int == x:
-                c = context.columns[j] & concept.extent
-                d = int(context.up(c))
+                if intent_int & tmp:
+                    continue
 
-                if intent_int & yj == d & yj:
-                    next_concept = Concept(Objects.fromint(c), Attributes.fromint(d))
-                    queue.append((next_concept, j + 1))
-                else:
-                    set_my[j] = d
+                yj = tmp - 1
 
-        while queue:
-            next_concept, j = queue.popleft()
-            fast_generate_from(next_concept, j, set_my)
+                x = attribute_sets[j] & yj
+
+                if x & intent_int == x:
+                    c = context.columns[j] & concept.extent
+                    d = int(context.up(c))
+
+                    if intent_int & yj == d & yj:
+                        next_concept = Concept(Objects.fromint(c), Attributes.fromint(d))
+                        queue.append((next_concept, j + 1, set_my))
+                    else:
+                        set_my[j] = d
 
     initial_concept = Concept.from_extent(Objects.supremum, context)
 
     attribute_sets = [0] * attribute_count
 
-    fast_generate_from(initial_concept, 0, attribute_sets)
-
-    return concepts
+    queue = deque([(initial_concept, 0, attribute_sets)])
+    concepts = fast_generate_from(queue)
+    return list(concepts)
