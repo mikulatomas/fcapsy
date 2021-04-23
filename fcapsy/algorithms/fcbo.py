@@ -31,6 +31,10 @@ def fcbo(context: Context) -> list:
 
         for j in range(attribute, attribute_count):
             tmp = 1 << j  # fast 2**j
+
+            if intent_int & tmp:
+                continue
+
             yj = tmp - 1
 
             x = attribute_sets[j]
@@ -39,8 +43,7 @@ def fcbo(context: Context) -> list:
             y = intent_int
             y &= yj
 
-            # faster than other way 'not b & tmp and x & y == x'
-            if x & y == x and not intent_int & tmp:
+            if x & y == x:
                 c = context.columns[j]
                 c &= concept.extent
 
