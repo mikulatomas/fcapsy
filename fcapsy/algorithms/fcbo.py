@@ -36,25 +36,15 @@ def fcbo(context: Context) -> list:
 
             yj = tmp - 1
 
-            x = attribute_sets[j]
-            x &= yj
+            x = attribute_sets[j] & yj
 
-            y = intent_int
-            y &= yj
-
-            if x & y == x:
+            if x & intent_int == x:
                 c = context.columns[j]
                 c &= concept.extent
 
                 d = int(context.up(c))
 
-                k = intent_int
-                k &= yj
-
-                l = d
-                l &= yj
-
-                if k == l:
+                if intent_int & yj == d & yj:
                     next_concept = Concept(Objects.fromint(c), Attributes.fromint(d))
                     queue.append((next_concept, j + 1))
                 else:
