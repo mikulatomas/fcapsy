@@ -2,7 +2,7 @@ import typing
 
 import bitsets
 
-__all__ = ["jaccard", "smc"]
+__all__ = ["jaccard", "smc", "rosch"]
 
 
 def jaccard(x: "bitsets.bases.BitSet", y: "bitsets.bases.BitSet") -> float:
