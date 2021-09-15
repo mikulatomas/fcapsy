@@ -1,5 +1,5 @@
-![build](https://github.com/mikulatomas/fcapsy/actions/workflows/build.yml/badge.svg?branch=main)(https://github.com/mikulatomas/fcapsy/actions/workflows/build.yml?query=branch%3Amain)
-![codecov](https://codecov.io/gh/mikulatomas/fcapsy/branch/main/graph/badge.svg?token=ky2GUW51mj)](https://codecov.io/gh/mikulatomas/fcapsy)
+[![build](https://github.com/mikulatomas/fcapsy/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/mikulatomas/fcapsy/actions/workflows/build.yml?query=branch%3Amain)
+[![codecov](https://codecov.io/gh/mikulatomas/fcapsy/branch/main/graph/badge.svg?token=ky2GUW51mj)](https://codecov.io/gh/mikulatomas/fcapsy)
 
 # fcapsy
 
