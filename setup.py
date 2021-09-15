@@ -40,7 +40,6 @@ setup(
     license=__license__,
     long_description=readme + '\n\n' + history,
     long_description_content_type='text/markdown',
-    download_url='https://github.com/mikulatomas/fcapsy/archive/v0.3.0a1.tar.gz',
     include_package_data=True,
     keywords='fca formal concept analysis psychology cognition typicality basic-level',
     name='fcapsy',
