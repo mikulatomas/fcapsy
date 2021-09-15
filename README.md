@@ -1,3 +1,6 @@
+![build](https://github.com/mikulatomas/fcapsy/actions/workflows/build.yml/badge.svg?branch=main)(https://github.com/mikulatomas/fcapsy/actions/workflows/build.yml?query=branch%3Amain)
+![codecov](https://codecov.io/gh/mikulatomas/fcapsy/branch/main/graph/badge.svg?token=ky2GUW51mj)](https://codecov.io/gh/mikulatomas/fcapsy)
+
 # fcapsy
 
 The `fcapsy` provides experimental implementations of some psychological phenomena (e.g. typicality, basic level) which appears in field of [Cognitive Psychology](https://en.wikipedia.org/wiki/Cognitive_psychology).
