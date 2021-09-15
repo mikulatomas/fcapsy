@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 __author__ = 'Tomáš Mikula'
 __email__ = 'mail@tomasmikula.cz'
-__version__ = '0.1.0a1'
+__version__ = '0.3.0a1'
 __license__ = 'MIT license'
 
 readme = pathlib.Path('README.md').read_text(encoding='utf-8')
@@ -40,7 +40,7 @@ setup(
     license=__license__,
     long_description=readme + '\n\n' + history,
     long_description_content_type='text/markdown',
-    download_url='https://github.com/mikulatomas/fcapsy/archive/v0.1.0a1.tar.gz',
+    download_url='https://github.com/mikulatomas/fcapsy/archive/v0.3.0a1.tar.gz',
     include_package_data=True,
     keywords='fca formal concept analysis psychology cognition typicality basic-level',
     name='fcapsy',
