@@ -1,6 +1,7 @@
 [![build](https://github.com/mikulatomas/fcapsy/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/mikulatomas/fcapsy/actions/workflows/build.yml?query=branch%3Amain)
 [![codecov](https://codecov.io/gh/mikulatomas/fcapsy/branch/main/graph/badge.svg?token=ky2GUW51mj)](https://codecov.io/gh/mikulatomas/fcapsy)
 [![PyPI version](https://badge.fury.io/py/fcapsy.svg)](https://badge.fury.io/py/fcapsy)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # fcapsy
 
