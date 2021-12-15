@@ -33,8 +33,6 @@ https://doi.org/10.1016/j.ijar.2021.12.001
 ## Based on papers
 > Belohlavek, R., & Trnecka, M. (2020). Basic level of concepts in formal concept analysis 1: formalization and utilization. International Journal of General Systems, 1-18.
 
-> Rice, M. D., & Siff, M. (2001). Clusters, concepts, and pseudometrics. Electronic Notes in Theoretical Computer Science, 40, 323-346.
-
 ## Dependencies
 
 fcapsy requires:
