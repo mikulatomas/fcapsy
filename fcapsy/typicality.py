@@ -1,13 +1,19 @@
 """Typicality
 
+Belohlavek, Radim, and Tomas Mikula.
+Typicality: A formal concept analysis account.
+International Journal of Approximate Reasoning (2021).
+
 Belohlavek, Radim, and Mikula, Tomas.
 Typicality in Conceptual Structures Within the Framework of Formal Concept Analysis.
 Proceedings of CLA 2020 (2020): 33-45.
 """
+
 import typing
 import statistics
 
 import concepts.lattices
+
 
 __all__ = ["typicality_avg, typicality_min"]
 
@@ -37,7 +43,7 @@ def typicality_min(
 
     Example:
         >>> from concepts import Context
-        >>> from fcapsy.similarity import jaccard
+        >>> from binsdpy.similarity import jaccard
         >>> context = Context.fromstring('''
         ...          |2 legs |nests  |flies  |raptor |
         ... sparrow  |   X   |   X   |   X   |       |
@@ -72,7 +78,7 @@ def typicality_avg(
 
     Example:
         >>> from concepts import Context
-        >>> from fcapsy.similarity import jaccard
+        >>> from binsdpy.similarity import jaccard
         >>> context = Context.fromstring('''
         ...          |2 legs |nests  |flies  |raptor |
         ... sparrow  |   X   |   X   |   X   |       |

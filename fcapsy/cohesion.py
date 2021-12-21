@@ -22,7 +22,7 @@ def cohesion_min(
 
     Example:
         >>> import concepts
-        >>> from fcapsy import similarity
+        >>> from binsdpy import similarity
         >>> lattice = concepts.Context.fromstring(concepts.EXAMPLE).lattice
         >>> cohesion_min(lattice['+pl',], similarity.jaccard) # doctest: +NUMBER
         0.428
@@ -54,7 +54,7 @@ def cohesion_avg(
 
     Example:
         >>> import concepts
-        >>> from fcapsy import similarity
+        >>> from binsdpy import similarity
         >>> lattice = concepts.Context.fromstring(concepts.EXAMPLE).lattice
         >>> cohesion_avg(lattice['+pl',], similarity.jaccard) # doctest: +NUMBER
         0.714

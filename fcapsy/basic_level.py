@@ -115,7 +115,7 @@ def basic_level_avg(
 
     Example:
         >>> from concepts import Context
-        >>> from fcapsy.similarity import jaccard
+        >>> from binsdpy.similarity import jaccard
         >>> from fcapsy.cohesion import cohesion_avg
         >>> context = Context.fromstring('''
         ...          |2 legs |nests  |flies  |raptor |
@@ -157,7 +157,7 @@ def basic_level_min(
 
     Example:
         >>> from concepts import Context
-        >>> from fcapsy.similarity import jaccard
+        >>> from binsdpy.similarity import jaccard
         >>> from fcapsy.cohesion import cohesion_avg
         >>> context = Context.fromstring('''
         ...          |2 legs |nests  |flies  |raptor |
