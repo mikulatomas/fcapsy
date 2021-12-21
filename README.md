@@ -39,3 +39,4 @@ fcapsy requires:
 
 * Python (>= 3.6)
 * [concepts](https://github.com/xflr6/concepts)
+* [binsdpy](https://github.com/mikulatomas/binsdpy)
