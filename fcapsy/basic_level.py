@@ -132,7 +132,9 @@ def basic_level_avg(
         0.108
     """
 
-    return _basic_level(concept, cohesion, similarity, statistics.mean, statistics.mean, theta)
+    return _basic_level(
+        concept, cohesion, similarity, statistics.mean, statistics.mean, theta
+    )
 
 
 def basic_level_min(
