@@ -11,11 +11,13 @@ Proceedings of CLA 2020 (2020): 33-45.
 
 import typing
 import statistics
+import operator
+from functools import reduce
 
 import concepts.lattices
 
 
-__all__ = ["typicality_avg, typicality_min"]
+__all__ = ["typicality_avg", "typicality_min"]
 
 
 def _get_vectors(concept, item):
@@ -32,7 +34,10 @@ def _get_vectors(concept, item):
 
 
 def typicality_min(
-    item: str, concept: "concepts.lattices.Concept", similarity: typing.Callable
+    item: str,
+    concept: "concepts.lattices.Concept",
+    similarity: typing.Callable,
+    empty_attributes: bool = True,
 ) -> float:
     """Calculate typicality of object/attribute in given concept based on worst case (minimal) similarity.
 
@@ -60,14 +65,21 @@ def typicality_min(
     """
 
     vectors, item_vector = _get_vectors(concept, item)
+    mask = None
 
-    similarities = map(lambda v: similarity(v, item_vector), vectors)
+    if not empty_attributes:
+        mask = reduce(operator.or_, vectors)
+
+    similarities = map(lambda v: similarity(v, item_vector, mask), vectors)
 
     return min(similarities)
 
 
 def typicality_avg(
-    item: str, concept: "concepts.lattices.Concept", similarity: typing.Callable
+    item: str,
+    concept: "concepts.lattices.Concept",
+    similarity: typing.Callable,
+    empty_attributes: bool = True,
 ) -> float:
     """Calculate typicality of object/attribute in given concept based on average similarity.
 
@@ -95,7 +107,11 @@ def typicality_avg(
     """
 
     vectors, item_vector = _get_vectors(concept, item)
+    mask = None
 
-    similarities = map(lambda v: similarity(v, item_vector), vectors)
+    if not empty_attributes:
+        mask = reduce(operator.or_, vectors)
+
+    similarities = map(lambda v: similarity(v, item_vector, mask), vectors)
 
     return statistics.mean(similarities)
