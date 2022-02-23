@@ -2,6 +2,36 @@ __all__ = ["centrality"]
 
 
 def centrality(item: str, concept: "concepts.lattices.Concept") -> float:
+    """Calculates centrality of object/attribute in the given concept.
+    The object/attribute does not has to be from the extent/intent.
+
+    Args:
+        item (str): object or attribute name
+        concept (concepts.lattices.Concept)
+
+    Returns:
+        float: centrality
+
+    Example:
+        >>> from concepts import Context
+        >>> context = Context.fromstring('''
+        ...          |2 legs |nests  |flies  |raptor |
+        ... sparrow  |   X   |   X   |   X   |       |
+        ... lark     |   X   |   X   |   X   |       |
+        ... penguin  |   X   |       |       |       |
+        ... chicken  |   X   |   X   |   X   |       |
+        ... vulture  |   X   |       |   X   |   X   |
+        ... ''')
+        >>> birds = context.lattice.supremum
+        >>> birds.extent
+        ('sparrow', 'lark', 'penguin', 'chicken', 'vulture')
+        >>> centrality("raptor", birds)
+        0.2
+        >>> centrality("flies", birds)
+        0.8
+        >>> centrality("2 legs", birds)
+        1.0
+    """
     context = concept.lattice._context
 
     try:
