@@ -36,11 +36,11 @@ def centrality(item: str, concept: "concepts.lattices.Concept") -> float:
 
     try:
         instances_with_item = context.intension([item], raw=True)
-        Vector = context._Properties
+        Vector = type(concept._intent)
         concept_core = concept._intent
     except KeyError:
         instances_with_item = context.extension([item], raw=True)
-        Vector = context._Objects
+        Vector = type(concept._extent)
         concept_core = concept._extent
 
     occurence_in_concept = Vector.fromint(instances_with_item & concept_core).count()
