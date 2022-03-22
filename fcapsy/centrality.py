@@ -49,5 +49,5 @@ def centrality(item: str, concept: "concepts.lattices.Concept") -> float:
         return 0.0
 
     return (occurence_in_concept / instances_with_item.count()) * (
-        occurence_in_concept / concept._extent.count()
+        occurence_in_concept / concept_core.count()
     )
