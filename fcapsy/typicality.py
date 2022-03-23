@@ -19,7 +19,12 @@ import concepts.lattices
 from .centrality import centrality
 
 
-__all__ = ["typicality_similarity", "typicality_avg", "typicality_min", "typicality_centrality"]
+__all__ = [
+    "typicality_similarity",
+    "typicality_avg",
+    "typicality_min",
+    "typicality_centrality",
+]
 
 
 def _get_vectors(concept, item):
@@ -184,4 +189,6 @@ def typicality_avg(
         >>> typicality_avg("penguin", birds, smc, empty_attributes=False) # doctest: +NUMBER
         0.5
     """
-    return typicality_similarity(item, concept, similarity, statistics.mean, empty_attributes)
+    return typicality_similarity(
+        item, concept, similarity, statistics.mean, empty_attributes
+    )
