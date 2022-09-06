@@ -9,14 +9,18 @@ International Journal of General Systems 49.7 (2020): 689-706.
 import typing
 
 import concepts.lattices
+import fcapsy.category
 
 from itertools import combinations, starmap
+
+from .utils import get_vectors
 
 __all__ = ["cohesion_min", "cohesion_avg"]
 
 
 def cohesion_min(
-    concept: "concepts.lattices.Concept", similarity: typing.Callable
+    concept: typing.Union["concepts.lattices.Concept", "fcapsy.category.Category"],
+    similarity: typing.Callable,
 ) -> float:
     """Calculate cohesion of given concept as worst case (minimal) similarity of its objects.
 
@@ -31,16 +35,14 @@ def cohesion_min(
         >>> cohesion_min(lattice.infimum, similarity.jaccard)
         0
     """
-    extent_size = len(concept.extent)
+    extent_size = concept._extent.count()
 
     if extent_size == 0:
         return 0
     elif extent_size == 1:
         return 1.0
 
-    vectors = map(
-        concept.lattice._context._intents.__getitem__, concept._extent.iter_set()
-    )
+    vectors = get_vectors(concept, concept.extent[0]).values()
 
     combs = combinations(vectors, 2)
 
@@ -64,16 +66,14 @@ def cohesion_avg(
         0
 
     """
-    extent_size = len(concept.extent)
+    extent_size = concept._extent.count()
 
     if extent_size == 0:
         return 0
     elif extent_size == 1:
         return 1.0
 
-    vectors = map(
-        concept.lattice._context._intents.__getitem__, concept._extent.iter_set()
-    )
+    vectors = get_vectors(concept, concept.extent[0]).values()
 
     combs = combinations(vectors, 2)
 
