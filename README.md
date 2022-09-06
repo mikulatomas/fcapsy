@@ -38,6 +38,6 @@ https://doi.org/10.1016/j.ijar.2021.12.001
 
 fcapsy requires:
 
-* Python (>= 3.6)
+* Python (>= 3.7)
 * [concepts](https://github.com/xflr6/concepts)
 * [binsdpy](https://github.com/mikulatomas/binsdpy)
