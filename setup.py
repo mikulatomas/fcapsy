@@ -1,16 +1,15 @@
 import pathlib
 from setuptools import setup, find_packages
-from fcapsy import __version__, __author__, __email__, __license__
 
 
 setup(
     name="fcapsy",
-    version=__version__,
-    author=__author__,
-    author_email=__email__,
+    version="0.4.0",
+    author="Tomáš Mikula",
+    author_email="mail@tomasmikula.cz",
     description="Experimental implementations of psychological phenomena (e.g. typicality, basic level) in FCA framework.",
     keywords="fca formal concept analysis psychology cognition typicality basic-level",
-    license=__license__,
+    license="MIT license",
     url="https://github.com/mikulatomas/fcapsy",
     packages=find_packages(),
     python_requires=">=3.6",
