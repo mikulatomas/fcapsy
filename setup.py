@@ -13,7 +13,7 @@ setup(
     url="https://github.com/mikulatomas/fcapsy",
     packages=find_packages(),
     python_requires=">=3.6",
-    install_requires=["concepts>=0.9.2", "binsdpy>=0.1.1"],
+    install_requires=["concepts@git+https://github.com/xflr6/concepts.git", "binsdpy>=0.1.1", "numpy"],
     extras_require={
         "test": ["pytest", "pytest-cov"],
     },
