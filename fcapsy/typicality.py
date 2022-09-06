@@ -15,34 +15,15 @@ import operator
 from functools import reduce
 
 import concepts.lattices
+import fcapsy.category
 
-from .centrality import centrality
-
-
-__all__ = [
-    "typicality_similarity",
-    "typicality_avg",
-    "typicality_min",
-    "typicality_centrality",
-]
-
-
-def _get_vectors(concept, item):
-    try:
-        item_idx = concept.extent.index(item)
-        label_domain = concept.lattice._context._intents
-        vectors = tuple(map(label_domain.__getitem__, concept._extent.iter_set()))
-    except ValueError:
-        item_idx = concept.intent.index(item)
-        label_domain = concept.lattice._context._extents
-        vectors = tuple(map(label_domain.__getitem__, concept._intent.iter_set()))
-
-    return vectors, vectors[item_idx]
+from .item_weights import characteristic, absence, presence
+from .utils import get_vectors
 
 
 def typicality_similarity(
     item: str,
-    concept: "concepts.lattices.Concept",
+    concept: typing.Union["concepts.lattices.Concept", "fcapsy.category.Category"],
     similarity: typing.Callable,
     aggregate_function: typing.Callable = statistics.mean,
     empty_attributes: bool = True,
@@ -51,7 +32,7 @@ def typicality_similarity(
 
     Args:
         item (str): object or attribute name
-        concept (concepts.lattices.Concept)
+        concept (typing.Union[concepts.lattices.Concept, fcapsy.category.Category])
         similarity (typing.Callable)
         aggregate_function (typing.Callable): aggregate function used for aggregate similarity values
         empty_attributes (bool): if empty attributes (zeros columns) should be included
@@ -79,42 +60,85 @@ def typicality_similarity(
         >>> typicality_similarity("penguin", birds, smc, empty_attributes=False) # doctest: +NUMBER
         0.5
     """
-    vectors, item_vector = _get_vectors(concept, item)
+    vectors = get_vectors(concept, item)
+    item_property_vector = vectors[item]
     mask = None
 
     if not empty_attributes:
-        mask = reduce(operator.or_, vectors)
+        mask = reduce(operator.or_, vectors.values())
 
-    similarities = map(lambda v: similarity(v, item_vector, mask), vectors)
+    similarities = map(
+        lambda v: similarity(v, item_property_vector, mask), vectors.values()
+    )
 
     return aggregate_function(similarities)
 
 
-def typicality_centrality(
+def typicality_weights(
     item: str,
-    concept: "concepts.lattices.Concept",
-    aggregate_function: typing.Callable = statistics.mean,
+    concept: typing.Union["concepts.lattices.Concept", "fcapsy.category.Category"],
+    a: float,
+    b: float,
 ) -> float:
-    """Calculates typicality based on attribute/object centrality.
+    """Calculates typicality based on attribute/object weights.
 
     Args:
         item (str): object or attribute name
-        concept (concepts.lattices.Concept)
-        average (bool): flag if centrality should be averaged
+        concept (typing.Union[concepts.lattices.Concept, fcapsy.category.Category])
 
     Returns:
         float: typicality
     """
-    _, item_vector = _get_vectors(concept, item)
+    vectors = get_vectors(concept, item)
+    item_property_vector = vectors[item]
 
-    centralities = (centrality(item, concept) for item in item_vector.members())
+    Vector = type(item_property_vector)
 
-    return aggregate_function(centralities)
+    item_property_vector_complement = Vector.fromint(
+        Vector.supremum ^ item_property_vector
+    )
+
+    weights_presence = (
+        presence(item_property, concept)
+        for item_property in item_property_vector.members()
+    )
+
+    weights_absence = (
+        absence(item_property, concept)
+        for item_property in item_property_vector_complement.members()
+    )
+
+    return a * sum(weights_presence) + b * sum(weights_absence)
+
+
+def typicality_characteristic(
+    item: str,
+    concept: typing.Union["concepts.lattices.Concept", "fcapsy.category.Category"],
+    characteristic_function: typing.Callable = characteristic,
+) -> float:
+    """Calculates typicality based on attribute/object characteristic.
+
+    Args:
+        item (str): object or attribute name
+        concept (typing.Union[concepts.lattices.Concept, fcapsy.category.Category])
+
+    Returns:
+        float: typicality
+    """
+    vectors = get_vectors(concept, item)
+    item_property_vector = vectors[item]
+
+    characteristics = (
+        characteristic_function(item_property, concept)
+        for item_property in item_property_vector.members()
+    )
+
+    return sum(characteristics)
 
 
 def typicality_min(
     item: str,
-    concept: "concepts.lattices.Concept",
+    concept: typing.Union["concepts.lattices.Concept", "fcapsy.category.Category"],
     similarity: typing.Callable,
     empty_attributes: bool = True,
 ) -> float:
@@ -122,7 +146,7 @@ def typicality_min(
 
     Args:
         item (str): object or attribute name
-        concept (concepts.lattices.Concept)
+        concept (typing.Union[concepts.lattices.Concept, fcapsy.category.Category])
         similarity (typing.Callable)
         empty_attributes (bool): if empty attributes (zeros columns) should be included
 
@@ -154,7 +178,7 @@ def typicality_min(
 
 def typicality_avg(
     item: str,
-    concept: "concepts.lattices.Concept",
+    concept: typing.Union["concepts.lattices.Concept", "fcapsy.category.Category"],
     similarity: typing.Callable,
     empty_attributes: bool = True,
 ) -> float:
@@ -162,7 +186,7 @@ def typicality_avg(
 
     Args:
         item (str): object or attribute name
-        concept (concepts.lattices.Concept)
+        concept (typing.Union[concepts.lattices.Concept, fcapsy.category.Category])
         similarity (typing.Callable)
         empty_attributes (bool): if empty attributes (zeros columns) should be included
 
